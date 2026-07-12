@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { LayoutGrid, Workflow, LineChart, Cpu, Scale } from "lucide-react";
+import { Languages, ListChecks, Gauge, ClipboardCheck, Network } from "lucide-react";
 
 export interface DesignStrategyStep {
   heading: string;
@@ -40,469 +40,452 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "bny-marketing-design-system",
-    title: "Marketing Design System at BNY",
-    industry: "Financial Services",
-    role: "VP User Experience",
-    timeline: "Nov 2025 – Present",
-    icon: LayoutGrid,
-    description: "Building and governing the design system behind BNY's marketing and demand-gen web and app products.",
-    impact: "Established a governed design system now being adopted across BNY's AEM-driven marketing websites and apps.",
-    tags: ["Design Systems", "Financial Services"],
+    slug: "localens-localization-qa",
+    title: "LocaLens — Localization QA Tool",
+    industry: "Localization / QA Tools",
+    role: "Designer & Builder",
+    timeline: "Jun – Jul 2026",
+    icon: Languages,
+    description: "A tool that measures how much translated UI text grows and flags exactly which strings will break their layout, before a translation ships.",
+    impact: "Replaced manual, after-the-fact localization QA with an upfront layout-risk check that catches overflow before it reaches production.",
+    tags: ["Localization", "Accessibility"],
     context:
-      "BNY's Marketing Data & Demand Generation team runs a growing portfolio of public-facing websites and apps, most built on Adobe Experience Manager (AEM) and maintained with the help of an external digital agency. As the portfolio grew, so did inconsistency — new sites were being built with one-off components, with no shared source of truth for design decisions.",
+      "Most translation tools stop at the text — they translate a string but say nothing about whether the translated version still fits the button, label or card it was designed for. Teams typically only discover layout breakage after a translated build ships. LocaLens set out to catch that earlier, from a screenshot alone.",
     challenge:
-      "Design work was split between an internal team and an external digital agency handling business-as-usual work, with no shared component library to keep them aligned. Every new AEM site risked drifting further from the last, and stakeholders across marketing, brand and engineering had no single place to validate design decisions against.",
+      "The product needed to go from a UI screenshot to a reliable overflow risk assessment — extracting text, translating it, and measuring whether the result still fits its original container — without requiring access to the actual codebase or design file.",
     research: {
-      methods: ["Stakeholder interviews", "Design audits", "Engineering workshops", "Design critiques"],
+      methods: ["Domain research into text expansion by language", "Competitive audit of translation and localization tools", "Iterative testing of OCR extraction accuracy"],
       summary:
-        "Audited components already in use across existing AEM sites, ran requirement-gathering sessions with marketing and brand stakeholders, and worked directly with engineering to understand implementation constraints on AEM.",
+        "Researched how much text length typically expands or contracts across common target languages — German and Finnish tend to expand, Japanese and Chinese often contract — and used that as the baseline for what counts as a meaningful overflow risk versus normal variation.",
     },
     insights: [
       {
-        title: "The agency needed a system, not just a spec",
+        title: "Translation length, not translation quality, breaks layouts",
         description:
-          "Handing over static designs to the digital agency for BAU work produced visible drift within weeks — they needed a governed, versioned library to build against.",
+          "A perfectly accurate translation can still break a UI if it's 40% longer than the source string — length risk and translation quality are separate problems that most tools conflate.",
       },
       {
-        title: "AEM's constraints had to shape the system",
+        title: "OCR position data is what makes the check useful",
         description:
-          "Component decisions that looked simple in Figma weren't always simple to implement in AEM, so design and engineering had to define the system together.",
+          "Extracting the text alone isn't enough — knowing where each text block sits and how wide its container is is what turns a translation into an actual overflow measurement.",
       },
       {
-        title: "Stakeholders needed a shared vocabulary",
+        title: "Privacy was a precondition, not a feature",
         description:
-          "Requirement gathering moved much faster once marketing, brand and engineering could point to the same named components instead of describing them from scratch each time.",
+          "Teams testing pre-release UI screenshots won't upload them to a third-party server — client-side OCR was the only way to make the tool usable for real, unreleased work.",
       },
     ],
     designStrategy: [
       {
-        heading: "Audit and align",
-        body: "Catalogued components already in use across BNY's marketing and demand-gen sites, then aligned with brand, marketing and engineering stakeholders on which patterns should become the system's foundation.",
+        heading: "Start from a screenshot, not a codebase",
+        body: "Built the tool around OCR extraction from a UI screenshot, so it works on any interface — shipped or in-progress — without needing design file or code access.",
       },
       {
-        heading: "Design with AEM in mind",
-        body: "Worked closely with the engineering team from the outset so every component was validated against AEM's real implementation constraints, not just its visual design.",
+        heading: "Measure expansion, not just translate",
+        body: "Calculated a character-expansion percentage per text block and compared rendered width against the original container, turning 'is this translated' into 'does this still fit.'",
       },
       {
-        heading: "Partner with the agency",
-        body: "Built the system to be usable by the external digital agency handling day-to-day site work, not just the internal team, so consistency holds regardless of who's building.",
+        heading: "Flag risk in three tiers",
+        body: "Colour-coded every text block as Safe, Review or High-risk, so a team can triage a screen with dozens of strings in seconds instead of reading every translation.",
       },
       {
-        heading: "Drive adoption, not just documentation",
-        body: "Run design critiques and office hours to get the system actually adopted across live AEM sites, rather than letting it sit unused in Figma.",
+        heading: "Keep it client-side",
+        body: "Ran OCR entirely in the browser so screenshots of unreleased UI never leave the user's machine, making the tool safe to use on pre-launch work.",
       },
     ],
     solution: {
       summary:
-        "A governed, AEM-aware design system for BNY's marketing and demand-gen properties, built collaboratively with engineering and usable by both the internal team and the external digital agency.",
+        "A client-side localization QA tool that extracts text from a UI screenshot via OCR, translates it into 10 languages, and flags exactly which strings risk breaking their original layout.",
       highlights: [
-        "A component library validated against real AEM implementation constraints",
-        "A shared vocabulary and working process for internal team, agency and engineering",
-        "An ongoing critique and adoption process embedded across live marketing sites",
+        "OCR extraction of text blocks with position data from PNG, JPG or WEBP screenshots",
+        "Translation into 10 languages including French, German, Japanese and Arabic",
+        "Character-expansion and container-overflow risk scoring per text block",
+        "Side-by-side visual comparison with zoom and pan, exportable as PNG, PDF, CSV, XLSX or JSON",
       ],
     },
     designSystemThinking: [
       {
         label: "Components",
-        description:
-          "A growing library of AEM-ready components, each validated with engineering before being handed to the digital agency for BAU builds.",
+        description: "A reusable risk-badge component (Safe / Review / High-risk) applied consistently across the comparison view and exported reports.",
       },
       {
         label: "Tokens",
-        description:
-          "Foundational tokens aligned to BNY's brand guidelines, giving marketing and demand-gen sites a consistent visual baseline.",
+        description: "A three-tier risk colour scale shared between the live comparison view and every export format.",
       },
       {
         label: "Patterns",
-        description:
-          "Reusable page and section patterns that reduce how much new sites need to be designed from scratch.",
+        description: "A side-by-side comparison pattern with synchronized zoom and pan across source and translated versions.",
       },
       {
         label: "Governance",
-        description:
-          "A critique and requirement-gathering process that keeps the internal team, the digital agency and engineering working from the same source of truth.",
+        description: "Fully client-side processing — screenshots and extracted text never leave the browser, by design rather than by policy.",
       },
     ],
     outcome:
-      "The system is now the shared foundation for new AEM builds across BNY's marketing and demand-gen portfolio, giving the internal team, the digital agency and engineering a single source of truth to design, validate and build against.",
+      "LocaLens shipped as a working QA step most localization workflows skip entirely, turning 'ship the translation and see what breaks' into a check a team can run before release.",
     metrics: [
-      { value: "Ongoing", label: "Rollout across AEM sites" },
-      { value: "3", label: "Teams aligned: internal, agency, engineering" },
-      { value: "1", label: "Shared design system" },
+      { value: "10", label: "Languages supported" },
+      { value: "3", label: "Risk tiers: Safe, Review, High-risk" },
+      { value: "100%", label: "Client-side — no server upload" },
     ],
     reflection:
-      "This role is a reminder that a design system's hardest problem usually isn't the components — it's getting a distributed set of people, an internal team, an external agency and engineering, to actually build against the same source of truth. Getting the working process right matters as much as the Figma file.",
+      "This was the clearest case of a tool needing a genuinely different data model than I expected going in — I started thinking of it as a translation tool and only later realised the actual product was a measurement tool that happens to use translation as an input.",
   },
   {
-    slug: "marston-public-sector-services",
-    title: "Public Sector Digital Services at Marston",
-    industry: "Public Sector",
-    role: "Senior Experience Designer",
-    timeline: "Nov 2023 – Mar 2025",
-    icon: Workflow,
-    description: "Designing and scaling internal-facing B2B digital services for public sector caseworkers and administrators.",
-    impact: "Built and governed a Figma component library that improved design-to-dev handoff speed and consistency across a large-scale transformation programme.",
-    tags: ["Public Sector", "Enterprise UX"],
+    slug: "uxledger-ux-debt-tracker",
+    title: "UXLedger — UX Debt Register",
+    industry: "Design Tools / Product Management",
+    role: "Designer & Builder",
+    timeline: "Apr – May 2026",
+    icon: ListChecks,
+    description: "A living register for tracking UX debt — usability, accessibility and content issues — instead of letting them scatter across spreadsheets and get ignored.",
+    impact: "Turned ad-hoc UX issue tracking into a scored, trackable register that teams can use to prioritise fixes and prove improvement over time.",
+    tags: ["Design Tools", "Product Management"],
     context:
-      "Marston Holdings delivers services on behalf of public sector clients, with internal-facing tools used daily by caseworkers and administrative staff. As part of a large-scale transformation programme, the organisation needed to modernise these services for a mix of technical and non-technical users.",
+      "UX debt — the small usability, accessibility and content issues that pile up in a product — usually lives in scattered spreadsheets, sticky notes or Slack threads. It rarely gets prioritised against feature work because there's no shared, visible record of how much of it exists or how severe it is. UXLedger set out to give that debt the same visibility a bug tracker gives engineering debt.",
     challenge:
-      "Caseworkers and administrative users were working with dashboards and services that hadn't kept pace with the scale of the transformation programme, increasing effort for day-to-day tasks. Design and development also lacked a shared component library, slowing handoff and creating visual inconsistency across services.",
+      "The product needed to make UX debt feel measurable and prioritisable — not just a list — while staying lightweight enough that logging an issue takes seconds, not a form-filling exercise. It also needed to speak to two audiences: designers logging issues day-to-day, and stakeholders who only look at the dashboard.",
     research: {
-      methods: ["Co-creation workshops", "Stakeholder interviews", "Usability reviews", "Design QA audits"],
+      methods: ["Competitive audit of bug and issue trackers", "Domain research into UX debt as a concept", "Iterative prototyping of the scoring model"],
       summary:
-        "Ran research and co-creation workshops directly with caseworkers, administrative users and stakeholders to validate assumptions before committing to a direction, and embedded design QA reviews across the team to catch accessibility and consistency issues early.",
+        "Studied how engineering teams track technical debt and bugs, and adapted that model — severity, status, ownership — to the specific shape of UX issues, which don't always map cleanly onto a bug tracker's fields.",
     },
     insights: [
       {
-        title: "Effort, not just usability, was the real metric",
-        description:
-          "The biggest wins came from reducing the number of steps and amount of manual effort required from caseworkers, not just polishing individual screens.",
+        title: "A health score makes debt legible to non-designers",
+        description: "A single 0–100 score, colour-coded by severity, gives stakeholders a number to track without needing to read every logged issue.",
       },
       {
-        title: "A shared library changes the conversation with engineering",
-        description:
-          "Once a governed Figma component library existed, design-to-dev handoff conversations shifted from 'how do I build this' to 'which variant do I use.'",
+        title: "Logging friction kills adoption faster than anything else",
+        description: "If capturing a UX issue takes longer than noticing it, it never gets logged — the entry flow had to be closer to a quick note than a bug report form.",
       },
       {
-        title: "Non-technical stakeholders needed a seat at the table early",
-        description:
-          "Involving non-technical audiences in co-creation workshops early avoided costly rework later in the transformation programme.",
+        title: "Trends matter more than snapshots",
+        description: "A single health score answers 'how bad is it now' — a 30-day trend answers the more useful question, 'is it getting better.'",
       },
     ],
     designStrategy: [
       {
-        heading: "Understand the caseworker's day",
-        body: "Spent time understanding how caseworkers and administrative users actually moved through their daily tasks before proposing any redesign.",
+        heading: "Borrow the bug-tracker mental model",
+        body: "Structured debt items around severity, status, category and ownership — fields designers and engineers already understand from issue trackers.",
       },
       {
-        heading: "Build the library alongside the services",
-        body: "Developed the Figma component library in parallel with live service work, so it was shaped by real screens rather than designed in the abstract.",
+        heading: "Score for stakeholders, log for designers",
+        body: "Built a weighted 0–100 health score as the stakeholder-facing summary, while keeping the underlying logging flow fast and low-friction for designers.",
       },
       {
-        heading: "Co-create, don't just consult",
-        body: "Ran workshops with users and stakeholders as genuine co-creation sessions, using them to validate direction before investing in detailed design.",
+        heading: "Make every project its own register",
+        body: "Supported multiple projects with custom colour coding and row-level data isolation, so a register never mixes debt across unrelated products.",
       },
       {
-        heading: "Embed QA into the process",
-        body: "Built design QA checkpoints into the team's workflow so accessibility and UI consistency were caught before release, not after.",
+        heading: "Design for the export, not just the dashboard",
+        body: "Built CSV and Excel export from the start, since most stakeholder conversations about UX debt still happen in a roadmap doc or a review deck, not inside the tool.",
       },
     ],
     solution: {
       summary:
-        "A set of redesigned internal-facing services built around caseworker effort and administrative accuracy, backed by a governed Figma component library that sped up design-to-dev handoff across the transformation programme.",
+        "A UX debt register combining fast issue logging with a scored, trend-tracked dashboard, so usability and accessibility issues get the same visibility as engineering bugs.",
       highlights: [
-        "Redesigned dashboards and workflows that reduced effort for caseworkers and administrative users",
-        "A governed, tailored Figma component library adopted across the B2B application suite",
-        "An embedded design QA process aligning teams on quality, accessibility and UI standards",
+        "A full debt register with severity, status, category and ownership fields",
+        "A weighted 0–100 health score, colour-coded and tracked over a 30-day trend",
+        "Rich-text descriptions, file attachments and threaded comments per issue",
+        "CSV and Excel export for roadmap and stakeholder reviews",
       ],
     },
     designSystemThinking: [
       {
         label: "Components",
-        description:
-          "A B2B-focused Figma component library built specifically for the demands of internal case-management and administrative tooling.",
+        description: "A reusable issue-card and register-row component shared between the logging flow and the dashboard views.",
       },
       {
         label: "Tokens",
-        description:
-          "Shared visual foundations that kept dashboards and services consistent across a growing service portfolio.",
+        description: "A severity colour scale applied consistently across the register, the health score and the trend chart.",
       },
       {
         label: "Patterns",
-        description:
-          "Reusable dashboard and workflow patterns that reduced effort for caseworkers doing repetitive, high-volume tasks.",
+        description: "A filter-sort-search pattern that works identically across every project's register, so switching projects doesn't mean relearning the tool.",
       },
       {
         label: "Governance",
-        description:
-          "A design QA process embedded across the team, aligning contributors on quality, accessibility and UI standards before release.",
+        description: "Row-level security isolating each project's data per account, with an audit trail on every comment and status change.",
       },
     ],
     outcome:
-      "The transformation programme shipped with a governed component library in place, faster design-to-dev handoff, and services that reduced effort for the caseworkers and administrators who use them daily.",
+      "UXLedger shipped as a working register that replaces the spreadsheet-and-sticky-note approach most teams default to for tracking UX debt, with a health score that makes the backlog visible to people who never open the tool.",
     metrics: [
-      { value: "1", label: "Governed component library shipped" },
-      { value: "Large-scale", label: "Transformation programme" },
-      { value: "2", label: "User groups: caseworkers & administrators" },
+      { value: "0–100", label: "Weighted health score" },
+      { value: "30-day", label: "Trend visualisation" },
+      { value: "2", label: "Export formats: CSV & Excel" },
     ],
     reflection:
-      "Public sector work sharpened my sense that 'usability' is often really about effort — every unnecessary click is effort a caseworker has to spend hundreds of times a day. Building the component library alongside live service work, rather than upfront and in the abstract, kept it honest.",
+      "The hardest part wasn't the register — it was the scoring model. A health score is only useful if people trust the number, which meant the weighting had to be transparent enough that a sceptical stakeholder could see why a 62 wasn't just made up.",
   },
   {
-    slug: "bny-financial-platforms",
-    title: "Enterprise Financial Platforms at BNY",
-    industry: "Financial Services",
-    role: "Senior UX Designer (Contract)",
-    timeline: "Sep 2022 – Jun 2023",
-    icon: LineChart,
-    description: "Leading UX for enterprise-grade B2B financial platforms used by internal teams and enterprise clients.",
-    impact: "Created a unified design library for internal tools, increasing delivery velocity and consistency across the platform.",
-    tags: ["Financial Services", "Design Systems"],
+    slug: "uxbeacon-ux-audit-tool",
+    title: "UXBeacon — Automated UX Audit Tool",
+    industry: "Design Tools / Web Analysis",
+    role: "Designer & Builder",
+    timeline: "Mar 2026",
+    icon: Gauge,
+    description: "A free, no-login tool that scores any public website's UX across heuristics, accessibility, content and UX-law compliance in seconds.",
+    impact: "Replaced black-box AI audit scores with a transparent, rule-based UX health score anyone can inspect and reproduce.",
+    tags: ["Design Tools", "Accessibility"],
     context:
-      "BNY's internal and client-facing tools spanned multiple B2B financial platforms, each with its own navigation, dashboard and workflow conventions. Product managers, business analysts and engineering needed a faster, more consistent way to design and ship features.",
+      "Most quick UX-audit tools either require a login and a sales conversation, or they return an AI-generated score with no visibility into how it was calculated. UXBeacon set out to be the opposite: free, instant, and built entirely on rules a designer could actually inspect and argue with.",
     challenge:
-      "Navigation, dashboards and workflows had grown inconsistently across the platform, and there was no unified design library to draw from — every new feature risked reinventing patterns that already existed elsewhere in the product.",
+      "The product needed to analyse a real website — crawling multiple pages — and turn that into a single trustworthy score, fast enough to feel instant, without hiding behind an opaque AI model or a sign-up wall.",
     research: {
-      methods: ["Stakeholder workshops", "Design audits", "Usability reviews", "Cross-team interviews"],
+      methods: ["Review of established UX heuristics and laws (Nielsen, Hick's, Fitts's, Miller's)", "Accessibility standards research (WCAG 2.2, axe-core)", "Competitive audit of existing AI-based audit tools"],
       summary:
-        "Worked closely with product managers, business analysts and engineering to understand where technical and business goals weren't yet aligned with user needs, and audited existing tools to find where a unified design library could remove the most friction.",
+        "Grounded every scoring engine in an established, citable framework — Nielsen's heuristics, WCAG 2.2, classic UX laws — specifically so the tool's output could be traced back to a rule, not a black-box model's opinion.",
     },
     insights: [
       {
-        title: "Complexity was often unnecessary, not inherent",
-        description:
-          "Many multi-step flows and financial concepts could be simplified for internal teams and enterprise clients without losing the underlying capability.",
+        title: "Designers don't trust scores they can't trace",
+        description: "A score is only useful if you can ask 'why' and get a concrete rule as the answer — deterministic, rule-based scoring builds more trust than a higher-sounding AI score.",
       },
       {
-        title: "A unified library paid for itself quickly",
-        description:
-          "Once a shared design library existed for internal tools, delivery velocity and consistency both improved, because teams stopped rebuilding the same patterns.",
+        title: "No login is a feature, not a compromise",
+        description: "Removing the sign-up step wasn't just about lower friction — it changed how the tool got used, as a quick sanity-check rather than a formal audit process.",
       },
       {
-        title: "Mentorship compounds design maturity",
-        description:
-          "Investing time in mentoring junior designers and improving documentation practices raised the baseline quality of work across the wider team, not just individual projects.",
+        title: "One score isn't enough, but five is too many to act on",
+        description: "A single composite score is useful for a first read, but only broken into heuristics, accessibility, content and UX-law categories does it tell you where to actually start fixing.",
       },
     ],
     designStrategy: [
       {
-        heading: "Simplify before you systemise",
-        body: "Started by simplifying complex financial concepts and multi-step flows, making sure the underlying task was as clear as possible before turning it into a reusable pattern.",
+        heading: "Build on citable rules, not a model",
+        body: "Implemented each analysis engine — heuristics, accessibility, content, UX laws — as a deterministic rule set that produces the same score for the same input every time.",
       },
       {
-        heading: "Build the library where the pain was worst",
-        body: "Prioritised the internal tools and products causing the most duplicated design effort, to get delivery velocity gains early.",
+        heading: "Remove every barrier to a first scan",
+        body: "Required no account and no setup — just a URL — so trying the tool costs nothing more than typing a website address.",
       },
       {
-        heading: "Align technical and business goals",
-        body: "Worked directly with product managers, BAs and engineering so the design library reflected both business priorities and technical reality, not just visual preference.",
+        heading: "Score in layers",
+        body: "Combined five category scores into one weighted A–F health score, so the tool answers both 'how good is this site' and 'good at what, specifically.'",
       },
       {
-        heading: "Raise the floor through mentorship",
-        body: "Mentored junior UX designers and improved documentation practices using Figma best practices, so design maturity kept improving after the initial library shipped.",
+        heading: "Make results portable",
+        body: "Built PDF, CSV and JSON export from the start, since a UX audit is rarely useful only inside the tool that generated it.",
       },
     ],
     solution: {
       summary:
-        "A unified design library for BNY's internal tools and products, paired with simplified navigation, dashboards and workflows across enterprise-grade B2B financial platforms.",
+        "A free, login-free UX audit tool that crawls up to 25 pages of a site and runs six deterministic analysis engines in parallel, producing a transparent, exportable health score.",
       highlights: [
-        "A unified design library adopted across internal tools, increasing delivery velocity",
-        "Simplified multi-step financial workflows made accessible to internal teams and enterprise clients",
-        "A mentorship and documentation practice that raised design maturity across the team",
+        "Six analysis engines: heuristics, accessibility, content, UX laws, health score, exports",
+        "Deterministic, rule-based scoring — reproducible and inspectable, not AI-generated",
+        "Crawls up to 25 pages per site, running all engines in parallel",
+        "PDF, CSV and JSON export for sharing results with a team",
       ],
     },
     designSystemThinking: [
       {
         label: "Components",
-        description:
-          "A unified set of components for internal financial tools, replacing duplicated, platform-specific patterns.",
+        description: "A shared score-card component reused across all six engines and the composite health-score summary.",
       },
       {
         label: "Tokens",
-        description: "Consistent visual foundations applied across navigation, dashboards and workflow screens.",
+        description: "An A–F grading scale with consistent colour coding applied across every category and the composite score.",
       },
       {
         label: "Patterns",
-        description:
-          "Simplified patterns for multi-step financial flows, designed to be accessible to both internal teams and enterprise clients.",
+        description: "A crawl-then-score pattern that runs all six engines in parallel against the same page set, rather than sequential single-page checks.",
       },
       {
         label: "Governance",
-        description: "Documentation practices and mentoring that kept design maturity improving after the library's initial release.",
+        description: "Every score traces back to a specific, inspectable rule — no engine outputs a number without a documented reason.",
       },
     ],
     outcome:
-      "Delivery velocity and consistency improved across internal tools once the unified design library was in place, and complex financial workflows became more accessible to both internal teams and enterprise clients.",
+      "UXBeacon shipped as a free, instant alternative to sales-gated audit tools, giving any designer or developer a reproducible UX health score for a site in seconds.",
     metrics: [
-      { value: "1", label: "Unified design library shipped" },
-      { value: "Faster", label: "Delivery velocity" },
-      { value: "Mentored", label: "Junior UX designers" },
+      { value: "6", label: "Parallel analysis engines" },
+      { value: "25", label: "Pages crawled per scan" },
+      { value: "0", label: "Login required" },
     ],
     reflection:
-      "This contract confirmed something I keep relearning: in finance, the fastest way to improve delivery speed is almost never 'work faster' — it's removing the duplicated effort caused by not having a shared library in the first place.",
+      "Choosing deterministic rules over an AI model was the harder, slower path to build — every rule had to be defined and justified by hand. But it's also the reason someone can actually trust and act on the score, which was the entire point of the tool.",
   },
   {
-    slug: "sweepr-iot-platform",
-    title: "B2B IoT Support Platform at Sweepr",
-    industry: "IoT / Digital Support",
-    role: "Senior Product Designer",
-    timeline: "Mar 2021 – Sep 2022",
-    icon: Cpu,
-    description: "Turning raw IoT device data into actionable, human-readable dashboards for a B2B customer-support platform.",
-    impact: "Designed a scalable system spanning web and mobile, built through direct research with UK ISP clients and their end users.",
-    tags: ["IoT Innovation", "Interaction Design"],
+    slug: "assessly-online-exams",
+    title: "Assessly — Online Examination Platform",
+    industry: "EdTech",
+    role: "Designer & Builder",
+    timeline: "Feb 2026",
+    icon: ClipboardCheck,
+    description: "An exam platform that lets teachers create, share and auto-grade tests without the administrative busywork.",
+    impact: "Replaced manual test administration with an invite-code flow and instant MCQ grading, cutting setup and grading friction to near zero.",
+    tags: ["EdTech", "Product Design"],
     context:
-      "Sweepr builds a digital support platform that uses AI and machine learning to automate customer service for service providers, including major UK ISPs. The core design challenge was turning dense, technical device data into something a support agent or end customer could actually act on.",
+      "Teachers running tests in a classroom or remote setting typically juggle spreadsheets for rosters, paper or PDF exports for grading, and no easy way to see who has actually attempted a test. Assessly set out to replace that patchwork with a single, lightweight platform built around how a teacher actually runs a test day.",
     challenge:
-      "Device-level data from customer hardware was technically rich but not human-readable, making it hard for support teams and end users to diagnose issues quickly. The platform also needed to work consistently across web portals and native mobile apps, for a distributed, cross-functional remote team.",
+      "The core tension was keeping setup effortless for teachers while keeping access frictionless for students, without requiring every student to create an account. Grading also needed to feel instant for objective questions while still leaving room for manual judgement on written answers.",
     research: {
-      methods: ["Client interviews", "Heuristic reviews", "Qualitative & quantitative research", "Dovetail synthesis"],
+      methods: ["Competitive audit of existing exam tools", "Workflow mapping for a typical test cycle", "Iterative prototyping"],
       summary:
-        "Ran research directly with clients and end users to understand what 'actionable' actually meant to them, and used heuristic and expert reviews to find where the existing designs were creating friction rather than clarity.",
+        "Mapped the end-to-end lifecycle of a classroom test — creation, distribution, attempt, grading, review — and audited existing tools to find where they added friction teachers didn't need, like mandatory student sign-up before a test even started.",
     },
     insights: [
       {
-        title: "'Human-readable' had to be defined per audience",
-        description:
-          "A support agent and an end customer needed very different levels of detail from the same underlying device data.",
+        title: "Sign-up was the single biggest drop-off risk",
+        description: "Requiring students to register before taking a test added friction at exactly the moment engagement mattered most — an invite code removed that step entirely.",
       },
       {
-        title: "Design system gaps cost more on a distributed team",
-        description:
-          "Working with a remote, cross-functional team across time zones made an early, deliberate design system decision far more valuable than it would be for a co-located team.",
+        title: "Grading needed two speeds",
+        description: "Multiple-choice and short-answer questions can be scored the instant a student submits; long-answer questions need a teacher's judgement — the product had to support both without making either feel like an afterthought.",
       },
       {
-        title: "MVP clarity reduced iteration cycles",
-        description:
-          "Getting explicit alignment on MVP scope with product and engineering leads noticeably reduced the number of design iterations needed per feature.",
+        title: "Teachers and students needed different dashboards, not different apps",
+        description: "The same underlying data — tests, attempts, results — needed to be scoped completely differently depending on who was looking at it.",
       },
     ],
     designStrategy: [
       {
-        heading: "Start with stakeholder goals",
-        body: "Spent time in-depth with stakeholders understanding both the business goals behind the platform and the real needs of support teams and end users.",
+        heading: "Design around the test lifecycle",
+        body: "Structured the whole product around four stages — create, distribute, attempt, grade — so every screen maps to a moment a teacher actually experiences.",
       },
       {
-        heading: "Design a system, not a screen",
-        body: "Built the information architecture and visual design system from scratch, so consistency held across web portals and native mobile apps from day one.",
+        heading: "Remove sign-up from the critical path",
+        body: "Replaced student registration with an 8-character invite code, so a class could start a test in seconds instead of managing a roster of accounts.",
       },
       {
-        heading: "Review before you redesign",
-        body: "Used heuristic and expert reviews to identify specific usability issues in existing flows before committing design effort to a new direction.",
+        heading: "Grade what can be graded instantly",
+        body: "Built automatic scoring for multiple-choice questions so results are ready the moment a student submits, while routing written answers to a clear manual review queue.",
       },
       {
-        heading: "Streamline for a remote team",
-        body: "Clarified MVP requirements directly with product and engineering leads to reduce iteration cycles across a distributed, remote-first team.",
+        heading: "Scope every dashboard to its audience",
+        body: "Gave teachers and students separate, purpose-built dashboards instead of one shared view with permission toggles, so neither audience sees controls that aren't theirs.",
       },
     ],
     solution: {
       summary:
-        "A design system and set of dashboards that transformed technical IoT device data into actionable, human-readable views for support teams and end customers, consistent across web and mobile.",
+        "A lightweight exam platform where teachers create mixed-format tests and distribute them by invite code, with multiple-choice questions graded automatically and submissions organised clearly for manual review.",
       highlights: [
-        "A design system spanning web portals and native mobile apps",
-        "Dashboards translating raw device data into actionable views for support and end users",
-        "Streamlined agile practices that reduced iteration cycles across a remote team",
+        "Invite-code access that skips student sign-up entirely",
+        "Instant automated scoring for multiple-choice questions",
+        "A submission tracker showing who's attempted, submitted, or still pending",
+        "Separate role-scoped dashboards for teachers and students",
       ],
     },
     designSystemThinking: [
       {
         label: "Components",
-        description: "A component set built for data-dense dashboards, shared across the web portal and mobile apps.",
+        description: "A reusable set of question-builder components supporting multiple-choice, short-answer and long-answer formats in a single test.",
       },
       {
         label: "Tokens",
-        description: "Visual foundations aligned to Sweepr's brand guidelines, applied consistently across every client-facing surface.",
+        description: "A consistent visual language for status — attempted, submitted, graded — reused across every dashboard and list view.",
       },
       {
         label: "Patterns",
-        description: "Patterns for turning raw device data into actionable, human-readable views for two very different audiences.",
+        description: "An invite-code entry pattern that replaces traditional authentication for the student-facing side of the product.",
       },
       {
         label: "Governance",
-        description: "Close collaboration with product and engineering leads to keep MVP scope and design decisions aligned across a remote team.",
+        description: "A single source of truth for test state — draft, live, closed — that keeps teacher and student views from ever disagreeing.",
       },
     ],
     outcome:
-      "The platform gave support teams and end users a consistent, actionable way to understand device data across web and mobile, and directly shaped roadmap priorities through the research carried out with clients and users.",
+      "Assessly shipped as a working platform that takes a teacher from writing a test to reviewing graded results without the spreadsheet-and-email workarounds most classrooms fall back on.",
     metrics: [
-      { value: "2", label: "Platforms unified: web & mobile" },
-      { value: "UK ISPs", label: "Enterprise clients supported" },
-      { value: "Remote", label: "Cross-functional team" },
+      { value: "3", label: "Question formats supported" },
+      { value: "8-char", label: "Invite code, zero sign-up" },
+      { value: "Instant", label: "MCQ grading" },
     ],
     reflection:
-      "Sweepr taught me that 'actionable' is doing a lot of work in any IoT or data-heavy product — it means something different to every audience, and the design system has to hold multiple levels of detail without duplicating effort to maintain them.",
+      "The biggest design decision wasn't a screen — it was deciding what not to require. Every piece of mandatory setup I removed, accounts, rosters, templates, made the product faster to trust on a first use.",
   },
   {
-    slug: "thomson-reuters-highq-legal-platform",
-    title: "Legal Collaboration Platform at Thomson Reuters HighQ",
-    industry: "Legal Technology",
-    role: "Senior Product Designer",
-    timeline: "Nov 2013 – Mar 2021",
-    icon: Scale,
-    description: "Designing and optimising workflows for a B2B legal collaboration platform used by law firms and financial institutions.",
-    impact: "Introduced structured usability testing and a design library that reduced onboarding time and support volume.",
-    tags: ["Legal Technology", "Enterprise UX"],
+    slug: "sitenest-visual-sitemaps",
+    title: "SiteNest — Visual Sitemap Builder",
+    industry: "Productivity / Design Tools",
+    role: "Designer & Builder",
+    timeline: "Jan 2026",
+    icon: Network,
+    description: "A visual, canvas-based tool for planning a site's structure — pages, connections and rough wireframes — without reaching for a slide deck.",
+    impact: "Replaced static screenshots and slide decks with a living canvas that stays accurate as scope changes, exportable as PNG or JSON.",
+    tags: ["Productivity", "Interaction Design"],
     context:
-      "HighQ, later acquired by Thomson Reuters, built cloud-based collaboration and content tools — including Collaborate, Publisher and Data Room — used by law firms, banks and corporates for document-heavy, high-stakes work. Over seven years, the product scaled from a single collaboration platform to a suite spanning dashboards, workflow, document automation and mobile apps.",
+      "Planning a site's structure usually ends up split across two disconnected tools — a diagramming tool for the sitemap and a slide deck or whiteboard for rough page layouts. Both go stale the moment scope changes. SiteNest set out to put structure and layout on the same canvas.",
     challenge:
-      "Legal and financial workflows are domain-heavy by nature, and translating them into interfaces that non-specialist users could pick up quickly, without stripping out the capability specialists relied on, was a recurring challenge across every feature area.",
+      "The product needed to feel as fast and unstructured as a whiteboard while still producing something structured enough to export and hand off. It also had to work for both the big-picture view of the whole site and the detail view of one page's layout, without forcing a mode switch.",
     research: {
-      methods: ["Discovery workshops", "Design thinking sessions", "Usability testing", "Functional & UI QA"],
+      methods: ["Competitive audit of diagramming and whiteboard tools", "Workflow mapping for site-planning sessions", "Iterative prototyping of canvas interaction"],
       summary:
-        "Led discovery and design thinking workshops with stakeholders to uncover client pain points, and introduced structured usability testing protocols to bring direct user evidence into design decisions that had previously relied on internal opinion.",
+        "Looked at how sitemaps actually get made in practice — usually starting from a blank page and growing organically — and audited existing diagramming tools to see where generic canvas tools broke down for this specific job.",
     },
     insights: [
       {
-        title: "Domain complexity needed translation, not removal",
-        description:
-          "Law firms and financial institutions needed the underlying capability preserved — the job was to make the workflow legible, not to simplify away what specialists actually relied on.",
+        title: "A blank canvas beats a template",
+        description: "Templates assume a site structure before you know what you're planning — starting from nothing and letting structure emerge matched how sitemaps actually get built.",
       },
       {
-        title: "Usability testing changed how decisions got made",
-        description:
-          "Once structured usability testing protocols existed, design decisions could be backed by direct user evidence instead of internal debate.",
+        title: "Zoom is the real navigation model",
+        description: "The same canvas needed to answer 'what does the whole site look like' and 'what does this one page look like' — infinite zoom did that better than switching views.",
       },
       {
-        title: "Mentoring scaled the design function further than headcount did",
-        description:
-          "Cross-team mentoring initiatives let a relatively small design function support feature pods and delivery teams well beyond what direct staffing allowed.",
+        title: "Export has to match how the output gets used",
+        description: "PNG for a deck, JSON for a handoff — the two people who ask for a sitemap almost always want it in a different format.",
       },
     ],
     designStrategy: [
       {
-        heading: "Shape strategic direction",
-        body: "Helped shape product direction toward simplicity, intuitiveness and consistency across a wide array of devices and platforms, working closely with the Chief Product Officer and later the VP of Product.",
+        heading: "Start from nothing",
+        body: "Built an infinite canvas with no forced starting template, so a project begins exactly as empty as a new sitemap actually is.",
       },
       {
-        heading: "Translate domain complexity",
-        body: "Turned dense legal and financial workflows into interfaces, dashboards and data visualisations that reduced onboarding time for new users.",
+        heading: "Merge structure and layout",
+        body: "Let pages carry both their position in the site structure and a rough wireframe of their layout, on the same canvas, instead of splitting them into separate tools.",
       },
       {
-        heading: "Test with real evidence",
-        body: "Introduced structured usability testing protocols and a shared design library, replacing opinion-led decisions with direct user evidence.",
+        heading: "Design for two zoom levels",
+        body: "Made the canvas work equally well zoomed out for the full site structure and zoomed in for one page's wireframe blocks.",
       },
       {
-        heading: "Scale through mentoring",
-        body: "Led cross-team mentoring initiatives, supporting designers across feature pods and delivery teams as the product suite grew.",
+        heading: "Export for the request, not the tool",
+        body: "Shipped both PNG and JSON export from day one, covering the two most common reasons someone asks to see a sitemap.",
       },
     ],
     solution: {
       summary:
-        "A design system and structured usability testing practice applied across HighQ's growing suite — Collaborate, Publisher, Data Room, dashboards, workflow and mobile — translating domain-heavy legal and financial work into intuitive, consistent interfaces.",
+        "An infinite-canvas sitemap builder combining page structure, navigation connections and pre-built wireframe blocks in one tool, exportable as PNG or JSON.",
       highlights: [
-        "Unified dashboards, data visualisations and workflow tools designed across the product suite",
-        "Structured usability testing protocols bringing direct user evidence into design decisions",
-        "iOS and Android HighQ Drive apps extending the platform to mobile",
+        "An infinite canvas for both site-wide structure and single-page layout",
+        "19+ pre-built wireframe blocks for fast page sketches",
+        "A properties panel for editing titles, URLs, notes and colours in place",
+        "Light and dark themes that remember the user's preference",
       ],
     },
     designSystemThinking: [
       {
         label: "Components",
-        description: "A design library spanning Collaborate, Publisher, Data Room, dashboards and workflow tools, reused across feature pods.",
+        description: "19+ wireframe blocks — heroes, forms, footers — built as reusable canvas primitives rather than one-off shapes.",
       },
       {
         label: "Tokens",
-        description: "Consistent visual foundations applied across web and the HighQ Drive mobile apps on iOS and Android.",
+        description: "A light/dark theme system applied consistently across canvas, panels and exports.",
       },
       {
         label: "Patterns",
-        description: "Patterns for translating dense legal and financial workflows into intuitive dashboards and data visualisations.",
+        description: "A connection pattern for linking pages that doubles as both navigation mapping and user-flow documentation.",
       },
       {
         label: "Governance",
-        description: "Cross-team mentoring and design QA at the close of every sprint, using JIRA to track functional and UI testing.",
+        description: "Row-level data isolation per project, so every sitemap is private to its owner by default.",
       },
     ],
     outcome:
-      "Onboarding time and support volume both reduced as domain-heavy workflows became easier to learn, and the structured usability testing practice introduced during this period gave the design function a lasting evidence base for future decisions.",
+      "SiteNest shipped as a working alternative to the slide-deck-and-whiteboard combination most teams default to, with structure and layout living on one exportable canvas.",
     metrics: [
-      { value: "7+", label: "Years on the platform" },
-      { value: "iOS & Android", label: "HighQ Drive mobile apps" },
-      { value: "Reduced", label: "Onboarding time & support volume" },
+      { value: "∞", label: "Canvas — no size limit" },
+      { value: "19+", label: "Wireframe blocks" },
+      { value: "2", label: "Export formats: PNG & JSON" },
     ],
     reflection:
-      "Seven years on one product is long enough to watch a design function grow up. The shift that mattered most wasn't a single feature — it was moving from opinion-led decisions to a usability testing practice with real evidence behind it, and then scaling that judgement through mentoring rather than headcount alone.",
+      "The temptation with a canvas tool is to add every feature a generic diagramming tool has. Staying narrowly focused on 'this is for planning a site' — not flowcharts, not org charts — is what kept the interaction model simple enough to actually feel fast.",
   },
 ];
 
