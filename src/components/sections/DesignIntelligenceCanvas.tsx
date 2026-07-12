@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { viewportOnce } from "@/lib/motion";
 import { approachSteps } from "@/content/approach";
@@ -60,8 +61,8 @@ export function DesignIntelligenceCanvas() {
           variants={cardVariant}
           className="mt-4 flex items-center gap-3 rounded-lg border border-border bg-background p-3"
         >
-          <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-ink font-plex text-sm font-semibold text-background">
-            PR
+          <div className="relative size-11 shrink-0 overflow-hidden rounded-full border border-border">
+            <Image src="/prabhu-raja.jpg" alt="" fill sizes="44px" className="object-cover object-top" />
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-ink">Prabhu Raja</span>

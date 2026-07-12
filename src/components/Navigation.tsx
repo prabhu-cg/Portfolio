@@ -30,7 +30,7 @@ export function Navigation() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-sm">
       <div className="container-prism flex h-18 items-center justify-between">
-        <Link href="/" className="shrink-0" aria-label="PRISM home">
+        <Link href="/" className="shrink-0" aria-label="Prabhu Raja home">
           <Logo />
         </Link>
 

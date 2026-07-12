@@ -34,7 +34,7 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug);
   if (!project) return {};
   return {
-    title: `${project.title} — PRISM`,
+    title: `${project.title} — Prabhu Raja`,
     description: project.description,
   };
 }

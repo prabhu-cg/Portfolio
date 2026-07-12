@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/Card";
 import { LinkedInIcon } from "@/components/icons/LinkedInIcon";
 
 export const metadata: Metadata = {
-  title: "Contact — PRISM",
+  title: "Contact — Prabhu Raja",
   description: "Get in touch with Prabhu Raja about design leadership, design systems and product design work.",
 };
 

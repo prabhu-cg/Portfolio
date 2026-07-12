@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageIntro } from "@/components/sections/PageIntro";
 import { DesignApproach } from "@/components/sections/DesignApproach";
 import { ExperienceTimeline } from "@/components/sections/ExperienceTimeline";
@@ -14,7 +15,7 @@ import {
 } from "@/content/about";
 
 export const metadata: Metadata = {
-  title: "About — PRISM",
+  title: "About — Prabhu Raja",
   description:
     "Prabhu Raja is a Senior UX/Product Designer with 15+ years of experience across financial services, legal technology, public sector and IoT.",
 };
@@ -34,8 +35,15 @@ export default function AboutPage() {
         <div className="flex flex-col gap-10">
           <SectionHeader eyebrow="Personal Story" title="How I got here" />
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,280px)_1fr] lg:gap-16">
-            <div className="flex size-40 items-center justify-center rounded-xl border border-border bg-surface font-plex text-3xl font-semibold text-ink lg:size-full lg:aspect-square lg:text-5xl">
-              PR
+            <div className="relative aspect-square w-40 overflow-hidden rounded-xl border border-border bg-surface lg:w-full">
+              <Image
+                src="/prabhu-raja.jpg"
+                alt="Prabhu Raja"
+                fill
+                sizes="(min-width: 1024px) 280px, 160px"
+                className="object-cover object-top"
+                priority
+              />
             </div>
 
             <div className="flex flex-col gap-5 text-lg text-ink-secondary">
@@ -54,7 +62,7 @@ export default function AboutPage() {
             <SectionHeader
               eyebrow="Design Philosophy"
               title="Principles I design by"
-              description="The same principles that shape the PRISM design system shape how I approach every product."
+              description="The same principles that shape my design system work at BNY and Marston shape how I approach every product."
             />
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {designPhilosophy.map((principle, index) => (

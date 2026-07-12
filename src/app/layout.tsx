@@ -17,7 +17,7 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "PRISM — Prabhu Raja, Senior Designer",
+  title: "Prabhu Raja — Senior Designer",
   description:
     "Prabhu Raja is a Senior UX/Product Designer with 15+ years of experience designing B2B SaaS products across financial services, legal technology, public sector and IoT.",
 };

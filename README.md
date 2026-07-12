@@ -1,4 +1,4 @@
-# PRISM
+# Prabhu Raja — Portfolio
 
 Personal portfolio for Prabhu Raja, Senior Designer — built with Next.js (App Router), TypeScript, Tailwind CSS and Framer Motion.
 
@@ -31,7 +31,7 @@ Projects are the single source of portfolio work — there is no separate "work"
 
 ## Design system
 
-Design tokens (colour, type scale, radius, container width) live in `src/app/globals.css` under the Tailwind v4 `@theme` block, with a semantic token reference documented at the top of the file. The accent colour (`#EE661D`) is used sparingly and intentionally: primary buttons, eyebrow labels, highlights, active states and the hero's design-system visual — never large backgrounds or repeated across every card/icon. Replace `public/resume.pdf` with a real resume before shipping.
+Design tokens (colour, type scale, radius, container width) live in `src/app/globals.css` under the Tailwind v4 `@theme` block, with a semantic token reference documented at the top of the file. The accent colour (`#EE661D`) is used sparingly and intentionally: primary buttons, eyebrow labels, highlights, active states and the hero's design-system visual — never large backgrounds or repeated across every card/icon.
 
 ## Build
 

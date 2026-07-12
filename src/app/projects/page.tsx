@@ -4,7 +4,7 @@ import { ContactCTA } from "@/components/sections/ContactCTA";
 import { ProjectGrid } from "@/components/ProjectGrid";
 
 export const metadata: Metadata = {
-  title: "Projects — PRISM",
+  title: "Projects — Prabhu Raja",
   description:
     "Selected projects from 15+ years designing enterprise products, design systems and digital experiences.",
 };
