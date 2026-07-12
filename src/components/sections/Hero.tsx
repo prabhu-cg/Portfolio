@@ -17,7 +17,7 @@ export function Hero() {
           className="flex flex-col items-start gap-6"
         >
           <motion.span variants={fadeUp} className="text-eyebrow text-accent-strong">
-            Senior Product Designer
+            Senior Designer
           </motion.span>
 
           <motion.h1

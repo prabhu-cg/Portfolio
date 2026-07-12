@@ -1,6 +1,6 @@
 # PRISM
 
-Personal portfolio for Prabhu Raja, Senior Product Designer — built with Next.js (App Router), TypeScript, Tailwind CSS and Framer Motion.
+Personal portfolio for Prabhu Raja, Senior Designer — built with Next.js (App Router), TypeScript, Tailwind CSS and Framer Motion.
 
 ## Getting started
 

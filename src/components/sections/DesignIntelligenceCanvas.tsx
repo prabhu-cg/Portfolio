@@ -65,7 +65,7 @@ export function DesignIntelligenceCanvas() {
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-ink">Prabhu Raja</span>
-            <span className="text-xs text-muted">Senior Product Designer</span>
+            <span className="text-xs text-muted">Senior Designer</span>
           </div>
         </motion.div>
 

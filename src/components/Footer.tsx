@@ -27,7 +27,7 @@ export function Footer() {
       <div className="container-prism flex flex-col gap-8 py-12 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-2">
           <Logo />
-          <p className="text-sm text-muted">Senior Product Designer</p>
+          <p className="text-sm text-muted">Senior Designer</p>
         </div>
 
         <nav className="flex flex-wrap gap-x-8 gap-y-3" aria-label="Footer">
