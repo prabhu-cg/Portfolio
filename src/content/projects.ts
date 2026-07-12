@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { LayoutGrid, Workflow, Sparkles } from "lucide-react";
+import { LayoutGrid, Workflow, LineChart, Cpu, Scale } from "lucide-react";
 
 export interface DesignStrategyStep {
   heading: string;
@@ -40,289 +40,469 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "enterprise-design-system",
-    title: "Enterprise Design System",
+    slug: "bny-marketing-design-system",
+    title: "Marketing Design System at BNY",
     industry: "Financial Services",
-    role: "Lead Product Designer",
-    timeline: "18 months",
+    role: "VP User Experience",
+    timeline: "Nov 2025 – Present",
     icon: LayoutGrid,
-    description: "Building scalable design foundations for enterprise products.",
-    impact: "Created scalable design foundations adopted by 12 product teams, cutting UI build time by 40%.",
-    tags: ["Design Systems", "Enterprise UX"],
+    description: "Building and governing the design system behind BNY's marketing and demand-gen web and app products.",
+    impact: "Established a governed design system now being adopted across BNY's AEM-driven marketing websites and apps.",
+    tags: ["Design Systems", "Financial Services"],
     context:
-      "This financial services organisation had grown through acquisition, absorbing several product teams that each maintained their own design language. Leadership needed a single design system that could scale across a diverse, regulated product portfolio without slowing teams down.",
+      "BNY's Marketing Data & Demand Generation team runs a growing portfolio of public-facing websites and apps, most built on Adobe Experience Manager (AEM) and maintained with the help of an external digital agency. As the portfolio grew, so did inconsistency — new sites were being built with one-off components, with no shared source of truth for design decisions.",
     challenge:
-      "Each product team had evolved its own patterns, components and visual language over several years. This created inconsistent experiences for customers, slowed engineering velocity, and made accessibility compliance difficult to guarantee across the portfolio.",
+      "Design work was split between an internal team and an external digital agency handling business-as-usual work, with no shared component library to keep them aligned. Every new AEM site risked drifting further from the last, and stakeholders across marketing, brand and engineering had no single place to validate design decisions against.",
     research: {
-      methods: ["Component audit", "Stakeholder interviews", "Engineering workshops", "Accessibility audit"],
+      methods: ["Stakeholder interviews", "Design audits", "Engineering workshops", "Design critiques"],
       summary:
-        "Catalogued every component and pattern in active use, interviewed designers and engineers across twelve teams, and audited existing UI against WCAG 2.1 AA to establish a baseline.",
+        "Audited components already in use across existing AEM sites, ran requirement-gathering sessions with marketing and brand stakeholders, and worked directly with engineering to understand implementation constraints on AEM.",
     },
     insights: [
       {
-        title: "Governance was the real blocker",
+        title: "The agency needed a system, not just a spec",
         description:
-          "Teams didn't lack components — they lacked a trusted, maintained source of truth and a clear process for contributing to it.",
+          "Handing over static designs to the digital agency for BAU work produced visible drift within weeks — they needed a governed, versioned library to build against.",
       },
       {
-        title: "Design and code had drifted apart",
+        title: "AEM's constraints had to shape the system",
         description:
-          "Figma libraries and the production codebase had diverged over time, so 'using the system' still meant rebuilding from scratch.",
+          "Component decisions that looked simple in Figma weren't always simple to implement in AEM, so design and engineering had to define the system together.",
       },
       {
-        title: "Accessibility was inconsistent by default",
+        title: "Stakeholders needed a shared vocabulary",
         description:
-          "Contrast, focus states and keyboard support varied team to team because no shared baseline enforced them.",
+          "Requirement gathering moved much faster once marketing, brand and engineering could point to the same named components instead of describing them from scratch each time.",
       },
     ],
     designStrategy: [
       {
         heading: "Audit and align",
-        body: "Catalogued every component, pattern and token in active use across products, then facilitated alignment workshops with design and engineering leads to agree on a single source of truth.",
+        body: "Catalogued components already in use across BNY's marketing and demand-gen sites, then aligned with brand, marketing and engineering stakeholders on which patterns should become the system's foundation.",
       },
       {
-        heading: "Token-first architecture",
-        body: "Established a layered token model — core, semantic and component-level — so themes, density and accessibility contrast could be adjusted without rebuilding components.",
+        heading: "Design with AEM in mind",
+        body: "Worked closely with the engineering team from the outset so every component was validated against AEM's real implementation constraints, not just its visual design.",
       },
       {
-        heading: "Build with engineering",
-        body: "Paired directly with front-end engineers to ship components as code alongside Figma equivalents, ensuring design and implementation never drifted apart.",
+        heading: "Partner with the agency",
+        body: "Built the system to be usable by the external digital agency handling day-to-day site work, not just the internal team, so consistency holds regardless of who's building.",
       },
       {
-        heading: "Enable adoption",
-        body: "Created documentation, contribution guidelines and office hours so product teams could adopt and extend the system with confidence rather than working around it.",
+        heading: "Drive adoption, not just documentation",
+        body: "Run design critiques and office hours to get the system actually adopted across live AEM sites, rather than letting it sit unused in Figma.",
       },
     ],
     solution: {
       summary:
-        "A token-first design system with layered, themeable foundations, a component library shipped as code and Figma in lockstep, and a governance model that gave teams a clear way to contribute back.",
+        "A governed, AEM-aware design system for BNY's marketing and demand-gen properties, built collaboratively with engineering and usable by both the internal team and the external digital agency.",
       highlights: [
-        "Core, semantic and component-level token layers supporting theming and density",
-        "40+ production components shipped as code and Figma equivalents",
-        "A contribution model with clear ownership and review process",
+        "A component library validated against real AEM implementation constraints",
+        "A shared vocabulary and working process for internal team, agency and engineering",
+        "An ongoing critique and adoption process embedded across live marketing sites",
       ],
     },
     designSystemThinking: [
       {
         label: "Components",
         description:
-          "40+ components covering forms, data display, navigation and feedback, each with documented states and usage guidance.",
+          "A growing library of AEM-ready components, each validated with engineering before being handed to the digital agency for BAU builds.",
       },
       {
         label: "Tokens",
         description:
-          "A three-layer token model — core, semantic, component — enabling theming and accessible contrast without rebuilding components.",
+          "Foundational tokens aligned to BNY's brand guidelines, giving marketing and demand-gen sites a consistent visual baseline.",
       },
       {
         label: "Patterns",
         description:
-          "Composed patterns for common enterprise flows — data tables, multi-step forms, permission-aware navigation.",
+          "Reusable page and section patterns that reduce how much new sites need to be designed from scratch.",
       },
       {
         label: "Governance",
         description:
-          "A contribution model with clear ownership, versioning and a review process that kept design and code in sync.",
+          "A critique and requirement-gathering process that keeps the internal team, the digital agency and engineering working from the same source of truth.",
       },
     ],
     outcome:
-      "The system became the default foundation for new product work, cut UI build time significantly, and gave every team a shared, accessible baseline to design and build on.",
+      "The system is now the shared foundation for new AEM builds across BNY's marketing and demand-gen portfolio, giving the internal team, the digital agency and engineering a single source of truth to design, validate and build against.",
     metrics: [
-      { value: "40%", label: "Faster UI build time" },
-      { value: "12", label: "Product teams onboarded" },
-      { value: "98%", label: "WCAG AA components" },
+      { value: "Ongoing", label: "Rollout across AEM sites" },
+      { value: "3", label: "Teams aligned: internal, agency, engineering" },
+      { value: "1", label: "Shared design system" },
     ],
     reflection:
-      "The hardest part wasn't building components — it was building trust in a shared system after years of teams working independently. Investing early in governance and co-design with engineering mattered more than any individual component.",
+      "This role is a reminder that a design system's hardest problem usually isn't the components — it's getting a distributed set of people, an internal team, an external agency and engineering, to actually build against the same source of truth. Getting the working process right matters as much as the Figma file.",
   },
   {
-    slug: "digital-transformation-platform",
-    title: "Digital Transformation Platform",
+    slug: "marston-public-sector-services",
+    title: "Public Sector Digital Services at Marston",
     industry: "Public Sector",
-    role: "Senior Product Designer",
-    timeline: "12 months",
+    role: "Senior Experience Designer",
+    timeline: "Nov 2023 – Mar 2025",
     icon: Workflow,
-    description: "Simplifying complex workflows for users.",
-    impact: "Reduced task completion time by 55% and consolidated five legacy tools into one.",
-    tags: ["Enterprise UX", "Workflow Design"],
+    description: "Designing and scaling internal-facing B2B digital services for public sector caseworkers and administrators.",
+    impact: "Built and governed a Figma component library that improved design-to-dev handoff speed and consistency across a large-scale transformation programme.",
+    tags: ["Public Sector", "Enterprise UX"],
     context:
-      "A public sector agency relied on a patchwork of legacy case management tools accumulated over two decades. Frontline staff needed to open five separate systems to complete a single case, and the agency was under pressure to modernise service delivery.",
+      "Marston Holdings delivers services on behalf of public sector clients, with internal-facing tools used daily by caseworkers and administrative staff. As part of a large-scale transformation programme, the organisation needed to modernise these services for a mix of technical and non-technical users.",
     challenge:
-      "Frontline staff relied on multiple disconnected systems to complete a single task, leading to long handling times, frequent errors and low confidence in the tools they were required to use daily.",
+      "Caseworkers and administrative users were working with dashboards and services that hadn't kept pace with the scale of the transformation programme, increasing effort for day-to-day tasks. Design and development also lacked a shared component library, slowing handoff and creating visual inconsistency across services.",
     research: {
-      methods: ["Contextual inquiry", "Workshops", "Analytics review", "Usability testing"],
+      methods: ["Co-creation workshops", "Stakeholder interviews", "Usability reviews", "Design QA audits"],
       summary:
-        "Spent time directly with frontline staff observing real workflows, ran workshops with operations leadership to map the end-to-end process, and reviewed system analytics to quantify where time was lost.",
+        "Ran research and co-creation workshops directly with caseworkers, administrative users and stakeholders to validate assumptions before committing to a direction, and embedded design QA reviews across the team to catch accessibility and consistency issues early.",
     },
     insights: [
       {
-        title: "The workflow was the problem, not the UI",
+        title: "Effort, not just usability, was the real metric",
         description:
-          "Much of the friction came from an outdated process, not just outdated screens — simplifying the UI alone wouldn't fix it.",
+          "The biggest wins came from reducing the number of steps and amount of manual effort required from caseworkers, not just polishing individual screens.",
       },
       {
-        title: "Staff had built invisible workarounds",
+        title: "A shared library changes the conversation with engineering",
         description:
-          "Experienced staff relied on personal notes and memorised sequences to bridge gaps between systems — knowledge new hires didn't have.",
+          "Once a governed Figma component library existed, design-to-dev handoff conversations shifted from 'how do I build this' to 'which variant do I use.'",
       },
       {
-        title: "Trust had to be earned back",
+        title: "Non-technical stakeholders needed a seat at the table early",
         description:
-          "Previous tooling changes had failed, so staff were sceptical of a new system until they saw it handle edge cases correctly.",
+          "Involving non-technical audiences in co-creation workshops early avoided costly rework later in the transformation programme.",
       },
     ],
     designStrategy: [
       {
-        heading: "Understand the work",
-        body: "Spent time directly with frontline staff observing real workflows, mapping every step, decision point and workaround that had formed around the legacy systems.",
+        heading: "Understand the caseworker's day",
+        body: "Spent time understanding how caseworkers and administrative users actually moved through their daily tasks before proposing any redesign.",
       },
       {
-        heading: "Redesign the workflow, not just the UI",
-        body: "Worked with operations leadership to simplify the underlying process before designing new interfaces, removing steps that no longer served a purpose.",
+        heading: "Build the library alongside the services",
+        body: "Developed the Figma component library in parallel with live service work, so it was shaped by real screens rather than designed in the abstract.",
       },
       {
-        heading: "Progressive disclosure",
-        body: "Designed task-based views that surface only what is relevant to the step at hand, pushing edge cases and advanced options behind clear, deliberate disclosure.",
+        heading: "Co-create, don't just consult",
+        body: "Ran workshops with users and stakeholders as genuine co-creation sessions, using them to validate direction before investing in detailed design.",
       },
       {
-        heading: "Validate with real users",
-        body: "Ran structured usability testing with frontline staff across three release cycles, adjusting flows based on observed hesitation and error points.",
+        heading: "Embed QA into the process",
+        body: "Built design QA checkpoints into the team's workflow so accessibility and UI consistency were caught before release, not after.",
       },
     ],
     solution: {
       summary:
-        "A single, task-based platform that replaced five legacy tools, built around the actual sequence of frontline work rather than internal system boundaries.",
+        "A set of redesigned internal-facing services built around caseworker effort and administrative accuracy, backed by a governed Figma component library that sped up design-to-dev handoff across the transformation programme.",
       highlights: [
-        "One coherent case view replacing five separate systems",
-        "Task-based screens surfacing only what's relevant to the current step",
-        "A phased rollout validated with frontline staff across three release cycles",
+        "Redesigned dashboards and workflows that reduced effort for caseworkers and administrative users",
+        "A governed, tailored Figma component library adopted across the B2B application suite",
+        "An embedded design QA process aligning teams on quality, accessibility and UI standards",
       ],
     },
     designSystemThinking: [
       {
         label: "Components",
         description:
-          "A task-flow component set — step indicators, case timelines, inline validation — reused across every workflow in the platform.",
+          "A B2B-focused Figma component library built specifically for the demands of internal case-management and administrative tooling.",
       },
       {
         label: "Tokens",
         description:
-          "Status and priority tokens shared across the case timeline, task list and reporting views for consistent meaning.",
+          "Shared visual foundations that kept dashboards and services consistent across a growing service portfolio.",
       },
       {
         label: "Patterns",
         description:
-          "A progressive disclosure pattern applied consistently so advanced options never blocked the primary task.",
+          "Reusable dashboard and workflow patterns that reduced effort for caseworkers doing repetitive, high-volume tasks.",
       },
       {
         label: "Governance",
         description:
-          "A shared pattern library handed to the platform team to extend the system into adjacent case types.",
+          "A design QA process embedded across the team, aligning contributors on quality, accessibility and UI standards before release.",
       },
     ],
     outcome:
-      "The platform replaced five legacy tools with one coherent product, reducing task completion time and giving staff a system they trusted to get the work done correctly.",
+      "The transformation programme shipped with a governed component library in place, faster design-to-dev handoff, and services that reduced effort for the caseworkers and administrators who use them daily.",
     metrics: [
-      { value: "55%", label: "Reduction in task time" },
-      { value: "5→1", label: "Legacy tools consolidated" },
-      { value: "-32%", label: "Support tickets" },
+      { value: "1", label: "Governed component library shipped" },
+      { value: "Large-scale", label: "Transformation programme" },
+      { value: "2", label: "User groups: caseworkers & administrators" },
     ],
     reflection:
-      "Redesigning the workflow before the interface was the single highest-leverage decision on this project. It meant the design team spent political capital on simplifying the process, not just polishing screens on top of a broken one.",
+      "Public sector work sharpened my sense that 'usability' is often really about effort — every unnecessary click is effort a caseworker has to spend hundreds of times a day. Building the component library alongside live service work, rather than upfront and in the abstract, kept it honest.",
   },
   {
-    slug: "ai-product-exploration",
-    title: "AI Product Exploration",
-    industry: "Enterprise SaaS",
-    role: "Design Lead, Innovation Team",
-    timeline: "6 months",
-    icon: Sparkles,
-    description: "Exploring future interactions between humans and AI.",
-    impact: "Defined a validated AI interaction pattern library adopted across the product portfolio.",
-    tags: ["AI Innovation", "Interaction Design"],
+    slug: "bny-financial-platforms",
+    title: "Enterprise Financial Platforms at BNY",
+    industry: "Financial Services",
+    role: "Senior UX Designer (Contract)",
+    timeline: "Sep 2022 – Jun 2023",
+    icon: LineChart,
+    description: "Leading UX for enterprise-grade B2B financial platforms used by internal teams and enterprise clients.",
+    impact: "Created a unified design library for internal tools, increasing delivery velocity and consistency across the platform.",
+    tags: ["Financial Services", "Design Systems"],
     context:
-      "As the product organisation began introducing AI-assisted features across its portfolio, teams were shipping AI interactions inconsistently — with no shared point of view on transparency, trust or control.",
+      "BNY's internal and client-facing tools spanned multiple B2B financial platforms, each with its own navigation, dashboard and workflow conventions. Product managers, business analysts and engineering needed a faster, more consistent way to design and ship features.",
     challenge:
-      "Early AI features were being bolted onto existing products without a consistent point of view on how users should understand, trust and control AI-generated output.",
+      "Navigation, dashboards and workflows had grown inconsistently across the platform, and there was no unified design library to draw from — every new feature risked reinventing patterns that already existed elsewhere in the product.",
     research: {
-      methods: ["Prototype testing", "Interaction audits", "Analytics", "Cross-team interviews"],
+      methods: ["Stakeholder workshops", "Design audits", "Usability reviews", "Cross-team interviews"],
       summary:
-        "Audited existing AI features shipping across the portfolio, interviewed the teams building them, and user-tested six rapid prototypes exploring different interaction models.",
+        "Worked closely with product managers, business analysts and engineering to understand where technical and business goals weren't yet aligned with user needs, and audited existing tools to find where a unified design library could remove the most friction.",
     },
     insights: [
       {
-        title: "Users didn't distrust AI — they distrusted silence",
+        title: "Complexity was often unnecessary, not inherent",
         description:
-          "Hesitation dropped sharply once outputs showed confidence and source attribution, even when the AI was wrong.",
+          "Many multi-step flows and financial concepts could be simplified for internal teams and enterprise clients without losing the underlying capability.",
       },
       {
-        title: "Undo mattered more than accuracy",
+        title: "A unified library paid for itself quickly",
         description:
-          "A fast, obvious way to reverse an AI action increased willingness to try it more than marginal accuracy improvements did.",
+          "Once a shared design library existed for internal tools, delivery velocity and consistency both improved, because teams stopped rebuilding the same patterns.",
       },
       {
-        title: "Teams wanted permission, not just patterns",
+        title: "Mentorship compounds design maturity",
         description:
-          "Engineering and product teams needed explicit principles to point to when making tradeoffs, not just a component library.",
+          "Investing time in mentoring junior designers and improving documentation practices raised the baseline quality of work across the wider team, not just individual projects.",
       },
     ],
     designStrategy: [
       {
-        heading: "Define principles first",
-        body: "Established a small set of interaction principles — transparency, reversibility, and appropriate friction — to guide every subsequent design decision.",
+        heading: "Simplify before you systemise",
+        body: "Started by simplifying complex financial concepts and multi-step flows, making sure the underlying task was as clear as possible before turning it into a reusable pattern.",
       },
       {
-        heading: "Prototype interaction patterns",
-        body: "Built a library of rapid prototypes exploring suggestion, generation and agentic interaction models, tested against real workflows rather than isolated demos.",
+        heading: "Build the library where the pain was worst",
+        body: "Prioritised the internal tools and products causing the most duplicated design effort, to get delivery velocity gains early.",
       },
       {
-        heading: "Design for trust calibration",
-        body: "Introduced confidence indicators, source attribution and easy undo paths so users could calibrate trust in AI output rather than accepting or rejecting it blindly.",
+        heading: "Align technical and business goals",
+        body: "Worked directly with product managers, BAs and engineering so the design library reflected both business priorities and technical reality, not just visual preference.",
       },
       {
-        heading: "Share findings across teams",
-        body: "Turned the exploration into a set of reusable patterns and guidelines adopted by other product teams introducing AI features.",
+        heading: "Raise the floor through mentorship",
+        body: "Mentored junior UX designers and improved documentation practices using Figma best practices, so design maturity kept improving after the initial library shipped.",
       },
     ],
     solution: {
       summary:
-        "A validated set of AI interaction patterns — suggestion, generation and agentic models — built around transparency, reversibility and appropriate friction.",
+        "A unified design library for BNY's internal tools and products, paired with simplified navigation, dashboards and workflows across enterprise-grade B2B financial platforms.",
       highlights: [
-        "Confidence indicators and source attribution built into every AI output",
-        "Consistent, fast undo paths across suggestion and generation patterns",
-        "A decision framework for when to use each interaction model",
+        "A unified design library adopted across internal tools, increasing delivery velocity",
+        "Simplified multi-step financial workflows made accessible to internal teams and enterprise clients",
+        "A mentorship and documentation practice that raised design maturity across the team",
       ],
     },
     designSystemThinking: [
       {
         label: "Components",
         description:
-          "A set of AI-specific components — confidence badges, source citations, inline suggestion cards — built on top of the core design system.",
+          "A unified set of components for internal financial tools, replacing duplicated, platform-specific patterns.",
       },
       {
         label: "Tokens",
-        description:
-          "New semantic tokens for AI-generated states, distinguishing system-authored from AI-authored content at a glance.",
+        description: "Consistent visual foundations applied across navigation, dashboards and workflow screens.",
       },
       {
         label: "Patterns",
         description:
-          "Three documented interaction patterns — suggest, generate, act — each with clear guidance on when to use it.",
+          "Simplified patterns for multi-step financial flows, designed to be accessible to both internal teams and enterprise clients.",
       },
       {
         label: "Governance",
-        description:
-          "A lightweight review process for teams introducing new AI features, backed by the shared principles and pattern library.",
+        description: "Documentation practices and mentoring that kept design maturity improving after the library's initial release.",
       },
     ],
     outcome:
-      "The exploration produced a validated set of AI interaction patterns now used as the starting point for new AI features across the product portfolio.",
+      "Delivery velocity and consistency improved across internal tools once the unified design library was in place, and complex financial workflows became more accessible to both internal teams and enterprise clients.",
     metrics: [
-      { value: "3", label: "Interaction models validated" },
-      { value: "6", label: "Prototypes user-tested" },
-      { value: "1", label: "Adopted pattern library" },
+      { value: "1", label: "Unified design library shipped" },
+      { value: "Faster", label: "Delivery velocity" },
+      { value: "Mentored", label: "Junior UX designers" },
     ],
     reflection:
-      "The output that mattered most wasn't a component library — it was a shared vocabulary. Once teams could say 'this is a suggestion pattern' or 'this needs an undo path,' design reviews got faster and more consistent.",
+      "This contract confirmed something I keep relearning: in finance, the fastest way to improve delivery speed is almost never 'work faster' — it's removing the duplicated effort caused by not having a shared library in the first place.",
+  },
+  {
+    slug: "sweepr-iot-platform",
+    title: "B2B IoT Support Platform at Sweepr",
+    industry: "IoT / Digital Support",
+    role: "Senior Product Designer",
+    timeline: "Mar 2021 – Sep 2022",
+    icon: Cpu,
+    description: "Turning raw IoT device data into actionable, human-readable dashboards for a B2B customer-support platform.",
+    impact: "Designed a scalable system spanning web and mobile, built through direct research with UK ISP clients and their end users.",
+    tags: ["IoT Innovation", "Interaction Design"],
+    context:
+      "Sweepr builds a digital support platform that uses AI and machine learning to automate customer service for service providers, including major UK ISPs. The core design challenge was turning dense, technical device data into something a support agent or end customer could actually act on.",
+    challenge:
+      "Device-level data from customer hardware was technically rich but not human-readable, making it hard for support teams and end users to diagnose issues quickly. The platform also needed to work consistently across web portals and native mobile apps, for a distributed, cross-functional remote team.",
+    research: {
+      methods: ["Client interviews", "Heuristic reviews", "Qualitative & quantitative research", "Dovetail synthesis"],
+      summary:
+        "Ran research directly with clients and end users to understand what 'actionable' actually meant to them, and used heuristic and expert reviews to find where the existing designs were creating friction rather than clarity.",
+    },
+    insights: [
+      {
+        title: "'Human-readable' had to be defined per audience",
+        description:
+          "A support agent and an end customer needed very different levels of detail from the same underlying device data.",
+      },
+      {
+        title: "Design system gaps cost more on a distributed team",
+        description:
+          "Working with a remote, cross-functional team across time zones made an early, deliberate design system decision far more valuable than it would be for a co-located team.",
+      },
+      {
+        title: "MVP clarity reduced iteration cycles",
+        description:
+          "Getting explicit alignment on MVP scope with product and engineering leads noticeably reduced the number of design iterations needed per feature.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Start with stakeholder goals",
+        body: "Spent time in-depth with stakeholders understanding both the business goals behind the platform and the real needs of support teams and end users.",
+      },
+      {
+        heading: "Design a system, not a screen",
+        body: "Built the information architecture and visual design system from scratch, so consistency held across web portals and native mobile apps from day one.",
+      },
+      {
+        heading: "Review before you redesign",
+        body: "Used heuristic and expert reviews to identify specific usability issues in existing flows before committing design effort to a new direction.",
+      },
+      {
+        heading: "Streamline for a remote team",
+        body: "Clarified MVP requirements directly with product and engineering leads to reduce iteration cycles across a distributed, remote-first team.",
+      },
+    ],
+    solution: {
+      summary:
+        "A design system and set of dashboards that transformed technical IoT device data into actionable, human-readable views for support teams and end customers, consistent across web and mobile.",
+      highlights: [
+        "A design system spanning web portals and native mobile apps",
+        "Dashboards translating raw device data into actionable views for support and end users",
+        "Streamlined agile practices that reduced iteration cycles across a remote team",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A component set built for data-dense dashboards, shared across the web portal and mobile apps.",
+      },
+      {
+        label: "Tokens",
+        description: "Visual foundations aligned to Sweepr's brand guidelines, applied consistently across every client-facing surface.",
+      },
+      {
+        label: "Patterns",
+        description: "Patterns for turning raw device data into actionable, human-readable views for two very different audiences.",
+      },
+      {
+        label: "Governance",
+        description: "Close collaboration with product and engineering leads to keep MVP scope and design decisions aligned across a remote team.",
+      },
+    ],
+    outcome:
+      "The platform gave support teams and end users a consistent, actionable way to understand device data across web and mobile, and directly shaped roadmap priorities through the research carried out with clients and users.",
+    metrics: [
+      { value: "2", label: "Platforms unified: web & mobile" },
+      { value: "UK ISPs", label: "Enterprise clients supported" },
+      { value: "Remote", label: "Cross-functional team" },
+    ],
+    reflection:
+      "Sweepr taught me that 'actionable' is doing a lot of work in any IoT or data-heavy product — it means something different to every audience, and the design system has to hold multiple levels of detail without duplicating effort to maintain them.",
+  },
+  {
+    slug: "thomson-reuters-highq-legal-platform",
+    title: "Legal Collaboration Platform at Thomson Reuters HighQ",
+    industry: "Legal Technology",
+    role: "Senior Product Designer",
+    timeline: "Nov 2013 – Mar 2021",
+    icon: Scale,
+    description: "Designing and optimising workflows for a B2B legal collaboration platform used by law firms and financial institutions.",
+    impact: "Introduced structured usability testing and a design library that reduced onboarding time and support volume.",
+    tags: ["Legal Technology", "Enterprise UX"],
+    context:
+      "HighQ, later acquired by Thomson Reuters, built cloud-based collaboration and content tools — including Collaborate, Publisher and Data Room — used by law firms, banks and corporates for document-heavy, high-stakes work. Over seven years, the product scaled from a single collaboration platform to a suite spanning dashboards, workflow, document automation and mobile apps.",
+    challenge:
+      "Legal and financial workflows are domain-heavy by nature, and translating them into interfaces that non-specialist users could pick up quickly, without stripping out the capability specialists relied on, was a recurring challenge across every feature area.",
+    research: {
+      methods: ["Discovery workshops", "Design thinking sessions", "Usability testing", "Functional & UI QA"],
+      summary:
+        "Led discovery and design thinking workshops with stakeholders to uncover client pain points, and introduced structured usability testing protocols to bring direct user evidence into design decisions that had previously relied on internal opinion.",
+    },
+    insights: [
+      {
+        title: "Domain complexity needed translation, not removal",
+        description:
+          "Law firms and financial institutions needed the underlying capability preserved — the job was to make the workflow legible, not to simplify away what specialists actually relied on.",
+      },
+      {
+        title: "Usability testing changed how decisions got made",
+        description:
+          "Once structured usability testing protocols existed, design decisions could be backed by direct user evidence instead of internal debate.",
+      },
+      {
+        title: "Mentoring scaled the design function further than headcount did",
+        description:
+          "Cross-team mentoring initiatives let a relatively small design function support feature pods and delivery teams well beyond what direct staffing allowed.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Shape strategic direction",
+        body: "Helped shape product direction toward simplicity, intuitiveness and consistency across a wide array of devices and platforms, working closely with the Chief Product Officer and later the VP of Product.",
+      },
+      {
+        heading: "Translate domain complexity",
+        body: "Turned dense legal and financial workflows into interfaces, dashboards and data visualisations that reduced onboarding time for new users.",
+      },
+      {
+        heading: "Test with real evidence",
+        body: "Introduced structured usability testing protocols and a shared design library, replacing opinion-led decisions with direct user evidence.",
+      },
+      {
+        heading: "Scale through mentoring",
+        body: "Led cross-team mentoring initiatives, supporting designers across feature pods and delivery teams as the product suite grew.",
+      },
+    ],
+    solution: {
+      summary:
+        "A design system and structured usability testing practice applied across HighQ's growing suite — Collaborate, Publisher, Data Room, dashboards, workflow and mobile — translating domain-heavy legal and financial work into intuitive, consistent interfaces.",
+      highlights: [
+        "Unified dashboards, data visualisations and workflow tools designed across the product suite",
+        "Structured usability testing protocols bringing direct user evidence into design decisions",
+        "iOS and Android HighQ Drive apps extending the platform to mobile",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A design library spanning Collaborate, Publisher, Data Room, dashboards and workflow tools, reused across feature pods.",
+      },
+      {
+        label: "Tokens",
+        description: "Consistent visual foundations applied across web and the HighQ Drive mobile apps on iOS and Android.",
+      },
+      {
+        label: "Patterns",
+        description: "Patterns for translating dense legal and financial workflows into intuitive dashboards and data visualisations.",
+      },
+      {
+        label: "Governance",
+        description: "Cross-team mentoring and design QA at the close of every sprint, using JIRA to track functional and UI testing.",
+      },
+    ],
+    outcome:
+      "Onboarding time and support volume both reduced as domain-heavy workflows became easier to learn, and the structured usability testing practice introduced during this period gave the design function a lasting evidence base for future decisions.",
+    metrics: [
+      { value: "7+", label: "Years on the platform" },
+      { value: "iOS & Android", label: "HighQ Drive mobile apps" },
+      { value: "Reduced", label: "Onboarding time & support volume" },
+    ],
+    reflection:
+      "Seven years on one product is long enough to watch a design function grow up. The shift that mattered most wasn't a single feature — it was moving from opinion-led decisions to a usability testing practice with real evidence behind it, and then scaling that judgement through mentoring rather than headcount alone.",
   },
 ];
 

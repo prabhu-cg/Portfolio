@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
-const CONTACT_EMAIL = "hello@prabhuraja.design";
+const CONTACT_EMAIL = "prabhu_cg@proton.me";
 
 export function ContactForm() {
   const [name, setName] = useState("");

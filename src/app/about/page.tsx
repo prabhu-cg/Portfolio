@@ -16,7 +16,7 @@ import {
 export const metadata: Metadata = {
   title: "About — PRISM",
   description:
-    "Prabhu Raja is a Senior Product Designer with 15+ years of experience across government, legal, financial services and enterprise SaaS.",
+    "Prabhu Raja is a Senior UX/Product Designer with 15+ years of experience across financial services, legal technology, public sector and IoT.",
 };
 
 export default function AboutPage() {

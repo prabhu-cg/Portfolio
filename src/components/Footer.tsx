@@ -7,12 +7,12 @@ const footerLinks = [
   {
     icon: LinkedInIcon,
     label: "LinkedIn",
-    href: "https://linkedin.com/in/prabhuraja",
+    href: "https://www.linkedin.com/in/cgprabhu/",
   },
   {
     icon: Mail,
     label: "Email",
-    href: "mailto:hello@prabhuraja.design",
+    href: "mailto:prabhu_cg@proton.me",
   },
   {
     icon: FileDown,

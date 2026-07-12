@@ -14,14 +14,14 @@ const contactMethods = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@prabhuraja.design",
-    href: "mailto:hello@prabhuraja.design",
+    value: "prabhu_cg@proton.me",
+    href: "mailto:prabhu_cg@proton.me",
   },
   {
     icon: LinkedInIcon,
     label: "LinkedIn",
-    value: "linkedin.com/in/prabhuraja",
-    href: "https://linkedin.com/in/prabhuraja",
+    value: "linkedin.com/in/cgprabhu",
+    href: "https://www.linkedin.com/in/cgprabhu/",
   },
   {
     icon: FileDown,
