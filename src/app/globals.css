@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
+/*
+  PRISM design tokens — semantic reference
+
+  Colour      primary → color-ink · secondary → color-ink-secondary
+              surface → color-surface · border → color-border · accent → color-accent
+              Accent is a sparing, semantic colour: highlights, active-state indicators
+              and design-system visual elements (dots, underlines, chips) only.
+              Never large backgrounds, full sections, or repeated across every card/icon.
+              accent (#E7641D) is decorative-only — at 3.37:1 on white it clears the 3:1
+              non-text threshold but fails 4.5:1 for text. Any orange TEXT (eyebrow
+              labels, active nav links, hover links, primary button fills) must use
+              accent-strong (#C74504, 4.90:1 on white / 4.71:1 on surface) instead.
+              Button primary fill uses white text on accent-strong (4.90:1) — ink text
+              would only reach 3.69:1 on this darker shade and must not be used on it.
+
+  Typography  display → text-hero (72/40) · heading → text-h1 / text-h2 / text-h3
+              body → text-base / text-lg (16–20px) · caption → text-eyebrow (13px, tracked)
+
+  Spacing     4px base unit — Tailwind's default spacing scale (p-1=4px … p-8=32px,
+              p-12=48px, p-16=64px, p-24=96px, p-30=120px) already maps to this system.
+
+  Radius      small → radius-sm (6px) · medium → radius-md (12px) · large → radius-lg (20px)
+*/
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --surface: #fffaef;
+  --border: #e8e7e3;
+  --ink: #171614;
+  --ink-secondary: #3d3a36;
+  --muted: #77736d;
+  --accent: #e7641d;
+  --accent-strong: #c74504;
+  --accent-light: #fff1e8;
 }
 
 @theme inline {
+  /* Colour system */
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-light: var(--accent-light);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Typography */
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-plex: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --text-hero: 4.5rem;
+  --text-hero--line-height: 1.05;
+  --text-hero--letter-spacing: -0.02em;
+  --text-hero-mobile: 2.5rem;
+  --text-hero-mobile--line-height: 1.1;
+  --text-hero-mobile--letter-spacing: -0.02em;
+
+  --text-h1: 3rem;
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.015em;
+  --text-h2: 2.25rem;
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.3;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+
+  /* Container */
+  --container-prism: 1200px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+@layer utilities {
+  .container-prism {
+    width: 100%;
+    max-width: var(--container-prism);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-prism {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .text-eyebrow {
+    font-family: var(--font-plex);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .font-plex {
+    font-family: var(--font-plex);
+  }
+}
+
+::selection {
+  background: var(--color-accent-light);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
