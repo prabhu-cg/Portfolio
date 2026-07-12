@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, LayoutGrid, Palette, Workflow, ShieldCheck, Check } from "lucide-react";
+import { ArrowLeft, ArrowRight, LayoutGrid, Palette, Workflow, ShieldCheck, Check, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ContactCTA } from "@/components/sections/ContactCTA";
 import { CaseStudySection } from "@/components/CaseStudySection";
@@ -56,7 +56,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
       {/* Hero */}
       <section className="container-prism pt-14 pb-12 md:pt-20 md:pb-16">
         <CaseStudyMotion variants={staggerChildren(0.1)} className="flex flex-col gap-8">
-          <CaseStudyMotionItem variants={fadeUp}>
+          <CaseStudyMotionItem variants={fadeUp} className="flex items-center justify-between gap-4 print:hidden">
             <Link
               href="/projects"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-ink"
@@ -64,6 +64,14 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               <ArrowLeft className="size-4" />
               Back to projects
             </Link>
+            <Button
+              href={`/case-studies/${project.slug}.pdf`}
+              variant="secondary"
+              size="md"
+              icon={<FileDown className="size-4" />}
+            >
+              Download PDF
+            </Button>
           </CaseStudyMotionItem>
 
           <CaseStudyMotionItem variants={fadeUp} className="flex flex-col gap-5">
@@ -217,7 +225,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
 
       <CaseStudySection index="09" title="Reflection" description={project.reflection} />
 
-      <section className="border-t border-border">
+      <section className="border-t border-border print:hidden">
         <div className="container-prism flex flex-col items-start justify-between gap-6 py-16 md:flex-row md:items-center">
           <div className="flex flex-col gap-1.5">
             <span className="text-eyebrow text-muted">Next project</span>
@@ -235,7 +243,9 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         </div>
       </section>
 
-      <ContactCTA />
+      <div className="print:hidden">
+        <ContactCTA />
+      </div>
     </>
   );
 }

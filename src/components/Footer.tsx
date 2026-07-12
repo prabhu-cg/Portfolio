@@ -23,7 +23,7 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border">
+    <footer className="border-t border-border print:hidden">
       <div className="container-prism flex flex-col gap-8 py-12 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-2">
           <Logo />

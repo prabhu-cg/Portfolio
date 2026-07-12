@@ -111,6 +111,13 @@ body {
   }
 }
 
+@media print {
+  * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 ::selection {
   background: var(--color-accent-light);
   color: var(--color-ink);
