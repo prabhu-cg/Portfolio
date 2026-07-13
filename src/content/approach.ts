@@ -13,6 +13,6 @@ export const approachSteps = [
   },
   {
     title: "Measure",
-    description: "Validate with real usage and data, then iterate based on what's actually working.",
+    description: "Validate with real usage and data, run it through design QA, then iterate based on what's actually working.",
   },
 ];

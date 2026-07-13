@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, LayoutGrid, Palette, Workflow, ShieldCheck, Check, FileDown } from "lucide-react";
+import { ArrowLeft, ArrowRight, LayoutGrid, Palette, Workflow, ShieldCheck, Check, FileDown, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ContactCTA } from "@/components/sections/ContactCTA";
 import { CaseStudySection } from "@/components/CaseStudySection";
+import { CaseStudyGallery } from "@/components/CaseStudyGallery";
 import { CaseStudyMotion, CaseStudyMotionItem } from "@/components/CaseStudyMotion";
 import { InsightCard } from "@/components/InsightCard";
 import { MetricCard } from "@/components/ui/MetricCard";
@@ -64,14 +65,28 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               <ArrowLeft className="size-4" />
               Back to projects
             </Link>
-            <Button
-              href={`/case-studies/${project.slug}.pdf`}
-              variant="secondary"
-              size="md"
-              icon={<FileDown className="size-4" />}
-            >
-              Download PDF
-            </Button>
+            <div className="flex items-center gap-3">
+              {project.liveUrl && (
+                <Button
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="primary"
+                  size="md"
+                  icon={<ExternalLink className="size-4" />}
+                >
+                  Visit live site
+                </Button>
+              )}
+              <Button
+                href={`/case-studies/${project.slug}.pdf`}
+                variant="secondary"
+                size="md"
+                icon={<FileDown className="size-4" />}
+              >
+                Download PDF
+              </Button>
+            </div>
           </CaseStudyMotionItem>
 
           <CaseStudyMotionItem variants={fadeUp} className="flex flex-col gap-5">
@@ -112,6 +127,22 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               <span className="text-base text-ink">{project.industry}</span>
             </div>
           </CaseStudyMotionItem>
+
+          {project.stack && (
+            <CaseStudyMotionItem variants={fadeUp} className="flex flex-wrap items-center gap-2.5">
+              <span className="text-xs font-semibold uppercase tracking-wide text-muted">
+                Built with
+              </span>
+              {project.stack.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-border bg-surface px-3 py-1 font-plex text-xs text-ink-secondary"
+                >
+                  {tech}
+                </span>
+              ))}
+            </CaseStudyMotionItem>
+          )}
         </CaseStudyMotion>
       </section>
 
@@ -181,6 +212,8 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           ))}
         </CaseStudyMotionItem>
       </CaseStudySection>
+
+      {project.gallery && <CaseStudyGallery images={project.gallery} />}
 
       <CaseStudySection
         index="07"

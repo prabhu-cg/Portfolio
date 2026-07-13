@@ -2,13 +2,14 @@ export const introduction = {
   eyebrow: "About",
   title: "The person behind the system.",
   description:
-    "I'm Prabhu Raja, a Senior UX/Product Designer with 15+ years of experience shaping B2B SaaS products across financial services, legal technology, public sector and IoT.",
+    "I'm Prabhu Raja, a Senior UX/Product Designer and design strategist with 15+ years of experience leading UX strategy, design systems and product delivery for B2B SaaS across financial services, legal technology, public sector and IoT.",
 };
 
 export const personalStory = [
   "I started out with a chemical engineering degree, not a design one — which sounds like a detour, but it's where the systems-thinking came from. A few years into that career I pivoted hard, did a Masters in Human-Computer Interaction at City University London, and never looked back.",
   "Since then I've spent 15+ years designing core B2B products across some genuinely different worlds — legal collaboration platforms at Thomson Reuters HighQ, an IoT support platform at Sweepr, enterprise financial tools at BNY, and public sector services at Marston Holdings. Each domain taught me something the last one couldn't: legal tech taught me how to make dense, high-stakes workflows feel calm; IoT taught me how to turn raw technical data into something a human can act on; finance and public sector both taught me that trust is a design material, not a nice-to-have.",
   "Today I'm VP User Experience at BNY, building and governing the design system behind the bank's marketing and demand-gen websites and apps — and making sure it actually gets adopted, not just admired in Figma. I lead with research and stakeholder alignment, but I stay close to the work itself, because a design system is only as good as the judgement of the person maintaining it.",
+  "Alongside that, I've spent the past year designing and shipping five independent products solo — a UX debt tracker, an automated UX audit tool, a localization QA tool, an exam platform and a sitemap builder — using AI-assisted development (Claude Code) as a full delivery partner. It's given me a current, hands-on view of how AI is changing the distance between a design decision and a shipped product, and sharpened my sense of exactly where process discipline and design QA still matter most once AI can produce a first draft in minutes.",
 ];
 
 export const designPhilosophy = [
@@ -32,6 +33,10 @@ export const designPhilosophy = [
     title: "Data-informed, not data-led",
     description: "Analytics and usability evidence sharpen judgement — they don't replace it.",
   },
+  {
+    title: "Design QA as a discipline",
+    description: "Every pattern gets validated against real usage and edge cases before it ships — QA is a design responsibility, not a downstream check.",
+  },
 ];
 
 export const leadershipApproach = [
@@ -52,6 +57,14 @@ export const leadershipApproach = [
     title: "Cross-functional Partnership",
     description: "Treat engineering and product as co-authors of the solution, not downstream recipients of it.",
   },
+  {
+    title: "Design QA & Governance",
+    description: "Build review and audit rigor into the process itself, so quality is caught by the system, not just by a reviewer's memory.",
+  },
+  {
+    title: "AI-Augmented Delivery",
+    description: "Bring AI-assisted workflows into how design and delivery actually happen, using them to compress timelines without lowering the bar on craft.",
+  },
 ];
 
 export const skills = {
@@ -64,6 +77,7 @@ export const skills = {
     "B2B SaaS & Enterprise UX",
     "Inclusive & Accessible Design",
     "Reusable UI Libraries",
+    "Design QA & Systematic Auditing",
   ],
   Tools: [
     "Figma (Auto Layout, Variants, Component Libraries)",
@@ -80,5 +94,11 @@ export const skills = {
     "UX Strategy & Research",
     "Team Leadership & Mentorship",
     "Design Process Optimisation",
+  ],
+  "AI Practice": [
+    "AI-Assisted Product Development (Claude Code)",
+    "Rapid Prototyping to Production",
+    "Solo End-to-End Delivery",
+    "Human-in-the-Loop Design Judgement",
   ],
 };

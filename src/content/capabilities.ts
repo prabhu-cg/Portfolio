@@ -1,4 +1,4 @@
-import { Palette, LayoutGrid, Building2, Users, Accessibility } from "lucide-react";
+import { Palette, LayoutGrid, Building2, Users, Accessibility, Sparkles } from "lucide-react";
 
 export const capabilities = [
   {
@@ -30,5 +30,11 @@ export const capabilities = [
     title: "Cross-functional Leadership",
     description:
       "Aligning stakeholders, mentoring designers and partnering with engineering to get systems actually adopted.",
+  },
+  {
+    icon: Sparkles,
+    title: "AI-Augmented Product Building",
+    description:
+      "Scoping, designing and shipping full products solo — directing AI-assisted development to move from concept to production without a dedicated engineering team.",
   },
 ];

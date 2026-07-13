@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
-import { Languages, ListChecks, Gauge, ClipboardCheck, Network } from "lucide-react";
+import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit } from "lucide-react";
+import type { GalleryImage } from "@/components/CaseStudyGallery";
 
 export interface DesignStrategyStep {
   heading: string;
@@ -36,6 +37,9 @@ export interface Project {
   outcome: string;
   metrics: { value: string; label: string }[];
   reflection: string;
+  gallery?: GalleryImage[];
+  liveUrl?: string;
+  stack?: string[];
 }
 
 export const projects: Project[] = [
@@ -49,6 +53,8 @@ export const projects: Project[] = [
     description: "A tool that measures how much translated UI text grows and flags exactly which strings will break their layout, before a translation ships.",
     impact: "Replaced manual, after-the-fact localization QA with an upfront layout-risk check that catches overflow before it reaches production.",
     tags: ["Localization", "Accessibility"],
+    liveUrl: "https://localensapp.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel"],
     context:
       "Most translation tools stop at the text — they translate a string but say nothing about whether the translated version still fits the button, label or card it was designed for. Teams typically only discover layout breakage after a translated build ships. LocaLens set out to catch that earlier, from a screenshot alone.",
     challenge:
@@ -92,6 +98,10 @@ export const projects: Project[] = [
         heading: "Keep it client-side",
         body: "Ran OCR entirely in the browser so screenshots of unreleased UI never leave the user's machine, making the tool safe to use on pre-launch work.",
       },
+      {
+        heading: "Build solo, with AI as the engineering partner",
+        body: "Designed and built end-to-end using Claude Code as a development partner — from the OCR extraction pipeline to the risk-scoring logic — without a dedicated engineering team, while keeping every architectural and UX decision in my hands.",
+      },
     ],
     solution: {
       summary:
@@ -130,6 +140,23 @@ export const projects: Project[] = [
     ],
     reflection:
       "This was the clearest case of a tool needing a genuinely different data model than I expected going in — I started thinking of it as a translation tool and only later realised the actual product was a measurement tool that happens to use translation as an input.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/localens-localization-qa/01-hero.jpg",
+        alt: "LocaLens landing page hero",
+        caption: "The live product at localensapp.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/localens-localization-qa/02-features.jpg",
+        alt: "LocaLens feature grid showing OCR extraction, translation and export options",
+        caption: "Core capabilities — OCR extraction, translation, side-by-side compare and multi-format export.",
+      },
+      {
+        src: "/case-studies/screenshots/localens-localization-qa/03-risk-preview.jpg",
+        alt: "LocaLens risk preview card showing Safe, Review and High-risk counts",
+        caption: "The risk-scoring output a team actually sees — safe, review and high-risk blocks for a screenshot.",
+      },
+    ],
   },
   {
     slug: "uxledger-ux-debt-tracker",
@@ -141,6 +168,8 @@ export const projects: Project[] = [
     description: "A living register for tracking UX debt — usability, accessibility and content issues — instead of letting them scatter across spreadsheets and get ignored.",
     impact: "Turned ad-hoc UX issue tracking into a scored, trackable register that teams can use to prioritise fixes and prove improvement over time.",
     tags: ["Design Tools", "Product Management"],
+    liveUrl: "https://uxledger.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel"],
     context:
       "UX debt — the small usability, accessibility and content issues that pile up in a product — usually lives in scattered spreadsheets, sticky notes or Slack threads. It rarely gets prioritised against feature work because there's no shared, visible record of how much of it exists or how severe it is. UXLedger set out to give that debt the same visibility a bug tracker gives engineering debt.",
     challenge:
@@ -181,6 +210,10 @@ export const projects: Project[] = [
         heading: "Design for the export, not just the dashboard",
         body: "Built CSV and Excel export from the start, since most stakeholder conversations about UX debt still happen in a roadmap doc or a review deck, not inside the tool.",
       },
+      {
+        heading: "Let AI own the scaffolding, not the scoring model",
+        body: "Built the register and dashboard with Claude Code as a development partner, but treated the weighted health-score logic as a design decision I owned directly — AI accelerated the build, not the judgement calls that made the score trustworthy.",
+      },
     ],
     solution: {
       summary:
@@ -219,6 +252,23 @@ export const projects: Project[] = [
     ],
     reflection:
       "The hardest part wasn't the register — it was the scoring model. A health score is only useful if people trust the number, which meant the weighting had to be transparent enough that a sceptical stakeholder could see why a 62 wasn't just made up.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/uxledger-ux-debt-tracker/01-hero.jpg",
+        alt: "UXLedger landing page hero",
+        caption: "The live product at uxledger.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/uxledger-ux-debt-tracker/02-features.jpg",
+        alt: "UXLedger feature grid showing debt register, health score and dashboards",
+        caption: "The full register — debt logging, health score, dashboards and export in one tool.",
+      },
+      {
+        src: "/case-studies/screenshots/uxledger-ux-debt-tracker/03-health-score.jpg",
+        alt: "UXLedger product health score card showing a score of 82 with severity breakdown",
+        caption: "The product health score — a single number backed by a visible severity breakdown.",
+      },
+    ],
   },
   {
     slug: "uxbeacon-ux-audit-tool",
@@ -230,6 +280,8 @@ export const projects: Project[] = [
     description: "A free, no-login tool that scores any public website's UX across heuristics, accessibility, content and UX-law compliance in seconds.",
     impact: "Replaced black-box AI audit scores with a transparent, rule-based UX health score anyone can inspect and reproduce.",
     tags: ["Design Tools", "Accessibility"],
+    liveUrl: "https://uxbeacon.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel"],
     context:
       "Most quick UX-audit tools either require a login and a sales conversation, or they return an AI-generated score with no visibility into how it was calculated. UXBeacon set out to be the opposite: free, instant, and built entirely on rules a designer could actually inspect and argue with.",
     challenge:
@@ -270,6 +322,10 @@ export const projects: Project[] = [
         heading: "Make results portable",
         body: "Built PDF, CSV and JSON export from the start, since a UX audit is rarely useful only inside the tool that generated it.",
       },
+      {
+        heading: "Direct AI at the build, not the judgement",
+        body: "Used Claude Code as a development partner to implement six parallel analysis engines and a full crawler, while every rule the engines score against was specified and reviewed by hand — deterministic scoring depends on it.",
+      },
     ],
     solution: {
       summary:
@@ -308,6 +364,23 @@ export const projects: Project[] = [
     ],
     reflection:
       "Choosing deterministic rules over an AI model was the harder, slower path to build — every rule had to be defined and justified by hand. But it's also the reason someone can actually trust and act on the score, which was the entire point of the tool.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/uxbeacon-ux-audit-tool/01-hero.jpg",
+        alt: "UXBeacon landing page hero with URL input",
+        caption: "The live product at uxbeacon.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/uxbeacon-ux-audit-tool/02-engines.jpg",
+        alt: "UXBeacon six analysis engines grid",
+        caption: "The six parallel engines behind every scan — heuristics, accessibility, content, UX laws and more.",
+      },
+      {
+        src: "/case-studies/screenshots/uxbeacon-ux-audit-tool/03-score-card.jpg",
+        alt: "UXBeacon score card showing an A grade with category breakdown",
+        caption: "A sample scan result — an A–F grade with a transparent, per-category breakdown.",
+      },
+    ],
   },
   {
     slug: "assessly-online-exams",
@@ -319,6 +392,8 @@ export const projects: Project[] = [
     description: "An exam platform that lets teachers create, share and auto-grade tests without the administrative busywork.",
     impact: "Replaced manual test administration with an invite-code flow and instant MCQ grading, cutting setup and grading friction to near zero.",
     tags: ["EdTech", "Product Design"],
+    liveUrl: "https://assesslyapp.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel"],
     context:
       "Teachers running tests in a classroom or remote setting typically juggle spreadsheets for rosters, paper or PDF exports for grading, and no easy way to see who has actually attempted a test. Assessly set out to replace that patchwork with a single, lightweight platform built around how a teacher actually runs a test day.",
     challenge:
@@ -359,6 +434,10 @@ export const projects: Project[] = [
         heading: "Scope every dashboard to its audience",
         body: "Gave teachers and students separate, purpose-built dashboards instead of one shared view with permission toggles, so neither audience sees controls that aren't theirs.",
       },
+      {
+        heading: "Ship the full stack solo, with AI as the build partner",
+        body: "Used Claude Code as a development partner to take the invite-code auth flow and auto-grading logic from design to production, without a dedicated engineering team on the project.",
+      },
     ],
     solution: {
       summary:
@@ -397,6 +476,23 @@ export const projects: Project[] = [
     ],
     reflection:
       "The biggest design decision wasn't a screen — it was deciding what not to require. Every piece of mandatory setup I removed, accounts, rosters, templates, made the product faster to trust on a first use.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/assessly-online-exams/01-hero.jpg",
+        alt: "Assessly landing page hero",
+        caption: "The live product at assesslyapp.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/assessly-online-exams/02-dashboard.jpg",
+        alt: "Assessly teacher dashboard showing tests, students and pending review counts",
+        caption: "The teacher dashboard — total tests, students and pending reviews at a glance.",
+      },
+      {
+        src: "/case-studies/screenshots/assessly-online-exams/03-features.jpg",
+        alt: "Assessly feature grid covering test building, invite codes and grading",
+        caption: "Everything a classroom needs to run a test, from question to grade.",
+      },
+    ],
   },
   {
     slug: "sitenest-visual-sitemaps",
@@ -408,6 +504,8 @@ export const projects: Project[] = [
     description: "A visual, canvas-based tool for planning a site's structure — pages, connections and rough wireframes — without reaching for a slide deck.",
     impact: "Replaced static screenshots and slide decks with a living canvas that stays accurate as scope changes, exportable as PNG or JSON.",
     tags: ["Productivity", "Interaction Design"],
+    liveUrl: "https://sitenestapp.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel"],
     context:
       "Planning a site's structure usually ends up split across two disconnected tools — a diagramming tool for the sitemap and a slide deck or whiteboard for rough page layouts. Both go stale the moment scope changes. SiteNest set out to put structure and layout on the same canvas.",
     challenge:
@@ -448,6 +546,10 @@ export const projects: Project[] = [
         heading: "Export for the request, not the tool",
         body: "Shipped both PNG and JSON export from day one, covering the two most common reasons someone asks to see a sitemap.",
       },
+      {
+        heading: "Treat AI as the pair, not the author",
+        body: "Built the canvas, connection and wireframe-block logic with Claude Code as a development partner, while the interaction model itself — what infinite zoom needed to feel like — stayed a hands-on design call throughout.",
+      },
     ],
     solution: {
       summary:
@@ -486,6 +588,355 @@ export const projects: Project[] = [
     ],
     reflection:
       "The temptation with a canvas tool is to add every feature a generic diagramming tool has. Staying narrowly focused on 'this is for planning a site' — not flowcharts, not org charts — is what kept the interaction model simple enough to actually feel fast.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/sitenest-visual-sitemaps/01-hero.jpg",
+        alt: "SiteNest landing page hero",
+        caption: "The live product at sitenestapp.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/sitenest-visual-sitemaps/02-canvas.jpg",
+        alt: "SiteNest canvas editor showing a connected page structure with a properties panel",
+        caption: "The canvas itself — connected pages, an editable structure, and a live properties panel.",
+      },
+      {
+        src: "/case-studies/screenshots/sitenest-visual-sitemaps/03-how-it-works.jpg",
+        alt: "SiteNest how-it-works steps and slide-deck comparison",
+        caption: "From blank canvas to shareable plan in four steps.",
+      },
+    ],
+  },
+  {
+    slug: "collaborate-web-app-redesign",
+    title: "Collaborate — Responsive Web App Redesign",
+    industry: "Legal Tech / Enterprise Software",
+    role: "Lead Product Designer",
+    timeline: "58-week redesign · ~18-month rollout",
+    icon: RefreshCw,
+    description: "A ground-up redesign of HighQ's flagship legal collaboration platform, replacing a decade of accumulated complexity with a streamlined, responsive interface.",
+    impact: "Lifted user adoption 30% and satisfaction to 85% within three months of the version 5 launch, while cutting clicks for routine tasks by 40%.",
+    tags: ["Enterprise Software", "Legal Tech"],
+    context:
+      "Collaborate is HighQ's flagship platform, used by top legal firms for over a decade. Despite its longevity, user feedback consistently pointed to the same problem: the platform's complexity made routine tasks harder than they needed to be, and HighQ risked losing business to competitors as a result. The redesign set out to modernise the UI and UX while retaining the essence of a platform legal teams had built years of workflow around.",
+    challenge:
+      "The platform's complexity was hampering legal professionals from completing routine tasks efficiently, driving frustration and a decline in market competitiveness. Any redesign had to work within the existing technological architecture, align with stakeholder expectations and business goals, and come with a structured change management plan — this was a decade-old platform with an established user base, not a blank slate.",
+    research: {
+      methods: ["Contextual inquiry (20 users)", "User interviews (15 users)", "Persona creation", "Survey questionnaire (50 respondents, 75% response rate)", "Iterative user testing (10 users)"],
+      summary:
+        "Combined contextual inquiry inside users' actual work environments with structured interviews and a firm-wide survey, then validated every redesign decision against a 10-user testing panel through each phase of the rollout.",
+    },
+    insights: [
+      {
+        title: "Navigation, not features, was the core complaint",
+        description:
+          "70% of users found navigation cumbersome and 60% struggled to complete tasks — the platform had the right capabilities, but users couldn't reliably find their way to them.",
+      },
+      {
+        title: "Users wanted the interface to adapt to them",
+        description:
+          "70% of users asked for customisable dashboards tailored to their own workflow, rather than one fixed layout serving every role from legal associate to systems administrator.",
+      },
+      {
+        title: "A cluttered interface was actively driving away business",
+        description:
+          "80% of participants wanted a more intuitive interface with streamlined functionality — a strong enough signal that HighQ treated the redesign as a retention issue, not a cosmetic one.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Run the full 5D process on a live platform",
+        body: "Took the redesign through Discover, Define, Design, Develop and Deploy & Measure stages — from stakeholder interviews and competitive audits through to heuristic analysis after launch — rather than skipping straight to visual design.",
+      },
+      {
+        heading: "Redesign module by module",
+        body: "Rolled the redesign out incrementally across modules over 12 months instead of a single big-bang release, so legal teams could adapt gradually rather than relearn the whole platform at once.",
+      },
+      {
+        heading: "Make every module responsive by default",
+        body: "Rebuilt navigation, file browsing and dashboards to work across desktop, tablet and phone, since legal professionals were increasingly working from client sites and courtrooms, not just their desks.",
+      },
+      {
+        heading: "Pair every redesign with a change management plan",
+        body: "Built structured communication and support materials alongside each module release, treating user adoption of the new UI as a deliverable in its own right, not an assumed outcome.",
+      },
+    ],
+    solution: {
+      summary:
+        "A phased, responsive redesign of Collaborate's core modules — dashboard, file management, activity feed and navigation — moving from a dense, desktop-only interface to a modern, mobile-aware one built on a shared design system.",
+      highlights: [
+        "Simplified global, secondary and site navigation, replacing deeply nested menus with clearer wayfinding",
+        "A redesigned file and folder browser with list/thumbnail views and clearer sort controls",
+        "A modernised activity feed and dashboard supporting quick updates, image handling and threaded comments",
+        "A fully responsive mobile experience, contributing to a 50% increase in mobile user activity",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A shared pattern library and style guide built during the Develop stage, reused across every redesigned module instead of each team styling its own screens.",
+      },
+      {
+        label: "Tokens",
+        description: "Structural and dynamic markup standards and style sheets that kept typography, spacing and colour consistent as the redesign rolled out module by module over a year.",
+      },
+      {
+        label: "Patterns",
+        description: "A consistent navigation and list-view pattern — used for files, wikis, tasks and events alike — so learning one module's interaction model transferred to the next.",
+      },
+      {
+        label: "Governance",
+        description: "A documented 5D process (Discover, Define, Design, Develop, Deploy & Measure) that gave the offshore development team and product owners a shared, repeatable way to ship each module.",
+      },
+    ],
+    outcome:
+      "Following the version 5 launch, HighQ saw user adoption rise 30%, satisfaction reach 85%, and community engagement jump 150%, while new client acquisitions grew 25% — evidence that the redesign addressed a real competitive risk, not just a cosmetic complaint.",
+    metrics: [
+      { value: "30%", label: "Increase in user adoption post-launch" },
+      { value: "85%", label: "Post-release user satisfaction" },
+      { value: "40%", label: "Reduction in clicks for routine tasks" },
+    ],
+    reflection:
+      "Engaging users early and testing iteratively drove most of the good decisions in this redesign — but with hindsight, I'd have pushed for even more testing time and a more structured training rollout before launch, since a lot of early friction came from users encountering the new UI cold rather than the UI itself being wrong.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/collaborate-web-app-redesign/01-device-mockup.jpg",
+        alt: "Collaborate shown across desktop, tablet and phone",
+        caption: "The redesign had to hold up across desktop, tablet and phone — not just the primary desktop view.",
+      },
+      {
+        src: "/case-studies/screenshots/collaborate-web-app-redesign/02-homepage-before.jpg",
+        alt: "The pre-redesign Collaborate homepage and activity feed",
+        caption: "The pre-redesign homepage — dense navigation, a single fixed layout for every role.",
+      },
+      {
+        src: "/case-studies/screenshots/collaborate-web-app-redesign/03-file-list-before.jpg",
+        alt: "File browser before redesign, showing sort menu",
+        caption: "File browser, before: functional, but with limited view and sort affordances.",
+      },
+      {
+        src: "/case-studies/screenshots/collaborate-web-app-redesign/04-file-list-after.jpg",
+        alt: "File browser after redesign, with search and clearer layout",
+        caption: "File browser, after: added search, clearer hierarchy, same core information.",
+      },
+    ],
+  },
+  {
+    slug: "parking-permit-customer-portal",
+    title: "Parking Permit — Customer Portal",
+    industry: "GovTech / Public Sector Services",
+    role: "Lead Product Designer",
+    timeline: "16-week UX phase · in progress",
+    icon: ParkingSquare,
+    description: "A redesign of the UK council parking-permit application portal, moving it in-house and rebuilding it around users aged 18 to 70 with wildly different comfort with technology.",
+    impact: "Targeting an 80% user satisfaction score and a 30% increase in completed applications, after research found 70% of users considered the existing portal confusing.",
+    tags: ["GovTech", "Accessibility"],
+    context:
+      "The Parking Permit Customer Portal lets the public apply for and purchase parking permits specific to individual UK councils, each with its own rules and restrictions. The existing portal was confusing and outdated, and had long been run by a third-party provider at rising cost. MarstonHoldings made the call to bring development in-house, both to fix the user experience and to respond to user needs faster than an external vendor relationship allowed.",
+    challenge:
+      "The portal had to serve residents from age 18 to 70 with very different levels of technology comfort, alongside internal MarstonHoldings staff and council employees managing applications — all through one interface, without a login wall discouraging casual users. Regulatory compliance varies by council, and the offshore development team added its own coordination overhead on top of an already tight timeline.",
+    research: {
+      methods: ["Survey (1,500 respondents)", "Heuristic evaluation", "Persona creation", "Cognitive walkthrough", "In-depth interviews (12 users)"],
+      summary:
+        "Ran a large-scale survey alongside a personal heuristic evaluation and cognitive walkthrough to separate what users said frustrated them from what independently, measurably failed — then used 12 in-depth interviews to understand the why behind both.",
+    },
+    insights: [
+      {
+        title: "The portal was failing on its own terms, not just by user report",
+        description:
+          "70% of surveyed users found the portal confusing, and a cognitive walkthrough independently found a 60% task-completion failure rate — the complaints and the measured usability problems agreed with each other.",
+      },
+      {
+        title: "One portal has to work for a teenager and a retiree",
+        description:
+          "Personas ranged from a 24-year-old junior professional to a 65-year-old retired teacher who prefers face-to-face help over online forms — the interface couldn't assume a single baseline of digital confidence.",
+      },
+      {
+        title: "Bulk and single applications are different jobs",
+        description:
+          "A corporate manager handling permits for an entire fleet needs efficient bulk workflows and reporting; a parent applying for one permit needs speed and clarity — conflating the two made both worse.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Run a 4D cycle: Discover, Define, Design, Determine",
+        body: "Structured the whole redesign around understanding context of use, specifying user requirements, designing solutions and validating with users, repeating the loop rather than shipping one linear pass.",
+      },
+      {
+        heading: "Design for the widest possible age and skill range",
+        body: "Built personas spanning a 24-year-old professional to a 65-year-old retiree with low tech confidence, and stress-tested every flow against the least tech-comfortable persona, not the most.",
+      },
+      {
+        heading: "Split resident and business flows early",
+        body: "Separated the fast, single-permit resident journey from the bulk-application, reporting-heavy business journey at the information-architecture level, rather than bolting bulk features onto a consumer flow.",
+      },
+      {
+        heading: "Bring the system in-house, not just the interface",
+        body: "Paired the visual redesign with a genuine in-house management system and support for onboarding additional councils, since the underlying cost and speed problem was as much operational as it was UX.",
+      },
+    ],
+    solution: {
+      summary:
+        "A responsive customer portal redesign covering permit and licence homepages, account and payment management, and a full mobile app IA — moving from wireframes through to high-fidelity Figma prototypes ready for handoff.",
+      highlights: [
+        "Parallel homepage designs for permits and licences, each surfacing the most popular options up front",
+        "A dedicated account area for managing saved payment cards, renewals and permit history",
+        "A separate, purpose-built mobile app information architecture rather than a shrunk desktop layout",
+        "A documented design system — grids, brand colours, contrast-checked palettes — handed to development alongside the screens",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A shared library of permit and licence cards, action-item tiles and account panels, documented in Confluence for the offshore development team to build from directly.",
+      },
+      {
+        label: "Tokens",
+        description: "A defined brand colour palette with a contrast-grid check built in, plus a responsive grid system specified down to phone, tablet and desktop breakpoints.",
+      },
+      {
+        label: "Patterns",
+        description: "A repeatable homepage pattern — hero, action items, popular options, browse by location — reused across both the permits and licences experiences.",
+      },
+      {
+        label: "Governance",
+        description: "Design decisions cross-referenced against established UX laws (Fitts's Law, Jakob's Law) documented in the team's playbook, so choices could be justified against a named principle rather than personal preference.",
+      },
+    ],
+    outcome:
+      "As a project still in progress, the redesign has shipped as a full set of design specifications, a documented design system and validated wireframes handed to development — with 80% user satisfaction, a 30% increase in completed applications and a 40% reduction in task completion time set as the targets for post-launch measurement.",
+    metrics: [
+      { value: "70%", label: "Of users found the original portal confusing" },
+      { value: "80%", label: "Target user satisfaction score post-redesign" },
+      { value: "30%", label: "Target increase in completed applications" },
+    ],
+    reflection:
+      "Surveying 1,500 users gave this project a research base most redesigns don't get, and it shaped real decisions. If I were running it again, I'd push for more iterative testing rounds before handoff and more structured training time for internal users — both flagged as gaps precisely because the research base was strong enough to expose them.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/parking-permit-customer-portal/02-homepage-variants.jpg",
+        alt: "Permits and licences homepage designs side by side",
+        caption: "Parallel homepage designs for permits and licences, sharing one visual system.",
+      },
+      {
+        src: "/case-studies/screenshots/parking-permit-customer-portal/03-account-payments.jpg",
+        alt: "Account area showing saved payment methods and card management",
+        caption: "Account and payment management — saved cards, renewals and permit history in one place.",
+      },
+      {
+        src: "/case-studies/screenshots/parking-permit-customer-portal/01-4d-process.jpg",
+        alt: "Diagram of the 4D design process: Discover, Define, Design, Determine",
+        caption: "The 4D process used to structure research, design and validation.",
+      },
+    ],
+  },
+  {
+    slug: "ms-word-addon-document-creation",
+    title: "MS Add-on — Document Creation",
+    industry: "Legal Tech / Enterprise Software",
+    role: "Senior Product Designer",
+    timeline: "12-week UX plan",
+    icon: FileEdit,
+    description: "A Microsoft Word add-on that lets legal teams generate complex contractual documents through guided, permission-based data merges — no Mail Merge code required.",
+    impact: "Replaced a Mail Merge/Velocity-code workflow that 95% of users struggled to learn, targeting a 40% cut in document creation time.",
+    tags: ["Legal Tech", "Enterprise Software"],
+    context:
+      "Legal and business-processing professionals at law firms were already using Microsoft Word's built-in mail merge to generate documents, but the underlying Velocity code was a serious barrier for anyone without technical training. HighQ set out to build a Word add-on that gave legal teams the same document-generation power — live database sync, conditional logic, permission-based data — without requiring anyone to write or read code.",
+    challenge:
+      "Despite mail merge already existing, users struggled with time-consuming processes, an interface not built for legal workflows, and the difficulty of merging varied data sets without technical skill. The add-on had to work within Word's existing architecture, integrate with multiple database types and configurations, and be learnable without extensive training — while still supporting loops, nested conditions and permission-based data access.",
+    research: {
+      methods: ["Contextual inquiry (6 users)", "User interviews (10 users)", "Persona creation", "Usability testing (8 users)"],
+      summary:
+        "Went into law firms directly to observe how legal and business-processing staff actually generated documents day to day, then validated the add-on's design against 8 users pulled from the same interview pool, so testers already understood the domain.",
+    },
+    insights: [
+      {
+        title: "The barrier was the code, not the concept",
+        description:
+          "95% of users struggled with learning Mail Merge's underlying Velocity code — the idea of merged documents wasn't the problem, the syntax required to produce them was.",
+      },
+      {
+        title: "Integration mattered more than features",
+        description:
+          "70% of participants wanted a solution that fit into their existing workflow without extensive training, ranking that above any specific new capability the add-on could offer.",
+      },
+      {
+        title: "A guided interface beat a powerful one, immediately",
+        description:
+          "90% of users found the new prototype more intuitive than their existing methods in first testing — validating that structured UI, not raw feature count, was what actually reduced errors.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Follow the 5D process end to end",
+        body: "Moved through Discover, Define, Design, Develop and Deploy & Measure — from stakeholder interviews and task analysis through sketches and prototypes to a documented pattern library and style guide.",
+      },
+      {
+        heading: "Put database logic behind a visual interface",
+        body: "Represented live iSheet database columns, images, conditions and loops as ribbon commands and inline document tags, so users manipulated data structure without touching a formula or script.",
+      },
+      {
+        heading: "Colour-code every merge element",
+        body: "Gave conditions, loops and inserted images distinct, consistent tag colours directly inside the Word document, so a user could read a template's logic at a glance instead of tracing code.",
+      },
+      {
+        heading: "Build validation and preview into the flow",
+        body: "Added live document previews and validation checks during document generation, catching data or permission errors before a legal document was finalised, not after.",
+      },
+    ],
+    solution: {
+      summary:
+        "A Word ribbon add-on that lets legal teams insert live database content, conditional logic and loops into a document through guided dialogs, with permission-based access and live preview built in.",
+      highlights: [
+        "An Insert Image dialog pulling directly from a connected iSheet database, no manual file handling required",
+        "A Variables panel exposing up to 200 database columns with drag-and-drop insertion into the document",
+        "In-document condition and loop tags with distinct colour coding, editable inline without leaving Word",
+        "An Associations panel linking document views to specific iSheets, with permission-based column-level access",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A consistent set of ribbon dialogs — Insert Image, Variables, Conditions, Loop — reused across every part of the document-building flow.",
+      },
+      {
+        label: "Tokens",
+        description: "A fixed colour language for in-document tags — distinct colours for conditions, loops and image placeholders — so template logic stayed legible at a glance.",
+      },
+      {
+        label: "Patterns",
+        description: "A drag-and-drop pattern for inserting database columns directly into document text, replacing manually typed merge codes.",
+      },
+      {
+        label: "Governance",
+        description: "Permission-based data access built into the Associations panel, ensuring confidentiality and compliance were enforced by the tool, not left to user discipline.",
+      },
+    ],
+    outcome:
+      "The add-on shipped to increased user adoption and high satisfaction ratings, with active client engagement driving new feature requests and new business opportunities for HighQ — replacing a workflow 95% of users had struggled to learn with one 90% found more intuitive on first use.",
+    metrics: [
+      { value: "40%", label: "Target reduction in document creation time" },
+      { value: "90%", label: "Found the new prototype more intuitive in testing" },
+      { value: "24", label: "Users involved across inquiry, interviews & testing" },
+    ],
+    reflection:
+      "Prototype testing came back more positive than expected, which validated the core design assumptions early — but a narrower set of user segments took part in the interviews than I'd have liked, and I'd extend the research to cover longer-term usage, not just first-use impressions, if I ran this again.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/ms-word-addon-document-creation/02-conditions-editor.jpg",
+        alt: "Word document showing inline condition and loop tags",
+        caption: "Conditions and loops as inline, colour-coded tags — no Velocity code visible to the user.",
+      },
+      {
+        src: "/case-studies/screenshots/ms-word-addon-document-creation/03-associations-panel.jpg",
+        alt: "Associations panel linking document views to iSheet databases",
+        caption: "The Associations panel, linking document views to specific databases with column-level permissions.",
+      },
+      {
+        src: "/case-studies/screenshots/ms-word-addon-document-creation/01-5d-process.jpg",
+        alt: "Diagram of the 5D design process: Discover, Define, Design, Develop, Deploy & Measure",
+        caption: "The 5D process used to take the add-on from discovery through to a measured launch.",
+      },
+    ],
   },
 ];
 
