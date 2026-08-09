@@ -78,14 +78,16 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
                   Visit live site
                 </Button>
               )}
-              <Button
-                href={`/case-studies/${project.slug}.pdf`}
-                variant="secondary"
-                size="md"
-                icon={<FileDown className="size-4" />}
-              >
-                Download PDF
-              </Button>
+              {project.category !== "Side Projects" && (
+                <Button
+                  href={`/case-studies/${project.slug}.pdf`}
+                  variant="secondary"
+                  size="md"
+                  icon={<FileDown className="size-4" />}
+                >
+                  Download PDF
+                </Button>
+              )}
             </div>
           </CaseStudyMotionItem>
 

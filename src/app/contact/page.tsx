@@ -4,6 +4,7 @@ import { PageIntro } from "@/components/sections/PageIntro";
 import { ContactForm } from "@/components/ContactForm";
 import { Card } from "@/components/ui/Card";
 import { LinkedInIcon } from "@/components/icons/LinkedInIcon";
+import { GitHubIcon } from "@/components/icons/GitHubIcon";
 
 export const metadata: Metadata = {
   title: "Contact — Prabhu Raja",
@@ -22,6 +23,12 @@ const contactMethods = [
     label: "LinkedIn",
     value: "linkedin.com/in/cgprabhu",
     href: "https://www.linkedin.com/in/cgprabhu/",
+  },
+  {
+    icon: GitHubIcon,
+    label: "GitHub",
+    value: "github.com/prabhu-cg",
+    href: "https://github.com/prabhu-cg",
   },
   {
     icon: FileDown,

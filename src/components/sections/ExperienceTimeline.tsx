@@ -7,6 +7,7 @@ interface ExperienceTimelineProps {
   title?: string;
   description?: string;
   surface?: boolean;
+  highlightFirst?: boolean;
 }
 
 export function ExperienceTimeline({
@@ -14,12 +15,13 @@ export function ExperienceTimeline({
   title = "15+ years across industries",
   description = "Depth built across regulated, high-stakes domains — each one sharpening a different facet of the craft.",
   surface = true,
+  highlightFirst = false,
 }: ExperienceTimelineProps) {
   const content = (
     <div className="container-prism py-20 md:py-28">
       <div className="flex flex-col gap-12">
         <SectionHeader eyebrow={eyebrow} title={title} description={description} />
-        <Timeline items={experienceTimeline} />
+        <Timeline items={experienceTimeline} highlightFirst={highlightFirst} />
       </div>
     </div>
   );

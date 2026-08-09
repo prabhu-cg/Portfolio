@@ -2,12 +2,18 @@ import Link from "next/link";
 import { Mail, FileDown } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { LinkedInIcon } from "@/components/icons/LinkedInIcon";
+import { GitHubIcon } from "@/components/icons/GitHubIcon";
 
 const footerLinks = [
   {
     icon: LinkedInIcon,
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/cgprabhu/",
+  },
+  {
+    icon: GitHubIcon,
+    label: "GitHub",
+    href: "https://github.com/prabhu-cg",
   },
   {
     icon: Mail,
@@ -27,7 +33,6 @@ export function Footer() {
       <div className="container-prism flex flex-col gap-8 py-12 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-2">
           <Logo />
-          <p className="text-sm text-muted">Senior Designer</p>
         </div>
 
         <nav className="flex flex-wrap gap-x-8 gap-y-3" aria-label="Footer">
@@ -47,7 +52,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-border py-6">
-        <p className="container-prism text-xs text-muted">
+        <p className="container-prism text-center text-xs text-muted">
           © {new Date().getFullYear()} Prabhu Raja. Designed and built with intention.
         </p>
       </div>

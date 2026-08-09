@@ -98,6 +98,15 @@ body {
     }
   }
 
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   .text-eyebrow {
     font-family: var(--font-plex);
     font-size: 0.8125rem;

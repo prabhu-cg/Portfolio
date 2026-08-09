@@ -41,6 +41,10 @@ export const designPhilosophy = [
 
 export const leadershipApproach = [
   {
+    title: "AI-Augmented Delivery",
+    description: "Bring AI-assisted workflows into how design and delivery actually happen, using them to compress timelines without lowering the bar on craft.",
+  },
+  {
     title: "Design Critique",
     description: "Run critique that separates taste from rationale, so teams debate the right things.",
   },
@@ -60,10 +64,6 @@ export const leadershipApproach = [
   {
     title: "Design QA & Governance",
     description: "Build review and audit rigor into the process itself, so quality is caught by the system, not just by a reviewer's memory.",
-  },
-  {
-    title: "AI-Augmented Delivery",
-    description: "Bring AI-assisted workflows into how design and delivery actually happen, using them to compress timelines without lowering the bar on craft.",
   },
 ];
 
@@ -102,3 +102,18 @@ export const skills = {
     "Human-in-the-Loop Design Judgement",
   ],
 };
+
+export const education = [
+  {
+    degree: "MSc, Human-Centred Systems",
+    institution: "City University, London, UK",
+    description:
+      "Interaction design theory, evaluation of interactive systems, information architecture, cognitive technology, requirements engineering, inclusive design and multimedia design.",
+  },
+  {
+    degree: "BTech, Chemical Engineering",
+    institution: "Madras University, Chennai, India",
+    description:
+      "Chemical reaction engineering, plant and engineering design, thermodynamics, and material science and metallurgy.",
+  },
+];

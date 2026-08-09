@@ -1,6 +1,6 @@
 import { Hero } from "@/components/sections/Hero";
 import { Metrics } from "@/components/sections/Metrics";
-import { SelectedProjects } from "@/components/sections/SelectedProjects";
+import { WorkGallery } from "@/components/sections/WorkGallery";
 import { Capabilities } from "@/components/sections/Capabilities";
 import { DesignApproach } from "@/components/sections/DesignApproach";
 import { ExperienceTimeline } from "@/components/sections/ExperienceTimeline";
@@ -11,10 +11,10 @@ export default function Home() {
     <>
       <Hero />
       <Metrics />
-      <SelectedProjects />
+      <WorkGallery />
       <Capabilities />
       <DesignApproach />
-      <ExperienceTimeline />
+      <ExperienceTimeline highlightFirst />
       <ContactCTA />
     </>
   );

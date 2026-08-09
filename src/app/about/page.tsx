@@ -12,6 +12,7 @@ import {
   designPhilosophy,
   leadershipApproach,
   skills,
+  education,
 } from "@/content/about";
 
 export const metadata: Metadata = {
@@ -54,6 +55,42 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Education */}
+      <section className="bg-surface">
+        <div className="container-prism py-20 md:py-28">
+          <div className="flex flex-col gap-10">
+            <SectionHeader eyebrow="Education" title="Academic background" />
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              {education.map((item, index) => (
+                <Card key={item.degree} hover className="h-full bg-background">
+                  <div className="flex flex-col gap-3">
+                    <span className="font-plex text-xs text-muted">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex flex-col gap-1">
+                      <h3 className="text-lg font-semibold tracking-tight text-ink">
+                        {item.degree}
+                      </h3>
+                      <p className="text-sm font-medium text-ink-secondary">{item.institution}</p>
+                    </div>
+                    <p className="text-sm text-ink-secondary">{item.description}</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Career Journey */}
+      <ExperienceTimeline
+        eyebrow="Career Journey"
+        title="15+ years across industries"
+        description="Depth built across regulated, high-stakes domains — each one sharpening a different facet of the craft."
+        surface={false}
+        highlightFirst
+      />
 
       {/* Design Philosophy */}
       <section className="bg-surface">
@@ -118,16 +155,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Career Journey */}
-      <ExperienceTimeline
-        eyebrow="Career Journey"
-        title="15+ years across industries"
-        description="Depth built across regulated, high-stakes domains — each one sharpening a different facet of the craft."
-        surface={false}
-      />
-
       {/* Skills and Expertise */}
-      <section className="bg-surface">
+      <section>
         <div className="container-prism py-20 md:py-28">
           <div className="flex flex-col gap-10">
             <SectionHeader
@@ -135,23 +164,22 @@ export default function AboutPage() {
               title="Skills & expertise"
               description="A working toolkit built for enterprise-scale design work."
             />
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="flex flex-col gap-8">
               {Object.entries(skills).map(([category, items]) => (
                 <div key={category} className="flex flex-col gap-4">
                   <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
                     {category}
                   </h3>
-                  <ul className="flex flex-col gap-3">
+                  <div className="flex flex-wrap gap-2">
                     {items.map((item) => (
-                      <li
+                      <span
                         key={item}
-                        className="flex items-center gap-2.5 text-base text-ink-secondary"
+                        className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-ink-secondary"
                       >
-                        <span className="size-1.5 shrink-0 rounded-full bg-ink-secondary" />
                         {item}
-                      </li>
+                      </span>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </div>

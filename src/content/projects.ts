@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit } from "lucide-react";
+import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText } from "lucide-react";
 import type { GalleryImage } from "@/components/CaseStudyGallery";
 
 export interface DesignStrategyStep {
@@ -17,9 +17,13 @@ export interface SystemThinkingItem {
   description: string;
 }
 
+export const projectCategories = ["Side Projects", "Plugins", "Enterprise"] as const;
+export type ProjectCategory = (typeof projectCategories)[number];
+
 export interface Project {
   slug: string;
   title: string;
+  category: ProjectCategory;
   industry: string;
   role: string;
   timeline: string;
@@ -44,8 +48,243 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "reqstudio-project-briefs",
+    title: "ReqStudio — Project Brief & Requirements Tool",
+    category: "Side Projects",
+    industry: "Product Management / Design Tools",
+    role: "Designer & Builder",
+    timeline: "Aug 2026",
+    icon: FileText,
+    description: "A local-first tool that turns a scattered requirements document into a ten-section guided brief with a live readiness score — so nothing gets built against a brief with silent gaps.",
+    impact: "Replaced ad hoc Word-doc briefs with a structured, scored format that names exactly what's missing before a project starts.",
+    tags: ["Product Management", "Privacy-first"],
+    liveUrl: "https://getreqstudio.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel"],
+    context:
+      "Most project briefs live in a Word document that someone started once, half-filled in, and never went back to finish — which means the people building from it are often working from a brief with silent, undocumented gaps. ReqStudio set out to replace that with a guided, ten-section structure that always knows what's missing, without asking for an account or a server.",
+    challenge:
+      "The product needed to make an unstructured brief-writing process feel guided without being rigid — supporting unlimited pages and sections filled in any order, while still producing a single, meaningful completeness signal a stakeholder could trust.",
+    research: {
+      methods: ["Audit of real client briefs and RFP documents from past enterprise projects", "Competitive review of requirements-gathering and PRD tools", "Iterative testing of readiness-scoring weights against incomplete real briefs"],
+      summary:
+        "Reviewed how briefs actually get written in practice — rarely start-to-finish, usually revisited out of order across weeks — and used that to justify a section-by-section completion model instead of a linear wizard.",
+    },
+    insights: [
+      {
+        title: "Briefs get built out of order, not top to bottom",
+        description:
+          "Forcing a linear wizard would have fought how people actually write — stakeholders answer what they know first and leave gaps to fill later, so every section needed to be independently completable.",
+      },
+      {
+        title: "A single readiness number needs to say what's missing, not just what's done",
+        description:
+          "A percentage alone invites arguments about the number; naming the specific missing sections next to the score is what actually gets a brief finished before it's sent.",
+      },
+      {
+        title: "Per-page detail is where requirements actually break down",
+        description:
+          "The riskiest gaps weren't in the big-picture goals section — they were in unspecified individual pages, so page-level completeness needed its own bar, not just a rollup into one section.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Structure the brief as ten independent sections, not a wizard",
+        body: "Split the brief into overview, goals, audience, structure, pages, functional requirements, content, technical requirements, risks and approvals — each individually trackable, so a half-finished brief is still a usable brief.",
+      },
+      {
+        heading: "Make the readiness score name its gaps",
+        body: "Paired the weighted overall percentage with an explicit list of which sections are dragging it down, so 'send this brief' becomes a decision backed by specifics instead of a guess.",
+      },
+      {
+        heading: "Give every page its own completeness bar",
+        body: "Broke Page Requirements into per-page cards — purpose, CTA, content needs, components, dependencies, SEO, accessibility, analytics — each scored independently so gaps don't hide inside an aggregate.",
+      },
+      {
+        heading: "Remove the save button entirely",
+        body: "Wrote every keystroke to local storage moments after typing stops, and flushed on tab close, so the product never asks a user to remember to save a brief they were interrupted while writing.",
+      },
+      {
+        heading: "Build solo, with AI as the engineering partner",
+        body: "Designed and built end-to-end using Claude Code as a development partner — from the section-scoring engine to the printable report view — without a dedicated engineering team, while keeping every architectural and UX decision in my hands.",
+      },
+    ],
+    solution: {
+      summary:
+        "A local-first project brief tool with ten guided sections, unlimited pages and projects, and a live, weighted readiness score that names exactly what's still missing before a brief goes out.",
+      highlights: [
+        "Ten guided brief sections completable in any order, each with its own completion bar",
+        "Live, weighted readiness score naming the specific sections still missing",
+        "Unlimited pages per project, each scored on purpose, CTAs, content, components, SEO, accessibility and analytics",
+        "Autosave to local storage on every keystroke, with no save button anywhere",
+        "A shareable report view with sticky table of contents, collapsible sections and a print stylesheet",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A shared completion-bar component (label, percentage, missing-items list) reused across the sidebar outline, section headers and the readiness score.",
+      },
+      {
+        label: "Tokens",
+        description: "A single progress-color scale — from attention to in-progress to complete — applied consistently across sections, pages and the overall score.",
+      },
+      {
+        label: "Patterns",
+        description: "A detail-panel-plus-outline pattern shared between the Brief and Page Requirements views, so switching between a section list and its content stays consistent.",
+      },
+      {
+        label: "Governance",
+        description: "Fully client-side storage in IndexedDB — client budgets, deadlines and commercial goals never leave the device, by architecture rather than policy.",
+      },
+    ],
+    outcome:
+      "ReqStudio shipped as a structured alternative to the scattered brief documents most projects start from, giving anyone writing a brief a live signal for whether it's actually ready to hand off — not just a document that looks finished.",
+    metrics: [
+      { value: "10", label: "Guided brief sections" },
+      { value: "Unlimited", label: "Projects and pages" },
+      { value: "0", label: "Accounts or servers required" },
+    ],
+    reflection:
+      "Designing the readiness score was a lesson in resisting false precision — early versions tried to be too clever about weighting, and the version that actually shipped is simpler and more legible because it names its gaps in plain language instead of just producing a number.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/reqstudio-project-briefs/01-hero.jpg",
+        alt: "ReqStudio landing page hero",
+        caption: "The live product at getreqstudio.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/reqstudio-project-briefs/02-brief-preview.jpg",
+        alt: "ReqStudio brief view showing ten sections and a live readiness score",
+        caption: "The Brief tab — ten guided sections with per-section completion and a live readiness score.",
+      },
+      {
+        src: "/case-studies/screenshots/reqstudio-project-briefs/03-dashboard.jpg",
+        alt: "ReqStudio dashboard showing project count, average readiness and status breakdown",
+        caption: "The Dashboard — where every brief's readiness and status stand at a glance.",
+      },
+    ],
+  },
+  {
+    slug: "curo-bookmark-manager",
+    title: "Curo — Local-First Bookmark Manager",
+    category: "Side Projects",
+    industry: "Productivity / Browser Tools",
+    role: "Designer & Builder",
+    timeline: "Jul – Aug 2026",
+    icon: Bookmark,
+    description: "A local-first bookmark manager that imports your browser's bookmarks, merges duplicates and dead links, and organizes what's left into a searchable library with its own health score — no account, no server.",
+    impact: "Replaced an unsearchable bookmarks bar with a self-auditing library that scores its own health and tells you exactly what to fix.",
+    tags: ["Productivity", "Privacy-first"],
+    liveUrl: "https://getcuro.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel"],
+    context:
+      "Bookmarks accumulate for years across every browser a person has used, and most managers only ever add to that pile — they don't audit it. Curo set out to treat an unmanaged bookmarks bar as a data-quality problem: duplicates, dead folders and links nobody will ever find again, entirely inside the browser with no account and no server.",
+    challenge:
+      "The product needed to take a raw HTML bookmarks export from any browser and turn it into something a person could trust — deduplicated, organized and scored — without ever sending that browsing history anywhere, which ruled out any server-side processing or account system.",
+    research: {
+      methods: ["Competitive audit of bookmark managers and read-later tools", "Import-format research across Chrome, Firefox, Safari and Edge", "Iterative testing of fuzzy duplicate-matching thresholds"],
+      summary:
+        "Looked at how existing bookmark managers handle duplicates and found most only catch exact-URL matches — near-duplicates, like the same article with different tracking params, went untouched, which is why fuzzy grouping became the core of the product rather than a secondary feature.",
+    },
+    insights: [
+      {
+        title: "A pile of bookmarks isn't a library — it's an unaudited data set",
+        description:
+          "Users didn't need another place to save links; they needed something to tell them what was wrong with the links they'd already saved, which reframed the product from a save-tool to an audit-tool.",
+      },
+      {
+        title: "Exact-match duplicate detection catches maybe half the problem",
+        description:
+          "Near-duplicates — the same article with different query params, or both the AMP and canonical URL bookmarked — needed fuzzy title and URL matching to actually surface, not just exact comparisons.",
+      },
+      {
+        title: "A single health score is what makes 'good enough' visible",
+        description:
+          "Nobody was going to manually audit two thousand bookmarks; a configurable, weighted score across duplicates, organization, tags and freshness gave people a number to chase instead of an infinite backlog.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Start from an import, not an empty state",
+        body: "Built the first-run experience around dragging in an existing HTML bookmarks export, with a live preview of what will be added, so the product proves its value against a person's real, messy library on the first screen.",
+      },
+      {
+        heading: "Separate detection from resolution",
+        body: "Split duplicate handling into a detection pass — exact-URL and fuzzy-title grouping — and a resolution step, so bulk cleanup never silently merges or deletes anything without an explicit choice.",
+      },
+      {
+        heading: "Make the score explain itself",
+        body: "Broke the Knowledge Health Score into five weighted, individually adjustable factors — duplicate-free, organized, tagged, well-labeled, fresh — each with its own explanation of what's dragging it down.",
+      },
+      {
+        heading: "Treat local storage as the entire architecture",
+        body: "Designed every interaction — search, tagging, collections, export — around IndexedDB as the only datastore, which meant designing for what happens when a user clears their browser data, not just the happy path.",
+      },
+      {
+        heading: "Build solo, with AI as the engineering partner",
+        body: "Designed and built end-to-end using Claude Code as a development partner — from the import pipeline to the scoring engine — without a dedicated engineering team, while keeping every architectural and UX decision in my hands.",
+      },
+    ],
+    solution: {
+      summary:
+        "A local-first bookmark manager that imports any browser's bookmarks export, detects exact and fuzzy duplicates, flags organizational gaps, and scores the whole library on a configurable Knowledge Health Score — entirely client-side.",
+      highlights: [
+        "HTML bookmarks import from Chrome, Firefox, Safari or Edge with a live preview before anything is written",
+        "Exact-URL and fuzzy near-duplicate detection with one-click bulk merge",
+        "Cleanup Engine flagging missing metadata, empty folders and broken hierarchies",
+        "Configurable Knowledge Health Score across duplicate-free, organized, tagged, well-labeled and fresh",
+        "Custom and automatic collections, fuzzy search, and export to HTML, CSV, JSON or Markdown",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A reusable score-bar component (metric, weight, explanation) shared between the Dashboard summary and the full Health report.",
+      },
+      {
+        label: "Tokens",
+        description: "A single accent-driven progress scale used consistently across health scores, duplicate groups and growth charts.",
+      },
+      {
+        label: "Patterns",
+        description: "A detect-then-resolve pattern — grouped candidates with a clear default selection — reused across Duplicates and Cleanup.",
+      },
+      {
+        label: "Governance",
+        description: "Fully client-side storage in IndexedDB — bookmarks and browsing history never leave the device, by architecture rather than policy.",
+      },
+    ],
+    outcome:
+      "Curo shipped as a genuinely free, account-less alternative to bookmark managers that ask for an email address before doing anything — turning an unmanaged bookmarks bar into a searchable, self-scoring library without a single byte leaving the browser.",
+    metrics: [
+      { value: "9", label: "Built-in tools" },
+      { value: "4", label: "Export formats" },
+      { value: "0", label: "Accounts or servers required" },
+    ],
+    reflection:
+      "The hardest design problem wasn't the interface — it was deciding what 'good' looks like for a library nobody had audited before. The five-factor health score took several iterations before it stopped feeling arbitrary and started feeling like something a person would trust enough to act on.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/curo-bookmark-manager/01-hero.jpg",
+        alt: "Curo landing page hero",
+        caption: "The live product at getcuro.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/curo-bookmark-manager/02-dashboard.jpg",
+        alt: "Curo dashboard showing bookmark count, growth chart and Knowledge Health Score",
+        caption: "The Dashboard — bookmark growth over time alongside the Knowledge Health Score.",
+      },
+      {
+        src: "/case-studies/screenshots/curo-bookmark-manager/03-health-score.jpg",
+        alt: "Curo Health page showing the five scoring factors and adjustable weights",
+        caption: "The Health view — five weighted factors, each adjustable and individually explained.",
+      },
+    ],
+  },
+  {
     slug: "localens-localization-qa",
     title: "LocaLens — Localization QA Tool",
+    category: "Side Projects",
     industry: "Localization / QA Tools",
     role: "Designer & Builder",
     timeline: "Jun – Jul 2026",
@@ -161,6 +400,7 @@ export const projects: Project[] = [
   {
     slug: "uxledger-ux-debt-tracker",
     title: "UXLedger — UX Debt Register",
+    category: "Side Projects",
     industry: "Design Tools / Product Management",
     role: "Designer & Builder",
     timeline: "Apr – May 2026",
@@ -273,6 +513,7 @@ export const projects: Project[] = [
   {
     slug: "uxbeacon-ux-audit-tool",
     title: "UXBeacon — Automated UX Audit Tool",
+    category: "Side Projects",
     industry: "Design Tools / Web Analysis",
     role: "Designer & Builder",
     timeline: "Mar 2026",
@@ -385,6 +626,7 @@ export const projects: Project[] = [
   {
     slug: "assessly-online-exams",
     title: "Assessly — Online Examination Platform",
+    category: "Side Projects",
     industry: "EdTech",
     role: "Designer & Builder",
     timeline: "Feb 2026",
@@ -497,6 +739,7 @@ export const projects: Project[] = [
   {
     slug: "sitenest-visual-sitemaps",
     title: "SiteNest — Visual Sitemap Builder",
+    category: "Side Projects",
     industry: "Productivity / Design Tools",
     role: "Designer & Builder",
     timeline: "Jan 2026",
@@ -609,6 +852,7 @@ export const projects: Project[] = [
   {
     slug: "collaborate-web-app-redesign",
     title: "Collaborate — Responsive Web App Redesign",
+    category: "Enterprise",
     industry: "Legal Tech / Enterprise Software",
     role: "Lead Product Designer",
     timeline: "58-week redesign · ~18-month rollout",
@@ -723,6 +967,7 @@ export const projects: Project[] = [
   {
     slug: "parking-permit-customer-portal",
     title: "Parking Permit — Customer Portal",
+    category: "Enterprise",
     industry: "GovTech / Public Sector Services",
     role: "Lead Product Designer",
     timeline: "16-week UX phase · in progress",
@@ -832,6 +1077,7 @@ export const projects: Project[] = [
   {
     slug: "ms-word-addon-document-creation",
     title: "MS Add-on — Document Creation",
+    category: "Enterprise",
     industry: "Legal Tech / Enterprise Software",
     role: "Senior Product Designer",
     timeline: "12-week UX plan",

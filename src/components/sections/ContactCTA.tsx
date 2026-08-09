@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { fadeUp, staggerChildren, viewportOnce } from "@/lib/motion";
 
@@ -24,9 +24,6 @@ export function ContactCTA() {
         <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-center gap-4">
           <Button href="/contact" size="lg" icon={<Mail className="size-4" />}>
             Get in Touch
-          </Button>
-          <Button href="/projects" variant="secondary" size="lg" icon={<ArrowRight className="size-4" />}>
-            View Projects
           </Button>
         </motion.div>
       </motion.div>
