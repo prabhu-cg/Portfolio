@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText } from "lucide-react";
+import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText, Compass, ScanSearch, FileCode2, Scissors, Palette } from "lucide-react";
 import type { GalleryImage } from "@/components/CaseStudyGallery";
 
 export interface DesignStrategyStep {
@@ -52,10 +52,600 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "markly-document-to-markdown",
+    title: "Markly — Document to Markdown Converter",
+    category: "Side Projects",
+    subcategory: "Tools",
+    industry: "Developer Tools / Content Tools",
+    role: "Designer & Builder",
+    timeline: "Sep 2026",
+    icon: FileCode2,
+    description: "A converter that turns DOCX, TXT, JSON or messy Markdown into clean, normalized Markdown, then validates the result and flags exactly what still needs a fix.",
+    impact: "Replaced copy-paste-and-hope document conversion with a client-side tool that cleans formatting as it converts and names what it couldn't fix automatically.",
+    tags: ["Developer Tools", "Privacy-first"],
+    liveUrl: "https://getmarkly.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel"],
+    context:
+      "Turning a Word doc or a pasted block of inconsistent Markdown into something clean enough to commit to a repo or paste into a CMS usually means manual cleanup — fixing spacing, list markers and heading levels by hand. Markly set out to do that cleanup automatically, entirely in the browser, and to be honest about what it couldn't fix on its own.",
+    challenge:
+      "The product needed to auto-detect and normalize several very different input formats — DOCX, TXT, JSON, and already-written Markdown — into one consistent output, while clearly separating what got fixed automatically from what still needed a human decision.",
+    research: {
+      methods: ["Competitive audit of document-to-Markdown converters and pandoc-based tools", "Domain research into common Markdown formatting inconsistencies across editors", "Iterative testing of the auto-detection logic against real DOCX and JSON samples"],
+      summary:
+        "Collected inconsistently formatted Markdown from several real sources — exported docs, scraped content, hand-written notes — and used the recurring problems (double spacing, inconsistent list markers, missing blank lines) to define what 'clean' needed to mean.",
+    },
+    insights: [
+      {
+        title: "Format detection has to be automatic, not a dropdown",
+        description:
+          "Making someone specify whether their input is DOCX, JSON or Markdown before converting adds a decision nobody wants to make — detecting it from the content itself removes a step entirely.",
+      },
+      {
+        title: "Cleaning and validating are two different jobs",
+        description:
+          "Auto-fixing spacing and list markers is safe to do silently; flagging a broken link or an ambiguous heading level needs a human decision — conflating the two would make either the fixes untrustworthy or the flags noisy.",
+      },
+      {
+        title: "A validation list beats a single pass/fail",
+        description:
+          "Splitting results into errors, warnings and suggestions gives someone a prioritized list to work through, instead of a single red flag that doesn't say what to do next.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Auto-detect format from content, not a picker",
+        body: "Built detection around the input's own shape — a leading { or [ for JSON, a # for Markdown — so converting starts the moment something is pasted in.",
+      },
+      {
+        heading: "Separate silent cleanup from flagged issues",
+        body: "Let Format Mode silently normalize headings, lists and spacing on conversion, while routing anything genuinely ambiguous into the Validation panel instead of guessing.",
+      },
+      {
+        heading: "Categorize validation by what it means for the user",
+        body: "Split validation results into Errors, Warnings and Suggestions with a Fix All action, so a long list of issues still resolves down to a clear next step.",
+      },
+      {
+        heading: "Keep every document entirely client-side",
+        body: "Ran conversion and validation entirely in the browser with no upload step, since the documents people convert are often internal drafts nobody wants leaving their machine.",
+      },
+      {
+        heading: "Build solo, with AI as the engineering partner",
+        body: "Designed and built end-to-end using Claude Code as a development partner — from the format-detection logic to the validation engine — without a dedicated engineering team, while keeping every UX decision in my hands.",
+      },
+    ],
+    solution: {
+      summary:
+        "A client-side document-to-Markdown converter that auto-detects DOCX, TXT, JSON or Markdown input, normalizes formatting on conversion, and validates the result across errors, warnings and suggestions.",
+      highlights: [
+        "Automatic format detection across DOCX, TXT, JSON and Markdown input",
+        "Format Mode that normalizes headings, lists and spacing as it converts",
+        "A Validation panel categorizing issues into Errors, Warnings and Suggestions with Fix All",
+        "Live Markdown and HTML preview side by side with the source",
+        "One-click copy or .md download, with nothing ever uploaded to a server",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A shared dual-pane editor component (input, live output) reused identically regardless of which source format was detected.",
+      },
+      {
+        label: "Tokens",
+        description: "A consistent severity colour scale — error, warning, suggestion — applied across the validation panel and inline issue markers.",
+      },
+      {
+        label: "Patterns",
+        description: "A detect-then-clean-then-validate pattern applied to every input, so the interaction model stays the same whether the source was DOCX, JSON or Markdown.",
+      },
+      {
+        label: "Governance",
+        description: "100% client-side processing with no upload step, so documents never leave the browser, by architecture rather than policy.",
+      },
+    ],
+    outcome:
+      "Markly shipped as a free, account-less alternative to manually cleaning up document exports, giving anyone converting content to Markdown a validation pass most tools skip entirely.",
+    metrics: [
+      { value: "4", label: "Input formats supported" },
+      { value: "3", label: "Validation categories: errors, warnings, suggestions" },
+      { value: "0", label: "Documents uploaded to a server" },
+    ],
+    reflection:
+      "The temptation was to let Format Mode silently fix everything. Drawing a hard line between what's safe to auto-fix and what needs a flagged decision took more iteration than the conversion logic itself, but it's the reason the tool feels trustworthy instead of just convenient.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/markly-document-to-markdown/01-hero.jpg",
+        alt: "Markly landing page hero showing the input and output editor panes",
+        caption: "The live product at getmarkly.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/markly-document-to-markdown/02-format-and-clean.jpg",
+        alt: "Markly editor showing a pasted document normalized into clean Markdown in Format Mode",
+        caption: "Format Mode in action — headings, lists and spacing normalized on conversion.",
+      },
+      {
+        src: "/case-studies/screenshots/markly-document-to-markdown/03-validation.jpg",
+        alt: "Markly validation panel showing errors, warnings and suggestions counts",
+        caption: "The Validation panel — errors, warnings and suggestions, with Fix All and Undo.",
+      },
+    ],
+  },
+  {
+    slug: "prompttrim-ai-prompt-optimizer",
+    title: "PromptTrim — AI Prompt Optimiser",
+    category: "Side Projects",
+    subcategory: "Tools",
+    industry: "AI Tools / Developer Tools",
+    role: "Designer & Builder",
+    timeline: "Sep 2026",
+    icon: Scissors,
+    description: "A tool that turns a rambling, conversational prompt into a short, direct instruction — keeping every requirement and exclusion, cutting only the fluff.",
+    impact: "Replaced trial-and-error prompt editing with a one-paste optimiser that preserves intent while cutting prompt length dramatically.",
+    tags: ["AI Tools", "Developer Tools"],
+    liveUrl: "https://getprompttrim.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel", "Groq"],
+    context:
+      "Prompts written the way people actually talk — polite framing, backstory, restated instructions — cost tokens and dilute the actual instruction inside them. PromptTrim set out to strip a prompt down to what an AI model actually needs, without quietly dropping a requirement or a constraint in the process.",
+    challenge:
+      "The hard part wasn't shortening text — it was shortening it safely. The tool needed to reliably tell the difference between conversational filler that's safe to cut and a specific requirement, constraint or exclusion that must survive the edit untouched.",
+    research: {
+      methods: ["Competitive audit of prompt-optimisation and token-reduction tools", "Domain research into prompt structure across dev briefs, meeting notes and marketing copy", "Iterative testing of the trimming model against prompts with deliberately embedded constraints"],
+      summary:
+        "Wrote test prompts with intentionally buried constraints — 'do NOT include X', specific tech requirements, tone notes — and used how often trimming preserved them to define what 'safe to cut' actually means for this tool.",
+    },
+    insights: [
+      {
+        title: "Politeness is safe to cut; constraints never are",
+        description:
+          "Framing like 'could you please' and 'thanks so much' carries no instruction — but a buried 'do NOT include billing features' is load-bearing, and trimming has to tell the two apart every time.",
+      },
+      {
+        title: "Shorter isn't the goal — clearer is",
+        description:
+          "A shorter prompt that loses a requirement is worse than the original — the tool is judged on whether the optimised version still gets the same result, not on character count alone.",
+      },
+      {
+        title: "People trust output they can immediately reuse",
+        description:
+          "Returning plain text with no formatting or commentary meant the result could be copied straight into any model or tool, which mattered more than presenting it inside the product itself.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Frame the product as trim, not rewrite",
+        body: "Positioned the tool explicitly around cutting fluff rather than rewriting intent, so the interaction model stays predictable — the output should still sound like an instruction the user meant to give.",
+      },
+      {
+        heading: "Give people a way in without a real prompt to hand",
+        body: "Shipped three example prompts — dev brief, meeting notes, marketing brief — so the value is obvious on the first visit, before anyone pastes their own text.",
+      },
+      {
+        heading: "Show the result as plain text, ready to reuse",
+        body: "Returned the optimised prompt as copyable plain text with no extra formatting, since the entire point is pasting it straight into another AI tool.",
+      },
+      {
+        heading: "Say plainly where the prompt goes",
+        body: "Stated directly that a submitted prompt is sent to Groq to generate the optimised version and is never logged or stored, instead of leaving that as an assumption.",
+      },
+      {
+        heading: "Build solo, with AI as the engineering partner",
+        body: "Designed and built end-to-end using Claude Code as a development partner — from the trimming prompt design to the interface — without a dedicated engineering team, while keeping every UX decision in my hands.",
+      },
+    ],
+    solution: {
+      summary:
+        "A single-purpose tool that takes a messy, conversational prompt and returns a short, direct instruction — preserving every requirement, constraint and exclusion while cutting the surrounding fluff.",
+      highlights: [
+        "One-paste optimisation from messy prompt to short, direct instruction",
+        "Three built-in examples — dev brief, meeting notes, marketing brief — to try before pasting a real prompt",
+        "Explicit preservation of requirements, constraints and exclusions during trimming",
+        "Plain-text output with one-click copy, ready to paste into any AI tool",
+        "No account, no API key, and no logging of submitted prompts",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A shared two-pane input/result layout reused across the empty state, populated input, and optimised result views.",
+      },
+      {
+        label: "Tokens",
+        description: "A consistent accent-scissors motif tying the trimming metaphor across the icon, empty state and loading indicator.",
+      },
+      {
+        label: "Patterns",
+        description: "An example-first onboarding pattern — try a real sample before pasting your own — reused from the same convention as other free, no-signup tools in this set.",
+      },
+      {
+        label: "Governance",
+        description: "Prompts are sent to Groq for processing and explicitly never logged or stored, stated directly in the product rather than buried in a privacy page.",
+      },
+    ],
+    outcome:
+      "PromptTrim shipped as a small, single-purpose tool that fixes a specific, recurring annoyance — a prompt that says the right thing in too many words — without needing an account or an API key to try it.",
+    metrics: [
+      { value: "10,000", label: "Character input limit" },
+      { value: "3", label: "Built-in example prompts" },
+      { value: "0", label: "Prompts logged or stored" },
+    ],
+    reflection:
+      "It would have been easy to make this feel like a generic AI text shortener. Testing it specifically against prompts with buried constraints — and treating any dropped constraint as a failure, not an edge case — is what kept the tool honest about what it's actually for.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/prompttrim-ai-prompt-optimizer/01-hero.jpg",
+        alt: "PromptTrim landing page hero showing the prompt input and result panels",
+        caption: "The live product at getprompttrim.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/prompttrim-ai-prompt-optimizer/02-messy-prompt-input.jpg",
+        alt: "PromptTrim with a messy, conversational dev brief example pasted into the input panel",
+        caption: "A real example prompt loaded in — conversational, buried requirements and all.",
+      },
+      {
+        src: "/case-studies/screenshots/prompttrim-ai-prompt-optimizer/03-optimized-result.jpg",
+        alt: "PromptTrim showing the same dev brief trimmed to a short, direct instruction",
+        caption: "The trimmed result — every requirement and exclusion preserved, the fluff gone.",
+      },
+    ],
+  },
+  {
+    slug: "ratio-color-balance-tool",
+    title: "RATIO — 60–30–10 Color Balance Tool",
+    category: "Side Projects",
+    subcategory: "Tools",
+    industry: "Design Tools / Visual Design",
+    role: "Designer & Builder",
+    timeline: "Sep 2026",
+    icon: Palette,
+    description: "A visual tool for exploring the 60–30–10 color principle — how much of an interface each color should occupy — with accessibility checks and real interface previews built in.",
+    impact: "Replaced guesswork color-balancing with a deliberate, designer-led workspace that shows exactly where each color role belongs and whether it's accessible.",
+    tags: ["Design Tools", "Accessibility"],
+    liveUrl: "https://getratioapp.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel"],
+    context:
+      "Most designers can shortlist colors that look good together — the harder question is how much space each one should occupy. RATIO set out to make the classic 60–30–10 interior-design color principle usable for interface work, deliberately without AI generating the palette for you.",
+    challenge:
+      "The product needed to make an abstract ratio feel concrete — showing not just percentages but where each color role actually belongs in a real interface — while staying strictly a decision-support tool rather than a generator that picks colors on someone's behalf.",
+    research: {
+      methods: ["Competitive audit of color-palette and accessibility-checking tools", "Domain research into the 60–30–10 principle's origins in interior design and its application to UI", "Iterative testing of the Interactive Color Inspector against real interface layouts"],
+      summary:
+        "Traced the 60–30–10 rule back to its interior-design origins — one dominant surface, one supporting color, one used sparingly — and used that as the frame for translating it into interface color roles rather than inventing a new model.",
+    },
+    insights: [
+      {
+        title: "Designers don't need colors generated — they need where clarified",
+        description:
+          "Most people opening a color tool already have candidate colors in mind; what's missing is a clear answer to how much space each one should take, not a fourth option to choose from.",
+      },
+      {
+        title: "Balance and legibility are two separate questions",
+        description:
+          "A palette can be proportioned perfectly and still fail someone with a color-vision deficiency — the tool needed to check both independently instead of folding accessibility into a single 'looks good' score.",
+      },
+      {
+        title: "Seeing colors in a real interface beats seeing swatches",
+        description:
+          "A color ratio means little as three flat blocks — the Interactive Color Inspector, letting someone click through a real Marketing, SaaS or Editorial layout, is what makes the abstraction concrete.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Visualise the ratio before anything else",
+        body: "Led with a direct 60/30/10 bar showing Dominant, Secondary and Accent proportions, so the core idea is legible in the first five seconds without any explanation needed.",
+      },
+      {
+        heading: "Let people click through a real interface, not swatches",
+        body: "Built an Interactive Color Inspector across five real contexts — General Product, Marketing, SaaS, Pricing, Editorial — so each color role is seen doing an actual job, not sitting in an isolated chip.",
+      },
+      {
+        heading: "Separate balance from legibility, explicitly",
+        body: "Ran WCAG contrast checks and protanopia, deuteranopia, tritanopia and grayscale simulation as a distinct pass from the ratio visualisation, so a well-balanced palette that fails accessibility can't hide behind a good-looking ratio.",
+      },
+      {
+        heading: "Refuse to generate colors on the user's behalf",
+        body: "Deliberately left color choice to the designer — RATIO explains and checks a palette rather than producing one, keeping the deliberate, designer-led decision at the center of the product.",
+      },
+      {
+        heading: "Build solo, with AI as the engineering partner",
+        body: "Designed and built end-to-end using Claude Code as a development partner — from the Color Inspector to the accessibility-simulation engine — without a dedicated engineering team, while keeping every design-principle decision in my hands.",
+      },
+    ],
+    solution: {
+      summary:
+        "A browser-based color-balance workspace applying the 60–30–10 principle to interface design, with an interactive real-interface inspector, WCAG and color-vision accessibility checks, and export to CSS, JSON, SVG or PNG.",
+      highlights: [
+        "Live 60/30/10 ratio visualisation for any Dominant, Secondary and Accent palette",
+        "Interactive Color Inspector across five real interface contexts — General Product, Marketing, SaaS, Pricing, Editorial",
+        "Ratio Playground for testing alternative color distributions without changing the palette",
+        "WCAG contrast checks plus protanopia, deuteranopia, tritanopia and grayscale simulation",
+        "Plain-language Palette Insights and export to CSS variables, JSON, SVG or PNG",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A shared ratio-bar component (role, percentage, color) reused across the hero, the workspace summary and every example palette.",
+      },
+      {
+        label: "Tokens",
+        description: "The Dominant/Secondary/Accent role language applied consistently across the inspector, the playground, the usage map and every export format.",
+      },
+      {
+        label: "Patterns",
+        description: "A context-switching pattern — the same palette previewed across five interface types — reused between the Color Inspector and the Color Usage Map.",
+      },
+      {
+        label: "Governance",
+        description: "Runs entirely in the browser with no account and no AI-generated colors, keeping every color decision attributable to the designer using it.",
+      },
+    ],
+    outcome:
+      "RATIO shipped as a free, deliberately non-generative alternative to AI palette generators, giving designers a way to test and defend a color balance rather than accept one a model produced.",
+    metrics: [
+      { value: "5", label: "Real interface contexts to inspect" },
+      { value: "4", label: "Color-vision simulations: protanopia, deuteranopia, tritanopia, grayscale" },
+      { value: "0", label: "AI-generated colors" },
+    ],
+    reflection:
+      "The easiest version of this product would have generated palettes with AI, and that was a deliberate line I didn't cross. Staying a decision-support tool rather than a generator kept the scope honest, even though it meant more design work explaining the 'why' behind every panel.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/ratio-color-balance-tool/01-hero.jpg",
+        alt: "RATIO landing page hero showing the 60/30/10 Dominant, Secondary and Accent ratio bar",
+        caption: "The live product at getratioapp.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/ratio-color-balance-tool/02-workspace.jpg",
+        alt: "RATIO full workspace showing the palette panel, live interface preview and balance, playground, usage and accessibility tabs",
+        caption: "The full workspace — palette, live interface preview, and balance, playground, usage and accessibility tabs.",
+      },
+      {
+        src: "/case-studies/screenshots/ratio-color-balance-tool/03-sixty-thirty-ten.jpg",
+        alt: "RATIO explanation of the Dominant, Secondary and Accent color roles at 60, 30 and 10 percent",
+        caption: "The 60–30–10 principle broken into Dominant, Secondary and Accent roles.",
+      },
+    ],
+  },
+  {
+    slug: "solvr-ai-product-design",
+    title: "Solvr — AI-Guided Product Design Workspace",
+    category: "Side Projects",
+    subcategory: "Tools",
+    industry: "Product Design / Design Tools",
+    role: "Designer & Builder",
+    timeline: "Sep 2026",
+    icon: Compass,
+    description: "A guided workspace that takes a product problem through a full design process — Discover, Define, Ideate, Solution, Validate, Iterate — with AI drafting, critiquing and scoring readiness at every stage.",
+    impact: "Replaced a single 'generate a spec' prompt with a seven-stage structured process that names its own gaps and assumptions before a team commits to a direction.",
+    tags: ["Product Design", "AI Tools"],
+    liveUrl: "https://getsolvr.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel"],
+    context:
+      "Most AI design tools compress a product problem straight into a finished-looking output — a generated spec, a set of screens — with no visible working. Solvr set out to do the opposite: guide a problem through the same stages a structured design process would use, keeping evidence, assumptions and gaps visible at every step instead of hiding them behind a single generate button.",
+    challenge:
+      "The product needed to feel like a design partner that pushes back, not a generator that produces a confident-sounding answer to whatever's typed in — while still being usable by someone who doesn't already know a formal UX methodology, and without ever letting the process feel like a rigid form to fill in.",
+    research: {
+      methods: ["Competitive audit of AI-assisted design and PRD-generation tools", "Domain research into structured design methodologies (Double Diamond, Discover-Define-Develop-Deliver)", "Iterative testing of the stage-readiness scoring model against sample project problems"],
+      summary:
+        "Reviewed how existing AI design tools collapse a problem straight into an output, and found almost none separated evidence from assumption — which became the central design bet for Solvr instead of a secondary feature.",
+    },
+    insights: [
+      {
+        title: "A generate button isn't a design partner",
+        description:
+          "Tools that produce a finished-looking spec from one prompt skip the part where a real design process would surface what's still unknown — Solvr needed to slow that down, not speed it up further.",
+      },
+      {
+        title: "Evidence and assumption have to stay visibly separate",
+        description:
+          "The moment an assumption gets treated like a fact, every decision built on top of it inherits the risk — so every stage explicitly tags what's evidence, what's assumption, and what's still a gap.",
+      },
+      {
+        title: "Readiness has to be scored per stage, not once at the end",
+        description:
+          "A single overall completeness score hides exactly where a project is weak — scoring each of the seven stages independently is what makes 'are we ready to move on' an answerable question.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Structure the whole process around seven named stages",
+        body: "Built Project Setup, Discover, Define, Ideate, Solution, Validate and Iterate as distinct, sequential stages, each with its own inputs and its own definition of done.",
+      },
+      {
+        heading: "Separate evidence from assumption at every stage",
+        body: "Gave every stage explicit Strengths, Gaps and Critical Assumptions panels, so a project's confidence level is always visible next to its content, not implied by how polished the output looks.",
+      },
+      {
+        heading: "Score readiness per stage, not the project as a whole",
+        body: "Attached a readiness percentage and a plain-language 'what's needed next' note to each stage individually, so moving forward is a decision backed by a specific gap list, not a vibe.",
+      },
+      {
+        heading: "Make the AI challenge the framing, not just answer it",
+        body: "Directed the AI to flag gaps and question assumptions at every stage rather than accept the first framing of a problem, so the tool behaves like a partner pushing back, not an assistant agreeing along.",
+      },
+      {
+        heading: "Build solo, with AI as the engineering partner",
+        body: "Designed and built end-to-end using Claude Code as a development partner — from the stage-readiness engine to the guidance panel — without a dedicated engineering team, while keeping every methodology and UX decision in my hands.",
+      },
+    ],
+    solution: {
+      summary:
+        "A guided design workspace that takes a product problem through seven structured stages — Project Setup, Discover, Define, Ideate, Solution, Validate, Iterate — with AI drafting, critiquing and scoring readiness at each one.",
+      highlights: [
+        "Seven-stage guided process from problem framing through to an evidence-backed iteration plan",
+        "Per-stage readiness scoring with named Strengths, Gaps and Critical Assumptions",
+        "AI guidance panel that recommends what to resolve before advancing to the next stage",
+        "Multi-concept ideation with side-by-side comparison before committing to a direction",
+        "Structured, exportable product and UX specification generated from the Solution stage",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A shared stage-card component (status, readiness percentage, gaps list) reused identically across all seven stages of the process.",
+      },
+      {
+        label: "Tokens",
+        description: "A consistent readiness colour scale — needs attention, on track, complete — applied across stage cards, the guidance panel and generated outputs.",
+      },
+      {
+        label: "Patterns",
+        description: "A three-column working pattern — content, AI guidance, readiness — repeated at every stage, so the interaction model stays constant as a project deepens.",
+      },
+      {
+        label: "Governance",
+        description: "All project data stays local to the browser in V1, so a product problem never leaves the device before it becomes a validated design.",
+      },
+    ],
+    outcome:
+      "Solvr shipped as a structured alternative to single-prompt AI design generators, giving anyone working through a product problem a process that names what it doesn't know yet instead of quietly skipping over it.",
+    metrics: [
+      { value: "7", label: "Guided design stages" },
+      { value: "4", label: "Evidence categories tracked per stage" },
+      { value: "0", label: "Accounts or servers required in V1" },
+    ],
+    reflection:
+      "The easiest version of this product would have been a single well-crafted prompt. Resisting that — and building seven stages with their own readiness logic instead — was the harder, slower path, but it's the reason the tool argues back instead of just agreeing with the first idea typed into it.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/solvr-ai-product-design/01-hero.jpg",
+        alt: "Solvr landing page hero showing the Discover stage of a sample project",
+        caption: "The live product at getsolvr.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/solvr-ai-product-design/02-discover-readiness.jpg",
+        alt: "Solvr Discover stage showing readiness score, strengths, gaps and critical assumptions",
+        caption: "A stage in progress — readiness score, strengths, gaps and critical assumptions side by side.",
+      },
+      {
+        src: "/case-studies/screenshots/solvr-ai-product-design/03-design-process.jpg",
+        alt: "Solvr seven-stage design process grid from Project Setup to Iterate",
+        caption: "The seven stages that structure every project, from Project Setup through to Iterate.",
+      },
+    ],
+  },
+  {
+    slug: "devlens-design-handoff-clarity",
+    title: "DevLens — Design-to-Development Handoff Tool",
+    category: "Side Projects",
+    subcategory: "Tools",
+    industry: "Design Tools / Developer Handoff",
+    role: "Designer & Builder",
+    timeline: "Sep 2026",
+    icon: ScanSearch,
+    description: "A tool that documents the interactions, edge cases and responsive rules a Figma file alone can't explain, then scores how ready the result actually is to hand to a developer.",
+    impact: "Replaced 'here's the Figma file' handoffs with a scored, question-driven documentation process that surfaces what a developer will ask before they ask it.",
+    tags: ["Design Tools", "Developer Handoff"],
+    liveUrl: "https://getdevlensapp.vercel.app/",
+    stack: ["Next.js", "Claude Code", "Vercel"],
+    context:
+      "A Figma file communicates spacing, typography and layout well, and says almost nothing about what happens when a list is empty, a field fails validation, or a modal needs to respond to Escape. Those gaps usually surface mid-sprint, as a developer's Slack question. DevLens set out to catch them before handoff, by documenting intent alongside the pixels.",
+    challenge:
+      "The product needed to identify what's genuinely missing from a design — interactions, edge cases, responsive behaviour, accessibility — without requiring a Figma plugin or API access, and turn that into documentation a developer would actually read instead of a longer document nobody opens.",
+    research: {
+      methods: ["Competitive audit of design-handoff and Figma Dev Mode workflows", "Domain research into the questions developers most commonly ask during implementation", "Iterative testing of the handoff-readiness scoring model against a sample project"],
+      summary:
+        "Catalogued the kinds of questions that actually derail a sprint — empty states, loading behaviour, focus and keyboard handling — and used that list to define what 'documented' needed to mean, rather than treating documentation as a single yes/no checkbox.",
+    },
+    insights: [
+      {
+        title: "Figma explains what things look like, not what they do",
+        description:
+          "Spacing, colour and layout are well covered by a design file — interaction, validation and edge-case behaviour almost never are, and that gap is exactly where handoff friction comes from.",
+      },
+      {
+        title: "The right output is a question list, not a document",
+        description:
+          "A generic 'add more detail' prompt doesn't help — surfacing specific, answerable developer questions per component is what actually gets a design finished before build starts.",
+      },
+      {
+        title: "Readiness has to measure documentation, not design quality",
+        description:
+          "Conflating 'is this documented' with 'is this good design' would have made the score untrustworthy — the readiness score deliberately measures completeness only, leaving design judgement to the reviewer.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Detect, document, handoff — as three distinct stages",
+        body: "Structured the product around finding what's missing, capturing the intent behind it, and generating structured documentation, so a project's state is always legible as one of those three.",
+      },
+      {
+        heading: "Ask the same questions a developer would",
+        body: "Generated per-component developer questions — does this list paginate, what happens on zero results, does Escape dismiss this — instead of a generic 'incomplete' flag.",
+      },
+      {
+        heading: "Score readiness across four independent dimensions",
+        body: "Split the handoff-readiness score into Documentation, Interactions, Responsive and Accessibility, so a team can see exactly which dimension is dragging a project down.",
+      },
+      {
+        heading: "Link back to Figma instead of replacing it",
+        body: "Let every documented decision link to its corresponding Figma frame, positioning DevLens as the layer that explains intent rather than a competing source of truth for the visuals.",
+      },
+      {
+        heading: "Build solo, with AI as the engineering partner",
+        body: "Designed and built end-to-end using Claude Code as a development partner — from the gap-detection logic to the readiness-scoring engine — without a dedicated engineering team, while keeping every UX and scoring decision in my hands.",
+      },
+    ],
+    solution: {
+      summary:
+        "A local-first handoff-documentation tool that detects undocumented interactions, edge cases and responsive rules in a design, turns them into developer questions, and scores overall handoff readiness across four dimensions.",
+      highlights: [
+        "Per-component developer questions surfaced automatically — loading states, empty states, validation, keyboard behaviour",
+        "A four-dimension handoff-readiness score: Documentation, Interactions, Responsive, Accessibility",
+        "Figma frame linking so every documented decision stays traceable to its source design",
+        "A full worked sample handoff (a fictional banking dashboard) to show what 'ready' looks like",
+        "Exportable, structured documentation in place of a raw Figma link at handoff",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A shared readiness-bar component (dimension, percentage, open questions) reused across the dashboard summary and the per-page documentation views.",
+      },
+      {
+        label: "Tokens",
+        description: "A consistent status language — resolved, open question, needs attention — applied across developer questions, readiness bars and the sample handoff.",
+      },
+      {
+        label: "Patterns",
+        description: "A detect-then-document pattern — flagged gaps paired with a place to resolve them — reused across interactions, responsive rules and accessibility.",
+      },
+      {
+        label: "Governance",
+        description: "Projects are stored locally via IndexedDB with no account and no database, so unreleased design work never leaves the device, by architecture rather than policy.",
+      },
+    ],
+    outcome:
+      "DevLens shipped as a working alternative to handing over a Figma link and hoping the right questions get asked in time, giving a design a measurable readiness score before it reaches a developer.",
+    metrics: [
+      { value: "4", label: "Readiness dimensions scored" },
+      { value: "0", label: "Accounts or servers required" },
+      { value: "1", label: "Full worked sample handoff included" },
+    ],
+    reflection:
+      "The hardest call was keeping the readiness score honest about what it measures — it would have been easy to let 'documented' quietly drift into 'good,' and the moment that line blurs, the score stops being something a team can trust.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/devlens-design-handoff-clarity/01-hero.jpg",
+        alt: "DevLens landing page hero showing handoff readiness and developer questions",
+        caption: "The live product at getdevlensapp.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/devlens-design-handoff-clarity/02-handoff-readiness.jpg",
+        alt: "DevLens handoff readiness score broken down by documentation, interactions, responsive and accessibility, next to a developer questions list",
+        caption: "Handoff readiness scored across four dimensions, alongside the developer questions it generated.",
+      },
+      {
+        src: "/case-studies/screenshots/devlens-design-handoff-clarity/03-detect-document-handoff.jpg",
+        alt: "DevLens three-step process: Detect, Document, Handoff",
+        caption: "The three-step model behind every project — detect what's missing, document intent, hand off with clarity.",
+      },
+    ],
+  },
+  {
     slug: "reqstudio-project-briefs",
     title: "ReqStudio — Project Brief & Requirements Tool",
     category: "Side Projects",
-    subcategory: "Applications",
+    subcategory: "Tools",
     industry: "Product Management / Design Tools",
     role: "Designer & Builder",
     timeline: "Aug 2026",
@@ -173,7 +763,7 @@ export const projects: Project[] = [
     slug: "curo-bookmark-manager",
     title: "Curo — Local-First Bookmark Manager",
     category: "Side Projects",
-    subcategory: "Applications",
+    subcategory: "Tools",
     industry: "Productivity / Browser Tools",
     role: "Designer & Builder",
     timeline: "Jul – Aug 2026",

@@ -28,10 +28,30 @@ export function ProjectGrid() {
 
   const isSideProjects = category === "Side Projects";
 
-  const visibleProjects = projects.filter((project) =>
-    isSideProjects
-      ? project.category === "Side Projects" && project.subcategory === subcategory
-      : project.category === "Enterprise"
+  const visibleProjects = projects
+    .filter((project) =>
+      isSideProjects
+        ? project.category === "Side Projects" && project.subcategory === subcategory
+        : project.category === "Enterprise"
+    )
+    .sort((a, b) => a.title.localeCompare(b.title));
+
+  const categoryCounts = projectCategories.reduce<Record<ProjectCategory, number>>(
+    (counts, value) => {
+      counts[value] = projects.filter((project) => project.category === value).length;
+      return counts;
+    },
+    {} as Record<ProjectCategory, number>
+  );
+
+  const subcategoryCounts = sideProjectCategories.reduce<Record<SideProjectCategory, number>>(
+    (counts, value) => {
+      counts[value] = projects.filter(
+        (project) => project.category === "Side Projects" && project.subcategory === value
+      ).length;
+      return counts;
+    },
+    {} as Record<SideProjectCategory, number>
   );
 
   return (
@@ -47,7 +67,7 @@ export function ProjectGrid() {
           layoutId="project-category"
           aria-label="Project category"
           className="mx-auto"
-          options={projectCategories.map((value) => ({ label: value, value }))}
+          options={projectCategories.map((value) => ({ label: value, value, count: categoryCounts[value] }))}
           value={category}
           onChange={setCategory}
         />
@@ -56,7 +76,7 @@ export function ProjectGrid() {
           <UnderlineTabs
             layoutId="side-project-subcategory"
             aria-label="Side project type"
-            options={sideProjectCategories.map((value) => ({ label: value, value }))}
+            options={sideProjectCategories.map((value) => ({ label: value, value, count: subcategoryCounts[value] }))}
             value={subcategory}
             onChange={setSubcategory}
           />

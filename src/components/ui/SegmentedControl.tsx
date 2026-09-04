@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 export interface SegmentedControlOption<T extends string> {
   label: string;
   value: T;
+  count?: number;
 }
 
 interface SegmentedControlProps<T extends string> {
@@ -59,7 +60,19 @@ export function SegmentedControl<T extends string>({
                 className="absolute inset-0 rounded-full bg-accent-strong"
               />
             )}
-            <span className="relative z-10">{option.label}</span>
+            <span className="relative z-10 inline-flex items-center gap-1.5">
+              {option.label}
+              {typeof option.count === "number" && (
+                <span
+                  className={cn(
+                    "rounded-full px-1.5 py-px text-[10px] font-semibold leading-normal tabular-nums",
+                    isActive ? "bg-white/20 text-white" : "bg-border/70 text-ink-secondary"
+                  )}
+                >
+                  {option.count}
+                </span>
+              )}
+            </span>
           </button>
         );
       })}

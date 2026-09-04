@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 export interface UnderlineTabsOption<T extends string> {
   label: string;
   value: T;
+  count?: number;
 }
 
 interface UnderlineTabsProps<T extends string> {
@@ -43,7 +44,19 @@ export function UnderlineTabs<T extends string>({
               isActive ? "text-ink" : "text-ink-secondary hover:text-ink"
             )}
           >
-            {option.label}
+            <span className="inline-flex items-center gap-1.5">
+              {option.label}
+              {typeof option.count === "number" && (
+                <span
+                  className={cn(
+                    "rounded-full px-1.5 py-px text-[10px] font-semibold leading-normal tabular-nums",
+                    isActive ? "bg-accent-strong/10 text-accent-strong" : "bg-surface text-ink-secondary"
+                  )}
+                >
+                  {option.count}
+                </span>
+              )}
+            </span>
             {isActive && (
               <motion.span
                 layoutId={layoutId}
