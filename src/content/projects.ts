@@ -17,13 +17,17 @@ export interface SystemThinkingItem {
   description: string;
 }
 
-export const projectCategories = ["Side Projects", "Plugins", "Enterprise"] as const;
+export const projectCategories = ["Side Projects", "Enterprise"] as const;
 export type ProjectCategory = (typeof projectCategories)[number];
+
+export const sideProjectCategories = ["Applications", "Tools", "Plugins"] as const;
+export type SideProjectCategory = (typeof sideProjectCategories)[number];
 
 export interface Project {
   slug: string;
   title: string;
   category: ProjectCategory;
+  subcategory?: SideProjectCategory;
   industry: string;
   role: string;
   timeline: string;
@@ -51,6 +55,7 @@ export const projects: Project[] = [
     slug: "reqstudio-project-briefs",
     title: "ReqStudio — Project Brief & Requirements Tool",
     category: "Side Projects",
+    subcategory: "Tools",
     industry: "Product Management / Design Tools",
     role: "Designer & Builder",
     timeline: "Aug 2026",
@@ -168,6 +173,7 @@ export const projects: Project[] = [
     slug: "curo-bookmark-manager",
     title: "Curo — Local-First Bookmark Manager",
     category: "Side Projects",
+    subcategory: "Applications",
     industry: "Productivity / Browser Tools",
     role: "Designer & Builder",
     timeline: "Jul – Aug 2026",
@@ -285,6 +291,7 @@ export const projects: Project[] = [
     slug: "localens-localization-qa",
     title: "LocaLens — Localization QA Tool",
     category: "Side Projects",
+    subcategory: "Tools",
     industry: "Localization / QA Tools",
     role: "Designer & Builder",
     timeline: "Jun – Jul 2026",
@@ -401,6 +408,7 @@ export const projects: Project[] = [
     slug: "uxledger-ux-debt-tracker",
     title: "UXLedger — UX Debt Register",
     category: "Side Projects",
+    subcategory: "Tools",
     industry: "Design Tools / Product Management",
     role: "Designer & Builder",
     timeline: "Apr – May 2026",
@@ -514,6 +522,7 @@ export const projects: Project[] = [
     slug: "uxbeacon-ux-audit-tool",
     title: "UXBeacon — Automated UX Audit Tool",
     category: "Side Projects",
+    subcategory: "Tools",
     industry: "Design Tools / Web Analysis",
     role: "Designer & Builder",
     timeline: "Mar 2026",
@@ -627,6 +636,7 @@ export const projects: Project[] = [
     slug: "assessly-online-exams",
     title: "Assessly — Online Examination Platform",
     category: "Side Projects",
+    subcategory: "Applications",
     industry: "EdTech",
     role: "Designer & Builder",
     timeline: "Feb 2026",
@@ -740,6 +750,7 @@ export const projects: Project[] = [
     slug: "sitenest-visual-sitemaps",
     title: "SiteNest — Visual Sitemap Builder",
     category: "Side Projects",
+    subcategory: "Applications",
     industry: "Productivity / Design Tools",
     role: "Designer & Builder",
     timeline: "Jan 2026",
