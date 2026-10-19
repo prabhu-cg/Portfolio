@@ -300,13 +300,13 @@ export const projects: Project[] = [
     impact: "Replaced the guesswork of reading a vague request with a one-paste brief that shows what is known, what is inferred and what still needs asking before design starts.",
     tags: ["Design Tools", "AI Tools"],
     liveUrl: "https://getbriefwise.vercel.app/refiner",
-    stack: ["Vercel"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Claude Code", "Vercel AI SDK", "Groq", "Zod", "Vercel"],
     context:
       "Design work often starts from a stakeholder request that is a few loose sentences — a problem, a wish, a deadline — with the real brief still missing. BriefWise set out to close that gap by structuring the request before work begins, so the open questions surface on day one instead of mid-project.",
     challenge:
       "The hard part was honesty. A tool that fills in a brief can easily present guesses as facts, so the output had to separate what the stakeholder actually said from what is inferred, and make the gaps as visible as the answers.",
     research: {
-      methods: ["Review of how briefs and discovery notes are structured in UX practice", "Analysis of typical stakeholder requests and the information they leave out", "Iterative testing of the refiner against short, vague requests"],
+      methods: ["Review of how briefs and discovery notes are structured in UX practice", "Analysis of typical stakeholder requests and the information they leave out", "Iterative testing of the refiner against short, vague requests", "Prompt iteration with schema-validated output so every brief keeps the same shape"],
       summary:
         "Tested the refiner with short requests like 'we need a new website because the old one is outdated' and checked whether the output kept stated facts apart from inference — and whether the missing information showed up as questions rather than invented detail.",
     },
@@ -346,7 +346,11 @@ export const projects: Project[] = [
       },
       {
         heading: "Say plainly where the text goes",
-        body: "Stated on the About page that there are no accounts, nothing is stored on a server, drafts stay in the browser's local storage, and text is sent to an AI service only when you refine.",
+        body: "Stated on the About page that there are no accounts, nothing is stored on a server, drafts stay in the browser's local storage, and text is sent to an AI service only when you refine. The AI call runs server-side only, so no keys ever reach the browser.",
+      },
+      {
+        heading: "Build solo, with AI as the engineering partner",
+        body: "Designed and built end-to-end using Claude Code as a development partner — from the system prompt and output schema to the interface — while keeping every UX and product decision in my hands.",
       },
     ],
     solution: {
@@ -358,6 +362,7 @@ export const projects: Project[] = [
         "Clear labels separating stated content from inferences to validate",
         "Every section editable, with Refine again to run the request through the tool once more",
         "Copy, Markdown and Print output, with a sticky section index",
+        "Schema-validated AI output (Zod) so every brief has the same structure, with a rate limiter and input validation on the server",
         "No accounts and no server-side storage — drafts stay in the browser",
       ],
     },
@@ -376,14 +381,14 @@ export const projects: Project[] = [
       },
       {
         label: "Governance",
-        description: "Privacy is stated in the product: nothing stored on a server, text sent to an AI service only when refining, and a confirmation step before a saved brief is discarded.",
+        description: "The system prompt enforces a know / assume / still-need-to-know split and forbids inventing facts, statistics or constraints. Privacy is stated in the product: nothing stored on a server, text sent to an AI service only when refining, and a confirmation step before a saved brief is discarded.",
       },
     ],
     outcome:
       "BriefWise shipped as a small, single-purpose tool that turns an unclear request into a structured starting point for design — one that is upfront about what is still unknown.",
     metrics: [
       { value: "9", label: "Structured brief sections" },
-      { value: "3", label: "Output options: copy, Markdown, print" },
+      { value: "8,000", label: "Character input limit" },
       { value: "0", label: "Accounts or server-side storage" },
     ],
     reflection:
