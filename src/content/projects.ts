@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText, Compass, ScanSearch, FileCode2, Scissors, Palette } from "lucide-react";
+import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText, Compass, ScanSearch, FileCode2, Scissors, Palette, ClipboardList } from "lucide-react";
 import type { GalleryImage } from "@/components/CaseStudyGallery";
 
 export interface DesignStrategyStep {
@@ -284,6 +284,125 @@ export const projects: Project[] = [
         src: "/case-studies/screenshots/prompttrim-ai-prompt-optimizer/03-optimized-result.jpg",
         alt: "PromptTrim showing the same dev brief trimmed to a short, direct instruction",
         caption: "The trimmed result — every requirement and exclusion preserved, the fluff gone.",
+      },
+    ],
+  },
+  {
+    slug: "briefwise-brief-refiner",
+    title: "BriefWise — UX Brief Refiner",
+    category: "Side Projects",
+    subcategory: "Tools",
+    industry: "Design Tools / Productivity",
+    role: "Designer & Builder",
+    timeline: "Oct 2026",
+    icon: ClipboardList,
+    description: "A tool that turns a messy stakeholder request into a structured UX brief — problem, objectives, assumptions, potential requirements and the questions still unanswered.",
+    impact: "Replaced the guesswork of reading a vague request with a one-paste brief that shows what is known, what is inferred and what still needs asking before design starts.",
+    tags: ["Design Tools", "AI Tools"],
+    liveUrl: "https://getbriefwise.vercel.app/refiner",
+    stack: ["Vercel"],
+    context:
+      "Design work often starts from a stakeholder request that is a few loose sentences — a problem, a wish, a deadline — with the real brief still missing. BriefWise set out to close that gap by structuring the request before work begins, so the open questions surface on day one instead of mid-project.",
+    challenge:
+      "The hard part was honesty. A tool that fills in a brief can easily present guesses as facts, so the output had to separate what the stakeholder actually said from what is inferred, and make the gaps as visible as the answers.",
+    research: {
+      methods: ["Review of how briefs and discovery notes are structured in UX practice", "Analysis of typical stakeholder requests and the information they leave out", "Iterative testing of the refiner against short, vague requests"],
+      summary:
+        "Tested the refiner with short requests like 'we need a new website because the old one is outdated' and checked whether the output kept stated facts apart from inference — and whether the missing information showed up as questions rather than invented detail.",
+    },
+    insights: [
+      {
+        title: "A vague request hides more than it states",
+        description:
+          "Most requests name a problem and a solution but skip users, constraints and success measures — the gaps matter as much as the content, so they need to be shown, not smoothed over.",
+      },
+      {
+        title: "Inference is useful only when it's labelled",
+        description:
+          "Potential requirements and assumptions help a designer move faster, but only if they are clearly marked as possibilities to confirm rather than agreed scope.",
+      },
+      {
+        title: "A brief is a working document, not a verdict",
+        description:
+          "The generated brief is a first draft. Designers need to edit every section and carry it into their own process, so the output had to be editable and portable.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Separate what was said from what was inferred",
+        body: "Opened the brief with the stakeholder's words verbatim, then labelled every section — 'Based on what was stated', 'Possibilities to review, not confirmed requirements', 'Unconfirmed, validate before relying on' — so the evidence behind each line is clear.",
+      },
+      {
+        heading: "Make the gaps the headline",
+        body: "Added a Brief health summary that lists what is clear and what is missing — primary users, constraints, success measures — and highlighted the questions section so open items can't be overlooked.",
+      },
+      {
+        heading: "Keep the designer in control",
+        body: "Made every section editable and framed the page as 'Your working brief', so the AI draft is a starting point the designer owns rather than a finished answer.",
+      },
+      {
+        heading: "Make the result easy to take with you",
+        body: "Added one-click Copy brief, Markdown export and Print, with a sticky section index, so the brief can move straight into a doc, ticket or kickoff.",
+      },
+      {
+        heading: "Say plainly where the text goes",
+        body: "Stated on the About page that there are no accounts, nothing is stored on a server, drafts stay in the browser's local storage, and text is sent to an AI service only when you refine.",
+      },
+    ],
+    solution: {
+      summary:
+        "A focused refinement tool: paste a stakeholder request, and BriefWise returns a structured, editable UX brief that separates stated facts from inference and lists exactly what still needs to be answered.",
+      highlights: [
+        "Nine-section brief — stakeholder request, problem, objectives, user problem, potential requirements, assumptions, open questions and next steps",
+        "Brief health summary showing what is clear and what is still a gap",
+        "Clear labels separating stated content from inferences to validate",
+        "Every section editable, with Refine again to run the request through the tool once more",
+        "Copy, Markdown and Print output, with a sticky section index",
+        "No accounts and no server-side storage — drafts stay in the browser",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A shared section pattern — heading, evidence label, editable content — reused across every part of the brief.",
+      },
+      {
+        label: "Tokens",
+        description: "A restrained warm-orange accent reserved for primary actions and open questions, so attention goes to what needs a decision.",
+      },
+      {
+        label: "Patterns",
+        description: "An evidence-label convention — stated, inferred, unconfirmed — applied consistently so confidence is visible at a glance.",
+      },
+      {
+        label: "Governance",
+        description: "Privacy is stated in the product: nothing stored on a server, text sent to an AI service only when refining, and a confirmation step before a saved brief is discarded.",
+      },
+    ],
+    outcome:
+      "BriefWise shipped as a small, single-purpose tool that turns an unclear request into a structured starting point for design — one that is upfront about what is still unknown.",
+    metrics: [
+      { value: "9", label: "Structured brief sections" },
+      { value: "3", label: "Output options: copy, Markdown, print" },
+      { value: "0", label: "Accounts or server-side storage" },
+    ],
+    reflection:
+      "The temptation was to make the brief look complete. Treating the gaps and open questions as the most important part of the output — and labelling every inference — is what keeps the tool useful instead of misleading.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/briefwise-brief-refiner/01-hero.jpg",
+        alt: "BriefWise refiner showing the working brief with a Brief health summary of clear items and gaps",
+        caption: "The live product at getbriefwise.vercel.app — Brief health shows what is clear and what is missing.",
+      },
+      {
+        src: "/case-studies/screenshots/briefwise-brief-refiner/02-brief-sections.jpg",
+        alt: "BriefWise brief sections for problem, business objectives, user problem and potential requirements",
+        caption: "Structured sections, each labelled by how much of it was actually stated.",
+      },
+      {
+        src: "/case-studies/screenshots/briefwise-brief-refiner/03-open-questions.jpg",
+        alt: "BriefWise highlighted questions requiring clarification and recommended next steps",
+        caption: "Open questions are highlighted so the gaps are impossible to miss.",
       },
     ],
   },
