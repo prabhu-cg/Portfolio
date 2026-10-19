@@ -156,6 +156,7 @@ Controls and buttons use 12px radius, cards 20px, pills and chips fully round, s
 - **Segmented control + underline tabs:** the project filters; active indicator glides with a spring, arrow-key navigable, counts shown as small pills.
 - **Project card:** icon tile, title, industry and role, description, impact, tags, and a "View project" link with a nudging arrow.
 - **Case-study section:** numbered label, H2, lead paragraph, then section content that reveals once on scroll; alternating white and cream.
+- **Hero project reel:** a scroll-snap carousel of five featured case studies (`src/content/featured.ts`). Screenshots drift inside their frames as you scroll, neighbouring cards recede in opacity and scale, and it advances every 5.5s, pausing on hover, focus, off-screen or via a pause button. Under reduced motion it is a static, manually scrolled strip.
 - **Reading progress:** 2px accent line under the header that fills with scroll on case-study pages.
 - **Timeline, metric card, gallery:** hairline-bordered, cream ground, no decoration.
 

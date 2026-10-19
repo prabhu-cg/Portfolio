@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { DesignIntelligenceCanvas } from "@/components/sections/DesignIntelligenceCanvas";
+import { ProjectReel } from "@/components/sections/ProjectReel";
 import { fadeUp, staggerChildren } from "@/lib/motion";
 
 export function Hero() {
@@ -55,9 +55,9 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          className="flex justify-center lg:justify-end"
+          className="min-w-0 lg:justify-self-end lg:w-full lg:max-w-[34rem]"
         >
-          <DesignIntelligenceCanvas />
+          <ProjectReel />
         </motion.div>
       </div>
     </section>
