@@ -1,16 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  motion,
-  useMotionValueEvent,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
+import { motion, useReducedMotion, type PanInfo } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { getProjectBySlug } from "@/content/projects";
 import { heroReel } from "@/content/featured";
@@ -19,38 +12,38 @@ import { cn } from "@/lib/utils";
 const slides = heroReel.flatMap((entry) => {
   const project = getProjectBySlug(entry.slug);
   const image = project?.gallery?.[entry.shot ?? 0];
-  return project && image ? [{ project, image, kind: entry.kind }] : [];
+  return project?.subcategory && image
+    ? [{ project, image, kind: project.subcategory.replace(/s$/, "") }]
+    : [];
 });
 
 const AUTOPLAY_MS = 5500;
+const SWIPE_PX = 48;
+
+// Shortest signed distance around the loop, so the strip wraps without a jump.
+function loopOffset(index: number, active: number, total: number) {
+  let d = index - active;
+  if (d > total / 2) d -= total;
+  if (d < -total / 2) d += total;
+  return d;
+}
 
 export function ProjectReel() {
-  const scroller = useRef<HTMLDivElement>(null);
-  const { scrollX } = useScroll({ container: scroller });
+  const root = useRef<HTMLDivElement>(null);
+  const dragged = useRef(false);
+  const wheelLock = useRef(false);
   const reduce = useReducedMotion();
-  const [step, setStep] = useState(1);
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [engaged, setEngaged] = useState(false);
   const [visible, setVisible] = useState(true);
+  const total = slides.length;
 
-  // One slide step = card width + gap, measured so scroll position maps to an index.
-  useEffect(() => {
-    const el = scroller.current;
-    if (!el) return;
-    const measure = () => {
-      const [a, b] = Array.from(el.children) as HTMLElement[];
-      if (a && b) setStep(b.offsetLeft - a.offsetLeft || 1);
-    };
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const goTo = (index: number) => setActive((index + total) % total);
 
-  // Only advance while the reel is on screen.
+  // Autoplay only runs while the reel is on screen.
   useEffect(() => {
-    const el = scroller.current;
+    const el = root.current;
     if (!el) return;
     const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), {
       threshold: 0.4,
@@ -59,25 +52,51 @@ export function ProjectReel() {
     return () => observer.disconnect();
   }, []);
 
-  useMotionValueEvent(scrollX, "change", (x) => {
-    setActive(Math.min(slides.length - 1, Math.max(0, Math.round(x / step))));
-  });
+  // Horizontal trackpad / wheel gestures step one project at a time. Needs a
+  // non-passive listener so the browser's back-swipe doesn't also fire.
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+    const onWheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) || Math.abs(event.deltaX) < 8) return;
+      event.preventDefault();
+      if (wheelLock.current || Math.abs(event.deltaX) < 24) return;
+      wheelLock.current = true;
+      setActive((current) => (current + (event.deltaX > 0 ? 1 : -1) + total) % total);
+      window.setTimeout(() => (wheelLock.current = false), 450);
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [total]);
 
-  const goTo = (index: number) => {
-    const next = (index + slides.length) % slides.length;
-    scroller.current?.scrollTo({ left: next * step, behavior: reduce ? "auto" : "smooth" });
+  const onPanEnd = (_: PointerEvent, info: PanInfo) => {
+    if (Math.abs(info.offset.x) > SWIPE_PX || Math.abs(info.velocity.x) > 500) {
+      goTo(active + (info.offset.x < 0 ? 1 : -1));
+    }
+    window.setTimeout(() => (dragged.current = false), 0);
   };
 
-  // Autoplay: stops on hover, focus, off-screen, reduced motion, or when paused by the visitor.
-  useEffect(() => {
-    if (reduce || !playing || engaged || !visible) return;
-    const id = window.setTimeout(() => goTo(active + 1), AUTOPLAY_MS);
-    return () => window.clearTimeout(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active, playing, engaged, visible, reduce, step]);
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "ArrowRight") goTo(active + 1);
+    else if (event.key === "ArrowLeft") goTo(active - 1);
+  };
+
+  const onSlideClick = (event: MouseEvent, index: number) => {
+    if (dragged.current) {
+      event.preventDefault();
+      return;
+    }
+    if (index !== active) {
+      event.preventDefault();
+      goTo(index);
+    }
+  };
+
+  const clockRunning = playing && !engaged && visible;
 
   return (
     <div
+      ref={root}
       role="region"
       aria-roledescription="carousel"
       aria-label="Featured projects"
@@ -86,46 +105,128 @@ export function ProjectReel() {
       onPointerLeave={() => setEngaged(false)}
       onFocus={() => setEngaged(true)}
       onBlur={() => setEngaged(false)}
+      onKeyDown={onKeyDown}
     >
-      <div
-        ref={scroller}
-        tabIndex={0}
-        aria-label="Scroll to browse projects"
-        className="no-scrollbar -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 py-3 [scroll-padding-inline:1.5rem] focus-visible:outline-offset-4 md:mx-0 md:px-0 md:[scroll-padding-inline:0]"
+      <motion.div
+        onPanStart={() => (dragged.current = false)}
+        onPan={(_, info) => {
+          if (Math.abs(info.offset.x) > 6) dragged.current = true;
+        }}
+        onPanEnd={onPanEnd}
+        className="flex h-[21rem] cursor-grab touch-pan-y select-none overscroll-x-contain [--sliver:0px] active:cursor-grabbing sm:h-[22rem] sm:[--sliver:3.25rem]"
       >
-        {slides.map((slide, index) => (
-          <Slide
-            key={slide.project.slug}
-            index={index}
-            total={slides.length}
-            step={step}
-            scrollX={scrollX}
-            reduce={!!reduce}
-            {...slide}
-          />
-        ))}
-        <div aria-hidden="true" className="w-[calc(14%-1rem)] shrink-0" />
-      </div>
+        {slides.map((slide, index) => {
+          const offset = loopOffset(index, active, total);
+          const pos = offset === 0 ? "active" : Math.abs(offset) === 1 ? "near" : "far";
+          return (
+            <div
+              key={slide.project.slug}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${index + 1} of ${total}`}
+              aria-hidden={pos === "far" ? true : undefined}
+              data-pos={pos}
+              style={{ order: offset + 2 }}
+              className={cn(
+                "group relative min-w-0 overflow-hidden rounded-lg border border-border bg-background",
+                "transition-[flex,margin,opacity,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                "data-[pos=active]:mx-1 data-[pos=active]:flex-[1_1_0px] data-[pos=active]:hover:border-accent",
+                "data-[pos=near]:mx-1 data-[pos=near]:flex-[0_0_var(--sliver)] max-sm:data-[pos=near]:opacity-0",
+                "data-[pos=far]:pointer-events-none data-[pos=far]:mx-0 data-[pos=far]:flex-[0_0_0px] data-[pos=far]:border-transparent data-[pos=far]:opacity-0"
+              )}
+            >
+              <Link
+                href={`/projects/${slide.project.slug}`}
+                tabIndex={pos === "far" ? -1 : 0}
+                draggable={false}
+                onClick={(event) => onSlideClick(event, index)}
+                aria-label={
+                  pos === "active"
+                    ? `${slide.project.title}: view case study`
+                    : `Show ${slide.project.title.split(" — ")[0]}`
+                }
+                className="absolute inset-0 block"
+              >
+                <div className="absolute inset-x-0 top-0 bottom-[5.5rem] overflow-hidden border-b border-border bg-surface">
+                  <Image
+                    src={slide.image.src}
+                    alt={pos === "active" ? slide.image.alt : ""}
+                    fill
+                    draggable={false}
+                    priority={index === 0}
+                    sizes="(min-width: 1024px) 480px, 90vw"
+                    className="scale-110 object-cover object-[50%_top] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-data-[pos=active]:scale-100"
+                  />
+                </div>
+
+                {/* Active: full caption */}
+                <div className="absolute inset-x-0 bottom-0 flex h-[5.5rem] items-center justify-between gap-4 p-4 opacity-0 transition-opacity duration-300 group-data-[pos=active]:opacity-100 group-data-[pos=active]:delay-200">
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <span className="font-plex text-xs text-muted">{slide.kind}</span>
+                    <span className="truncate text-base font-semibold tracking-tight text-ink">
+                      {slide.project.title.split(" — ")[0]}
+                    </span>
+                    <span className="truncate text-sm text-ink-secondary">{slide.project.industry}</span>
+                  </div>
+                  <ArrowRight
+                    className="size-4 shrink-0 text-ink-secondary transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-accent-strong"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                {/* Neighbour: vertical label */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 flex h-[5.5rem] items-end justify-center pb-3 opacity-0 transition-opacity duration-300 group-data-[pos=near]:opacity-100"
+                >
+                  <span className="rotate-180 text-xs font-semibold tracking-tight text-ink-secondary [writing-mode:vertical-rl]">
+                    {slide.project.title.split(" — ")[0]}
+                  </span>
+                </div>
+              </Link>
+            </div>
+          );
+        })}
+      </motion.div>
 
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-1" role="group" aria-label="Choose project">
-          {slides.map((slide, index) => (
-            <button
-              key={slide.project.slug}
-              type="button"
-              onClick={() => goTo(index)}
-              aria-label={`Show ${slide.project.title.split(" — ")[0]}`}
-              aria-current={index === active}
-              className="group flex h-6 items-center px-0.5"
-            >
-              <span
-                className={cn(
-                  "block h-1.5 rounded-full transition-[width,background-color] duration-300",
-                  index === active ? "w-7 bg-accent" : "w-1.5 bg-border-strong group-hover:bg-muted"
-                )}
-              />
-            </button>
-          ))}
+          {slides.map((slide, index) => {
+            const isActive = index === active;
+            return (
+              <button
+                key={slide.project.slug}
+                type="button"
+                onClick={() => goTo(index)}
+                aria-label={`Show ${slide.project.title.split(" — ")[0]}`}
+                aria-current={isActive}
+                className="flex h-6 items-center px-0.5"
+              >
+                <span
+                  className={cn(
+                    "relative block h-1.5 overflow-hidden rounded-full transition-[width,background-color] duration-300",
+                    isActive ? "w-10 bg-border-strong" : "w-1.5 bg-border-strong hover:bg-muted"
+                  )}
+                >
+                  {isActive && (
+                    // The fill is the autoplay clock: when it completes, the reel advances.
+                    <span
+                      key={active}
+                      onAnimationEnd={() => goTo(active + 1)}
+                      style={{
+                        animationDuration: `${AUTOPLAY_MS}ms`,
+                        animationPlayState: clockRunning ? "running" : "paused",
+                        animationName: reduce ? "none" : "reel-fill",
+                        animationTimingFunction: "linear",
+                        animationFillMode: "forwards",
+                      }}
+                      className={cn("absolute inset-0 origin-left rounded-full bg-accent", reduce && "scale-x-100")}
+                    />
+                  )}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-2">
@@ -158,65 +259,5 @@ export function ProjectReel() {
         </div>
       </div>
     </div>
-  );
-}
-
-interface SlideProps {
-  project: NonNullable<ReturnType<typeof getProjectBySlug>>;
-  image: { src: string; alt: string };
-  kind: string;
-  index: number;
-  total: number;
-  step: number;
-  scrollX: MotionValue<number>;
-  reduce: boolean;
-}
-
-function Slide({ project, image, kind, index, total, step, scrollX, reduce }: SlideProps) {
-  // Distance of this slide from the focused position: 0 = in focus, ±1 = one slide away.
-  const offset = useTransform(scrollX, (x) => x / step - index);
-  const opacity = useTransform(offset, [-1, 0, 1], [0.55, 1, 0.55]);
-  const scale = useTransform(offset, [-1, 0, 1], [0.95, 1, 0.95]);
-  const drift = useTransform(offset, [-1, 0, 1], [-26, 0, 26]);
-
-  return (
-    <motion.div
-      role="group"
-      aria-roledescription="slide"
-      aria-label={`${index + 1} of ${total}`}
-      style={reduce ? undefined : { opacity, scale }}
-      className="w-[86%] shrink-0 snap-start origin-center"
-    >
-      <Link
-        href={`/projects/${project.slug}`}
-        className="group flex flex-col overflow-hidden rounded-lg border border-border bg-background transition-[border-color,box-shadow] duration-200 hover:border-accent hover:shadow-[0_8px_28px_-10px_rgba(28,25,23,0.18)]"
-      >
-        <div className="relative aspect-[16/10] overflow-hidden border-b border-border bg-surface">
-          <motion.div style={reduce ? undefined : { x: drift }} className="absolute inset-0 scale-[1.1]">
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              priority={index === 0}
-              sizes="(min-width: 1024px) 480px, 86vw"
-              className="object-cover object-top"
-            />
-          </motion.div>
-        </div>
-        <div className="flex items-center justify-between gap-4 p-4">
-          <div className="flex min-w-0 flex-col gap-1">
-            <span className="font-plex text-xs text-muted">{kind}</span>
-            <span className="truncate text-base font-semibold tracking-tight text-ink">
-              {project.title.split(" — ")[0]}
-            </span>
-            <span className="truncate text-sm text-ink-secondary">{project.industry}</span>
-          </div>
-          <ArrowRight
-            className="size-4 shrink-0 text-ink-secondary transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-accent-strong"
-            aria-hidden="true"
-          />
-        </div>
-      </Link>
-    </motion.div>
   );
 }
