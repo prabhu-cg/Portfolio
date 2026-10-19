@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { handleTabKeys } from "@/lib/tabs";
 
 export interface UnderlineTabsOption<T extends string> {
   label: string;
@@ -28,6 +29,9 @@ export function UnderlineTabs<T extends string>({
     <div
       role="tablist"
       aria-label={ariaLabel}
+      onKeyDown={(event) =>
+        handleTabKeys(event, options.map((option) => option.value), value, onChange)
+      }
       className="flex items-center justify-start gap-8 border-b border-border"
     >
       {options.map((option) => {
@@ -38,6 +42,7 @@ export function UnderlineTabs<T extends string>({
             type="button"
             role="tab"
             aria-selected={isActive}
+            tabIndex={isActive ? 0 : -1}
             onClick={() => onChange(option.value)}
             className={cn(
               "relative py-3 text-sm font-medium transition-colors duration-200",

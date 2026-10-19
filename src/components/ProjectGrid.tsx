@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 import { PackagePlus } from "lucide-react";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -22,9 +22,32 @@ const emptyStateCopy: Record<string, string> = {
   Enterprise: "More projects coming soon.",
 };
 
+function syncTab(tab: string) {
+  const url = new URL(window.location.href);
+  url.searchParams.set("tab", tab);
+  window.history.replaceState(null, "", url);
+}
+
+const subscribeToUrl = () => () => {};
+const readTab = () => new URLSearchParams(window.location.search).get("tab")?.toLowerCase() ?? "";
+
 export function ProjectGrid() {
-  const [category, setCategory] = useState<ProjectCategory>("Side Projects");
-  const [subcategory, setSubcategory] = useState<SideProjectCategory>("Applications");
+  // Restore the tab from ?tab= so "Back to projects" lands where the visitor left.
+  const urlTab = useSyncExternalStore(subscribeToUrl, readTab, () => "");
+  const [picked, setPicked] = useState<string | null>(null);
+  const tab = picked ?? urlTab;
+
+  const subcategory: SideProjectCategory =
+    sideProjectCategories.find((value) => value.toLowerCase() === tab) ?? "Applications";
+  const category: ProjectCategory = tab === "enterprise" ? "Enterprise" : "Side Projects";
+
+  const pick = (next: string) => {
+    setPicked(next);
+    syncTab(next);
+  };
+  const selectCategory = (value: ProjectCategory) =>
+    pick(value === "Enterprise" ? "enterprise" : subcategory.toLowerCase());
+  const selectSubcategory = (value: SideProjectCategory) => pick(value.toLowerCase());
 
   const isSideProjects = category === "Side Projects";
 
@@ -69,7 +92,7 @@ export function ProjectGrid() {
           className="mx-auto"
           options={projectCategories.map((value) => ({ label: value, value, count: categoryCounts[value] }))}
           value={category}
-          onChange={setCategory}
+          onChange={selectCategory}
         />
 
         {isSideProjects && (
@@ -78,7 +101,7 @@ export function ProjectGrid() {
             aria-label="Side project type"
             options={sideProjectCategories.map((value) => ({ label: value, value, count: subcategoryCounts[value] }))}
             value={subcategory}
-            onChange={setSubcategory}
+            onChange={selectSubcategory}
           />
         )}
       </motion.div>

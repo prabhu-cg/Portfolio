@@ -27,6 +27,15 @@ export function Navigation() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-sm print:hidden">
       <div className="container-prism flex h-18 items-center justify-between">

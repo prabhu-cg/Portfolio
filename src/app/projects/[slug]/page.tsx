@@ -8,6 +8,7 @@ import { ContactCTA } from "@/components/sections/ContactCTA";
 import { CaseStudySection } from "@/components/CaseStudySection";
 import { CaseStudyGallery } from "@/components/CaseStudyGallery";
 import { CaseStudyMotion, CaseStudyMotionItem } from "@/components/CaseStudyMotion";
+import { ReadingProgress } from "@/components/ReadingProgress";
 import { InsightCard } from "@/components/InsightCard";
 import { MetricCard } from "@/components/ui/MetricCard";
 import { getProjectBySlug, projects } from "@/content/projects";
@@ -52,17 +53,21 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   const currentIndex = projects.findIndex((p) => p.slug === slug);
   const nextProject = projects[(currentIndex + 1) % projects.length];
 
+  const backTab =
+    project.category === "Enterprise" ? "enterprise" : (project.subcategory ?? "applications").toLowerCase();
+
   return (
     <>
+      <ReadingProgress />
       {/* Hero */}
       <section className="container-prism pt-14 pb-12 md:pt-20 md:pb-16">
         <CaseStudyMotion variants={staggerChildren(0.1)} className="flex flex-col gap-8">
           <CaseStudyMotionItem variants={fadeUp} className="flex items-center justify-between gap-4 print:hidden">
             <Link
-              href="/projects"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-ink"
+              href={`/projects?tab=${backTab}`}
+              className="group inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-ink"
             >
-              <ArrowLeft className="size-4" />
+              <ArrowLeft className="size-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
               Back to projects
             </Link>
             <div className="flex items-center gap-3">
