@@ -34,7 +34,7 @@ export function Timeline({ items, className, highlightFirst = false }: TimelineP
                   className={cn(
                     "flex size-9 shrink-0 items-center justify-center rounded-full border font-plex text-sm font-medium",
                     isHighlighted
-                      ? "border-accent-strong bg-accent-light text-accent-strong"
+                      ? "border-accent bg-accent-light text-accent-strong"
                       : "border-border bg-background text-ink"
                   )}
                 >

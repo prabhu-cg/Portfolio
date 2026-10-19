@@ -55,7 +55,7 @@ export function UnderlineTabs<T extends string>({
                 <span
                   className={cn(
                     "rounded-full px-1.5 py-px text-[10px] font-semibold leading-normal tabular-nums",
-                    isActive ? "bg-accent-strong/10 text-accent-strong" : "bg-surface text-ink-secondary"
+                    isActive ? "bg-accent/10 text-accent-strong" : "bg-surface text-ink-secondary"
                   )}
                 >
                   {option.count}
@@ -66,7 +66,7 @@ export function UnderlineTabs<T extends string>({
               <motion.span
                 layoutId={layoutId}
                 transition={{ type: "spring", duration: 0.5, bounce: 0.15 }}
-                className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-accent-strong"
+                className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-accent"
               />
             )}
           </button>

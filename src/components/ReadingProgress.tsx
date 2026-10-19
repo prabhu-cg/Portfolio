@@ -12,7 +12,7 @@ export function ReadingProgress() {
     <motion.div
       aria-hidden="true"
       style={{ scaleX }}
-      className="fixed inset-x-0 top-[73px] z-40 h-0.5 origin-left bg-accent-strong print:hidden"
+      className="fixed inset-x-0 top-[73px] z-40 h-0.5 origin-left bg-accent print:hidden"
     />
   );
 }

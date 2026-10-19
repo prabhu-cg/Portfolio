@@ -13,7 +13,7 @@ export function ProjectCard({ project }: { project: Project }) {
     <motion.div variants={fadeUp} className="h-full">
       <Link
         href={`/projects/${project.slug}`}
-        className="group flex h-full flex-col gap-5 rounded-lg border border-border bg-background p-6 transition-all duration-200 hover:border-accent hover:shadow-[0_4px_24px_-8px_rgba(23,22,20,0.12)] md:p-8"
+        className="group flex h-full flex-col gap-5 rounded-lg border border-border bg-background p-6 transition-all duration-200 hover:border-accent hover:shadow-[0_4px_24px_-8px_rgba(28,25,23,0.12)] md:p-8"
       >
         <div className="flex size-11 items-center justify-center rounded-md border border-border bg-surface text-ink-secondary">
           <Icon className="size-5" aria-hidden="true" />

@@ -62,7 +62,7 @@ export function SegmentedControl<T extends string>({
               <motion.span
                 layoutId={layoutId}
                 transition={{ type: "spring", duration: 0.5, bounce: 0.15 }}
-                className="absolute inset-0 rounded-full bg-accent-strong"
+                className="absolute inset-0 rounded-full bg-accent"
               />
             )}
             <span className="relative z-10 inline-flex items-center gap-1.5">

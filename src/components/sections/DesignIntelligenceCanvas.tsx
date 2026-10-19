@@ -7,8 +7,8 @@ import { viewportOnce } from "@/lib/motion";
 import { approachSteps } from "@/content/approach";
 
 const swatches = [
-  { hex: "#171614", label: "Ink" },
-  { hex: "#FFFAEF", label: "Surface" },
+  { hex: "#1C1917", label: "Ink" },
+  { hex: "#F4F2EA", label: "Surface" },
   { hex: "#C74504", label: "Accent" },
 ];
 
@@ -40,7 +40,7 @@ export function DesignIntelligenceCanvas() {
         className="relative aspect-[4/5] w-full rounded-xl border border-border bg-surface p-5 md:p-6"
         style={{
           backgroundImage:
-            "linear-gradient(to right, rgba(23,22,20,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(23,22,20,0.06) 1px, transparent 1px)",
+            "linear-gradient(to right, rgba(28,25,23,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(28,25,23,0.06) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
           backgroundPosition: "-1px -1px",
         }}
@@ -49,7 +49,7 @@ export function DesignIntelligenceCanvas() {
         <motion.div custom={0} variants={cardVariant} className="flex items-center justify-between">
           <span className="text-eyebrow text-muted">Design System</span>
           <span className="flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-accent-strong" />
+            <span className="size-1.5 rounded-full bg-accent" />
             <span className="size-1.5 rounded-full bg-border" />
             <span className="size-1.5 rounded-full bg-border" />
           </span>
@@ -82,7 +82,7 @@ export function DesignIntelligenceCanvas() {
           </div>
           <div className="flex flex-col justify-between gap-3 rounded-lg border border-border bg-background p-3">
             <span className="font-plex text-[10px] text-muted">Button</span>
-            <span className="inline-flex items-center justify-center gap-1 self-start rounded-md bg-accent-strong px-2.5 py-1.5 font-sans text-[11px] font-medium text-white">
+            <span className="inline-flex items-center justify-center gap-1 self-start rounded-md bg-accent px-2.5 py-1.5 font-sans text-[11px] font-medium text-white">
               View project
               <ArrowRight className="size-3" />
             </span>
@@ -117,7 +117,7 @@ export function DesignIntelligenceCanvas() {
               <div key={step.title} className="flex items-center">
                 <div className="flex flex-col items-center gap-1.5">
                   <span
-                    className={`size-2.5 rounded-full ${i === 2 ? "bg-accent-strong" : "bg-ink/70"}`}
+                    className={`size-2.5 rounded-full ${i === 2 ? "bg-accent" : "bg-ink/70"}`}
                   />
                   <span className="font-plex text-[9px] text-muted">{step.title}</span>
                 </div>
@@ -133,7 +133,7 @@ export function DesignIntelligenceCanvas() {
         <motion.div
           custom={5}
           variants={cardVariant}
-          className="absolute -right-4 -top-4 hidden rounded-lg border border-border bg-background px-3 py-2 shadow-[0_8px_24px_-8px_rgba(23,22,20,0.15)] sm:flex sm:items-center sm:gap-2"
+          className="absolute -right-4 -top-4 hidden rounded-lg border border-border bg-background px-3 py-2 shadow-[0_8px_24px_-8px_rgba(28,25,23,0.15)] sm:flex sm:items-center sm:gap-2"
         >
           <span className="size-2 rounded-full bg-accent" />
           <span className="font-plex text-xs font-medium text-ink-secondary">System v2.4</span>
