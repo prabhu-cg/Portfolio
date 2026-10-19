@@ -81,14 +81,10 @@ export function ProjectReel() {
     else if (event.key === "ArrowLeft") goTo(active - 1);
   };
 
-  const onSlideClick = (event: MouseEvent, index: number) => {
+  const onSlideClick = (event: MouseEvent) => {
     if (dragged.current) {
       event.preventDefault();
       return;
-    }
-    if (index !== active) {
-      event.preventDefault();
-      goTo(index);
     }
   };
 
@@ -113,54 +109,49 @@ export function ProjectReel() {
           if (Math.abs(info.offset.x) > 6) dragged.current = true;
         }}
         onPanEnd={onPanEnd}
-        className="flex h-[21rem] cursor-grab touch-pan-y select-none overscroll-x-contain [--sliver:0px] active:cursor-grabbing sm:h-[22rem] sm:[--sliver:3.25rem]"
+        className="relative h-[21rem] cursor-grab touch-pan-y select-none overscroll-x-contain active:cursor-grabbing sm:h-[23rem]"
       >
         {slides.map((slide, index) => {
           const offset = loopOffset(index, active, total);
-          const pos = offset === 0 ? "active" : Math.abs(offset) === 1 ? "near" : "far";
+          const isActive = offset === 0;
           return (
             <div
               key={slide.project.slug}
               role="group"
               aria-roledescription="slide"
               aria-label={`${index + 1} of ${total}`}
-              aria-hidden={pos === "far" ? true : undefined}
-              data-pos={pos}
-              style={{ order: offset + 2 }}
+              aria-hidden={isActive ? undefined : true}
+              data-active={isActive}
+              // Inactive slides wait just off to the side they will enter from.
+              style={{ transform: isActive ? "none" : `translateX(${Math.sign(offset) * 7}%)` }}
               className={cn(
-                "group relative min-w-0 overflow-hidden rounded-lg border border-border bg-background",
-                "transition-[flex,margin,opacity,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-                "data-[pos=active]:mx-1 data-[pos=active]:flex-[1_1_0px] data-[pos=active]:hover:border-accent",
-                "data-[pos=near]:mx-1 data-[pos=near]:flex-[0_0_var(--sliver)] max-sm:data-[pos=near]:opacity-0",
-                "data-[pos=far]:pointer-events-none data-[pos=far]:mx-0 data-[pos=far]:flex-[0_0_0px] data-[pos=far]:border-transparent data-[pos=far]:opacity-0"
+                "group absolute inset-0 overflow-hidden rounded-lg border border-border bg-background",
+                "transition-[transform,opacity,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                isActive ? "opacity-100 hover:border-accent" : "pointer-events-none opacity-0"
               )}
             >
               <Link
                 href={`/projects/${slide.project.slug}`}
-                tabIndex={pos === "far" ? -1 : 0}
+                tabIndex={isActive ? 0 : -1}
                 draggable={false}
-                onClick={(event) => onSlideClick(event, index)}
-                aria-label={
-                  pos === "active"
-                    ? `${slide.project.title}: view case study`
-                    : `Show ${slide.project.title.split(" — ")[0]}`
-                }
+                onClick={(event) => onSlideClick(event)}
+                aria-label={`${slide.project.title}: view case study`}
                 className="absolute inset-0 block"
               >
                 <div className="absolute inset-x-0 top-0 bottom-[5.5rem] overflow-hidden border-b border-border bg-surface">
                   <Image
                     src={slide.image.src}
-                    alt={pos === "active" ? slide.image.alt : ""}
+                    alt={isActive ? slide.image.alt : ""}
                     fill
                     draggable={false}
                     priority={index === 0}
-                    sizes="(min-width: 1024px) 480px, 90vw"
-                    className="scale-110 object-cover object-[50%_top] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-data-[pos=active]:scale-100"
+                    sizes="(min-width: 1024px) 544px, 90vw"
+                    className="scale-110 object-cover object-[50%_top] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-data-[active=true]:scale-100"
                   />
                 </div>
 
                 {/* Active: full caption */}
-                <div className="absolute inset-x-0 bottom-0 flex h-[5.5rem] items-center justify-between gap-4 p-4 opacity-0 transition-opacity duration-300 group-data-[pos=active]:opacity-100 group-data-[pos=active]:delay-200">
+                <div className="absolute inset-x-0 bottom-0 flex h-[5.5rem] items-center justify-between gap-4 p-4 opacity-0 transition-opacity duration-300 group-data-[active=true]:opacity-100 group-data-[active=true]:delay-200">
                   <div className="flex min-w-0 flex-col gap-1">
                     <span className="font-plex text-xs text-muted">{slide.kind}</span>
                     <span className="truncate text-base font-semibold tracking-tight text-ink">
@@ -172,16 +163,6 @@ export function ProjectReel() {
                     className="size-4 shrink-0 text-ink-secondary transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-accent-strong"
                     aria-hidden="true"
                   />
-                </div>
-
-                {/* Neighbour: vertical label */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 flex h-[5.5rem] items-end justify-center pb-3 opacity-0 transition-opacity duration-300 group-data-[pos=near]:opacity-100"
-                >
-                  <span className="rotate-180 text-xs font-semibold tracking-tight text-ink-secondary [writing-mode:vertical-rl]">
-                    {slide.project.title.split(" — ")[0]}
-                  </span>
                 </div>
               </Link>
             </div>

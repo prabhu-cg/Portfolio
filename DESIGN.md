@@ -156,7 +156,7 @@ Controls and buttons use 12px radius, cards 20px, pills and chips fully round, s
 - **Segmented control + underline tabs:** the project filters; active indicator glides with a spring, arrow-key navigable, counts shown as small pills.
 - **Project card:** icon tile, title, industry and role, description, impact, tags, and a "View project" link with a nudging arrow.
 - **Case-study section:** numbered label, H2, lead paragraph, then section content that reveals once on scroll; alternating white and cream.
-- **Hero project reel:** a filmstrip of five featured side projects (`src/content/featured.ts`). The focused card expands to fill the frame while its neighbours collapse to slim labelled slivers (hidden on phones). Navigate by trackpad swipe, touch swipe, mouse drag, arrow keys, dots or buttons. The active dot fills over 5.5s and that fill is the autoplay clock, so it pauses on hover, focus, off-screen or via the pause button. Under reduced motion there is no autoplay and no pause button.
+- **Hero project reel:** one large card at a time from five featured side projects (`src/content/featured.ts`), cycling with a slide-and-fade (the incoming card enters from the side it is heading from). Navigate by trackpad swipe, touch swipe, mouse drag, arrow keys, dots or buttons. The active dot fills over 5.5s and that fill is the autoplay clock, so it pauses on hover, focus, off-screen or via the pause button. Under reduced motion there is no autoplay and no pause button.
 - **Reading progress:** 2px accent line under the header that fills with scroll on case-study pages.
 - **Timeline, metric card, gallery:** hairline-bordered, cream ground, no decoration.
 
