@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText, Compass, ScanSearch, FileCode2, Scissors, Palette, ClipboardList } from "lucide-react";
+import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText, Compass, ScanSearch, FileCode2, Scissors, Palette, ClipboardList, Type } from "lucide-react";
 import type { GalleryImage } from "@/components/CaseStudyGallery";
 
 export interface DesignStrategyStep {
@@ -1571,6 +1571,121 @@ export const projects: Project[] = [
         src: "/case-studies/screenshots/sitenest-visual-sitemaps/03-how-it-works.jpg",
         alt: "SiteNest how-it-works steps and slide-deck comparison",
         caption: "From blank canvas to shareable plan in four steps.",
+      },
+    ],
+  },
+  {
+    slug: "tynovo-brand-typography-studio",
+    title: "Tynovo — Brand Typography & Typeface Studio",
+    category: "Side Projects",
+    subcategory: "Applications",
+    industry: "Design Tools / Typography",
+    role: "Designer & Builder",
+    timeline: "Oct 2026",
+    icon: Type,
+    description: "A free, in-browser studio for building a brand's typography system and generating an original display typeface, with no account required.",
+    impact: "Joined two normally separate jobs — choosing a brand's fonts and drawing its own — into one saved project, and labelled every capability with an honest status.",
+    tags: ["Design Tools", "Typography"],
+    liveUrl: "https://gettynovo.vercel.app/",
+    stack: ["Vercel", "IndexedDB"],
+    context:
+      "Brand typography usually lives in scattered places: a font picker here, a type-scale calculator there, a spec document somewhere else — and designing an original typeface is a separate specialist toolchain entirely. Tynovo set out to put the typography system and a custom display font in one studio that runs free in the browser.",
+    challenge:
+      "The product had to cover two very different modes — deciding which licensed fonts a brand uses and at what sizes, and procedurally generating a real typeface — inside one project, while being truthful about an early engine that supports Latin ASCII only and a catalog that is deliberately small.",
+    research: {
+      methods: ["Review of how brand typography specs are structured (roles, pairings, type scales)", "Font licensing and source research for the built-in catalog", "Scope study of what a procedural glyph engine can credibly produce"],
+      summary:
+        "Mapped the end-to-end job of a brand typographer — direction, fonts, roles, scale, preview, checks, export — and used it to define a single numbered workflow, then sized the typeface generator to what it could genuinely deliver rather than to the ideal.",
+    },
+    insights: [
+      {
+        title: "Typography decisions only make sense in context",
+        description: "A font choice is hard to judge in a picker. Previewing the system on a website, an editorial page, a product screen, a poster and a printed page, in light and dark, makes the trade-offs visible.",
+      },
+      {
+        title: "Licensing is part of the design decision",
+        description: "Designers pick fonts they then can't legally ship. Keeping a licence note and source for every font in the catalog turns licensing from an afterthought into part of the choice.",
+      },
+      {
+        title: "Early software earns trust by naming its limits",
+        description: "Marking each feature as Available now or Early version, and stating the Latin-only, ASCII-only limits up front, sets expectations better than a polished claim that later breaks.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "One project, two modes",
+        body: "Made the Brand Typography System and the Custom Typeface Creator edit the same saved project, so a generated typeface can be assigned to a display, heading, body or interface role and flow straight into previews and exports.",
+      },
+      {
+        heading: "A workflow that stays in view",
+        body: "Put a numbered step bar on every screen — brand direction, fonts, roles, scale, typeface, preview, checks, export — each with its own state, so progress and the next step are always visible.",
+      },
+      {
+        heading: "Show real output, early and often",
+        body: "Opened the landing page with a live generator: change family, stroke thickness and width and every glyph redraws, so the core idea is understood before any sign-up would have been.",
+      },
+      {
+        heading: "Explain every refusal with numbers",
+        body: "When a generated typeface lacks the characters or readability for a role, the tool says why with the underlying numbers rather than silently allowing or blocking the assignment.",
+      },
+      {
+        heading: "Keep the work portable and the entry free",
+        body: "Required no account, stored projects in the browser, and protected export, import and recovery from any future plan restriction so a project is never held hostage.",
+      },
+    ],
+    solution: {
+      summary:
+        "A free, account-free studio that takes a brand from direction to specification, and optionally to its own typeface, in one project — with real TrueType, OpenType, WOFF and WOFF2 files at the end.",
+      highlights: [
+        "Brand typography system: brand direction, a 52-font licensed catalog, roles and pairing, and a fluid type scale",
+        "Procedural typeface generator: three construction families drawing all 95 printable ASCII characters",
+        "Glyph editor for points and quadratic curves, plus seeded variations, restore points and quality checks",
+        "Previews across website, editorial, product screen, poster and print layouts in light and dark",
+        "Export of specification, CSS, tokens, HTML and PDF specimens, a licence manifest and font files",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A reusable status badge — Available now or Early version — applied to every feature and workflow step, plus a shared step-bar component present on every screen.",
+      },
+      {
+        label: "Tokens",
+        description: "A fluid type scale defined by a base size and ratio, exported as design tokens and CSS so the studio's output drops directly into a codebase.",
+      },
+      {
+        label: "Patterns",
+        description: "A read-only sample project that can be duplicated into an editable copy, so newcomers learn by exploring a complete example rather than a blank canvas.",
+      },
+      {
+        label: "Governance",
+        description: "A licence note kept for every font and a manifest exported with the project, so what a brand is allowed to ship is documented alongside what it chose.",
+      },
+    ],
+    outcome:
+      "Tynovo shipped as a free, in-browser studio that carries a brand from typographic direction to exportable specification and font files, with its limits stated plainly.",
+    metrics: [
+      { value: "52", label: "Licensed fonts in the catalog" },
+      { value: "95", label: "ASCII glyphs per generated typeface" },
+      { value: "0", label: "Accounts required" },
+    ],
+    reflection:
+      "Labelling features as early was uncomfortable for a product page, but it forced sharper scoping — every claim on the page had to match what the tool could actually do. Next steps are broader character coverage beyond Latin ASCII and a larger font catalog.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/tynovo-brand-typography-studio/01-hero.jpg",
+        alt: "Tynovo landing page with a live typeface generator",
+        caption: "The live product at gettynovo.vercel.app — a working generator right in the hero.",
+      },
+      {
+        src: "/case-studies/screenshots/tynovo-brand-typography-studio/02-sample-project.jpg",
+        alt: "Tynovo read-only sample project showing the brand workflow",
+        caption: "The read-only sample project: one saved project with an eight-step brand workflow.",
+      },
+      {
+        src: "/case-studies/screenshots/tynovo-brand-typography-studio/03-what-works-today.jpg",
+        alt: "Tynovo What you can do today list with status badges",
+        caption: "Every capability carries an honest status — Available now or Early version.",
       },
     ],
   },
