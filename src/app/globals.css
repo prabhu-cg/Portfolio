@@ -151,16 +151,7 @@ html {
   scroll-padding-top: 5.5rem;
 }
 
-@keyframes reel-fill {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-/* Marquee (hero filmstrip + employer ticker) */
+/* Marquee (hero filmstrip) */
 @keyframes marquee {
   to {
     transform: translateX(-50%);
