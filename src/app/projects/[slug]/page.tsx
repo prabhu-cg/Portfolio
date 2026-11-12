@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, LayoutGrid, Palette, Workflow, ShieldCheck, Check, FileDown, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ContactCTA } from "@/components/sections/ContactCTA";
 import { CaseStudySection } from "@/components/CaseStudySection";
 import { CaseStudyGallery } from "@/components/CaseStudyGallery";
@@ -101,7 +102,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               <span className="flex size-11 items-center justify-center rounded-md border border-border bg-surface text-ink-secondary">
                 <Icon className="size-5" aria-hidden="true" />
               </span>
-              <span className="text-eyebrow text-accent-strong">{project.tags.join(" · ")}</span>
+              <Eyebrow>{project.tags.join(" · ")}</Eyebrow>
             </div>
             <h1 className="max-w-3xl text-[2.5rem] leading-[1.1] tracking-tight text-ink md:text-h1">
               {project.title}
@@ -268,7 +269,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
       <section className="border-t border-border print:hidden">
         <div className="container-prism flex flex-col items-start justify-between gap-6 py-16 md:flex-row md:items-center">
           <div className="flex flex-col gap-1.5">
-            <span className="text-eyebrow text-muted">Next project</span>
+            <Eyebrow>Next project</Eyebrow>
             <span className="text-2xl font-semibold tracking-tight text-ink">
               {nextProject.title}
             </span>

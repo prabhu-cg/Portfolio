@@ -1,0 +1,112 @@
+/*
+  Saved themes — parked, NOT imported anywhere. Nothing here ships to visitors.
+
+  The site ships with Butter (the :root tokens in src/app/globals.css). These are
+  the alternatives explored during the 2026 brand pass, kept so they can be revived.
+
+  To use one, either:
+    1. add  @import "../styles/themes.css";  under  @import "tailwindcss";  in
+       src/app/globals.css, then set data-theme="classic" (or graphite, verdigris, ink)
+       on the <html> element in src/app/layout.tsx; or
+    2. copy its token block into :root in globals.css to make it the default.
+  Classic also needs its fonts: Manrope and IBM Plex Sans are still loaded in layout.tsx
+  (preload: false, so they are never fetched unless a theme uses them).
+
+  Each block overrides only tokens, so everything keys off the same names:
+  background, surface, border, ink*, muted, accent (fill), accent-strong (text accent and
+  focus), accent-light (tint), on-accent (text on the fill), focus (ring colour).
+  OKLCH sources are noted so ramps can be rebuilt. Contrast figures are WCAG ratios.
+*/
+
+/*
+  Classic — the original palette (shared with Doxa) and type.
+  Burnt orange accent on white and cream, Manrope + IBM Plex Sans.
+  Restores colour and type only; the pill eyebrows and centred hero are layout, not theme.
+*/
+html[data-theme="classic"] {
+  --background: #ffffff;
+  --surface: #f4f2ea;
+  --border: #e8ddc8;
+  --border-strong: #d6c7ab;
+  --ink: #1c1917;
+  --ink-secondary: #3d3a36;
+  --muted: #6f6963;
+  --accent: #c74504;          /* white text on it 4.9:1 */
+  --accent-strong: #a93a03;   /* the only accent used as text */
+  --accent-hover: #a93a03;
+  --accent-light: #fdefe7;
+  --on-accent: #ffffff;
+  --focus: #a93a03;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-plex: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+
+html[data-theme="classic"] h1 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+html[data-theme="classic"] h2 {
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/*
+  A — Graphite. Butter kept, but as a highlighter marker on blue-black ink over a cool
+  paper, so product screenshots supply the colour. No coloured text accent: active and
+  hover states use ink; the focus ring is blue.
+*/
+html[data-theme="graphite"] {
+  --background: #f8fafd;      /* oklch(0.985 0.004 250) */
+  --surface: #edf0f6;         /* 0.955 0.008 255 */
+  --border: #d6dbe1;          /* 0.89 0.01 255 */
+  --border-strong: #bfc5cc;
+  --ink: #131824;             /* 0.21 0.025 265 — 17:1 on paper */
+  --ink-secondary: #3d424d;   /* 9.6:1 */
+  --muted: #5f636c;           /* 5.8:1 */
+  --accent: #f7db4a;          /* marker, 0.89 0.16 98 — ink on it 12.8:1 */
+  --accent-hover: #e9c025;
+  --accent-strong: #131824;
+  --accent-light: #fcf1bc;
+  --on-accent: #131824;
+  --focus: #1f53b8;           /* 6.7:1 */
+}
+
+/*
+  B — Verdigris. Deep teal fill with white text on a cool green-tinted paper.
+  --pin is a vermilion reserved for one moment per page; not wired to anything yet.
+*/
+html[data-theme="verdigris"] {
+  --background: #f8fbf9;      /* 0.985 0.003 160 */
+  --surface: #e8f3f1;         /* 0.955 0.012 185 */
+  --border: #d6e1e0;
+  --border-strong: #bac7c6;
+  --ink: #031a1b;             /* 17:1 */
+  --ink-secondary: #2f4749;
+  --muted: #536869;           /* 5.7:1 */
+  --accent: #006465;          /* teal 0.45 0.09 195 — white on it 6.7:1 */
+  --accent-hover: #005050;
+  --accent-strong: #006465;   /* 6.7:1 on paper, 6.2:1 on surface */
+  --accent-light: #ddf4f2;
+  --on-accent: #ffffff;
+  --focus: #006465;
+  --pin: #dd5230;
+}
+
+/* C — Ink Blue. Ultramarine on neutral paper. The most conventional of the set. */
+html[data-theme="ink"] {
+  --background: #fcfcfa;      /* 0.99 0.002 90 */
+  --surface: #f0f2f7;         /* 0.96 0.008 270 */
+  --border: #dadee6;
+  --border-strong: #bec4d2;
+  --ink: #0e1528;             /* 17.7:1 */
+  --ink-secondary: #3e475e;
+  --muted: #636978;           /* 5.4:1 */
+  --accent: #314ec7;          /* ultramarine 0.48 0.19 268 — white on it 6.7:1 */
+  --accent-hover: #243bb2;
+  --accent-strong: #314ec7;   /* 6.7:1 on paper, 5.9:1 on tint */
+  --accent-light: #e6eeff;
+  --on-accent: #ffffff;
+  --focus: #314ec7;
+}

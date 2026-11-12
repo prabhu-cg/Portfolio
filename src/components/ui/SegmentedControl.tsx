@@ -55,7 +55,7 @@ export function SegmentedControl<T extends string>({
             className={cn(
               "relative rounded-full font-medium transition-colors duration-200",
               size === "sm" ? "px-3.5 py-1.5 text-xs" : "px-4 py-2 text-sm",
-              isActive ? "text-white" : "text-ink-secondary hover:text-ink"
+              isActive ? "text-on-accent" : "text-ink-secondary hover:text-ink"
             )}
           >
             {isActive && (
@@ -71,7 +71,7 @@ export function SegmentedControl<T extends string>({
                 <span
                   className={cn(
                     "rounded-full px-1.5 py-px text-[10px] font-semibold leading-normal tabular-nums",
-                    isActive ? "bg-white/20 text-white" : "bg-border/70 text-ink-secondary"
+                    isActive ? "bg-on-accent/15 text-on-accent" : "bg-border/70 text-ink-secondary"
                   )}
                 >
                   {option.count}

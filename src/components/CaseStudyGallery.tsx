@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { CaseStudyMotion, CaseStudyMotionItem } from "@/components/CaseStudyMotion";
 import { fadeUp, staggerChildren } from "@/lib/motion";
 
@@ -14,7 +15,7 @@ export function CaseStudyGallery({ images }: { images: GalleryImage[] }) {
       <div className="container-prism py-16 md:py-20">
         <CaseStudyMotion variants={staggerChildren(0.1)} className="flex flex-col gap-10">
           <CaseStudyMotionItem variants={fadeUp} className="flex max-w-3xl flex-col gap-4">
-            <span className="text-eyebrow text-muted">Selected screens</span>
+            <Eyebrow>Selected screens</Eyebrow>
             <h2 className="text-h3 font-semibold tracking-tight text-ink">A look at the work.</h2>
           </CaseStudyMotionItem>
           <CaseStudyMotionItem

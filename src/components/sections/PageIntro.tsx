@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { fadeUp, staggerChildren } from "@/lib/motion";
 
 interface PageIntroProps {
@@ -18,9 +19,9 @@ export function PageIntro({ eyebrow, title, description }: PageIntroProps) {
         variants={staggerChildren(0.1)}
         className="flex max-w-2xl flex-col gap-5"
       >
-        <motion.span variants={fadeUp} className="text-eyebrow text-accent-strong">
-          {eyebrow}
-        </motion.span>
+        <motion.div variants={fadeUp}>
+          <Eyebrow>{eyebrow}</Eyebrow>
+        </motion.div>
         <motion.h1
           variants={fadeUp}
           className="text-[2.5rem] leading-[1.1] tracking-tight text-ink md:text-h1"

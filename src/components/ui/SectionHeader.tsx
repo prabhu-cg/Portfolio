@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 
 interface SectionHeaderProps {
   eyebrow?: string;
@@ -23,7 +24,7 @@ export function SectionHeader({
         className
       )}
     >
-      {eyebrow && <span className="text-eyebrow text-accent-strong">{eyebrow}</span>}
+      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
       <h2 className="text-[2rem] md:text-h2 font-semibold tracking-tight text-ink">
         {title}
       </h2>
