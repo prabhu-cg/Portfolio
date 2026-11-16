@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText, Compass, ScanSearch, FileCode2, Scissors, Palette, ClipboardList, Type } from "lucide-react";
+import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText, Compass, ScanSearch, FileCode2, Scissors, Palette, ClipboardList, Type, MessagesSquare, Microscope } from "lucide-react";
 import type { GalleryImage } from "@/components/CaseStudyGallery";
 
 export interface DesignStrategyStep {
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     impact: "Replaced copy-paste-and-hope document conversion with a client-side tool that cleans formatting as it converts and names what it couldn't fix automatically.",
     tags: ["Developer Tools", "Privacy-first"],
     liveUrl: "https://getmarkly.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel"],
+    stack: ["React", "Vite", "TypeScript", "Tailwind CSS", "unified (remark / rehype)", "Mammoth", "Zustand", "Claude Code", "Vercel"],
     context:
       "Turning a Word doc or a pasted block of inconsistent Markdown into something clean enough to commit to a repo or paste into a CMS usually means manual cleanup — fixing spacing, list markers and heading levels by hand. Markly set out to do that cleanup automatically, entirely in the browser, and to be honest about what it couldn't fix on its own.",
     challenge:
@@ -182,7 +182,7 @@ export const projects: Project[] = [
     impact: "Replaced trial-and-error prompt editing with a one-paste optimiser that preserves intent while cutting prompt length dramatically.",
     tags: ["AI Tools", "Developer Tools"],
     liveUrl: "https://getprompttrim.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel", "Groq"],
+    stack: ["React", "Vite", "TypeScript", "Tailwind CSS", "Radix UI", "Zod", "Groq", "Vercel Functions", "Claude Code", "Vercel"],
     context:
       "Prompts written the way people actually talk — polite framing, backstory, restated instructions — cost tokens and dilute the actual instruction inside them. PromptTrim set out to strip a prompt down to what an AI model actually needs, without quietly dropping a requirement or a constraint in the process.",
     challenge:
@@ -300,7 +300,7 @@ export const projects: Project[] = [
     impact: "Replaced the guesswork of reading a vague request with a one-paste brief that shows what is known, what is inferred and what still needs asking before design starts.",
     tags: ["Design Tools", "AI Tools"],
     liveUrl: "https://getbriefwise.vercel.app/refiner",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Claude Code", "Vercel AI SDK", "Groq", "Zod", "Vercel"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel AI SDK", "Groq", "Zod", "Claude Code", "Vercel"],
     context:
       "Design work often starts from a stakeholder request that is a few loose sentences — a problem, a wish, a deadline — with the real brief still missing. BriefWise set out to close that gap by structuring the request before work begins, so the open questions surface on day one instead of mid-project.",
     challenge:
@@ -424,7 +424,7 @@ export const projects: Project[] = [
     impact: "Replaced guesswork color-balancing with a deliberate, designer-led workspace that shows exactly where each color role belongs and whether it's accessible.",
     tags: ["Design Tools", "Accessibility"],
     liveUrl: "https://getratioapp.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel"],
+    stack: ["React", "Vite", "TypeScript", "Tailwind CSS", "React Router", "Vitest", "Claude Code", "Vercel"],
     context:
       "Most designers can shortlist colors that look good together — the harder question is how much space each one should occupy. RATIO set out to make the classic 60–30–10 interior-design color principle usable for interface work, deliberately without AI generating the palette for you.",
     challenge:
@@ -542,7 +542,7 @@ export const projects: Project[] = [
     impact: "Replaced a single 'generate a spec' prompt with a seven-stage structured process that names its own gaps and assumptions before a team commits to a direction.",
     tags: ["Product Design", "AI Tools"],
     liveUrl: "https://getsolvr.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel"],
+    stack: ["React", "Vite", "TypeScript", "Tailwind CSS", "Radix UI", "React Router", "Zustand", "React Hook Form", "Zod", "Dexie (IndexedDB)", "Vercel AI SDK", "Groq", "Vercel Functions", "Claude Code", "Vercel"],
     context:
       "Most AI design tools compress a product problem straight into a finished-looking output — a generated spec, a set of screens — with no visible working. Solvr set out to do the opposite: guide a problem through the same stages a structured design process would use, keeping evidence, assumptions and gaps visible at every step instead of hiding them behind a single generate button.",
     challenge:
@@ -660,7 +660,7 @@ export const projects: Project[] = [
     impact: "Replaced 'here's the Figma file' handoffs with a scored, question-driven documentation process that surfaces what a developer will ask before they ask it.",
     tags: ["Design Tools", "Developer Handoff"],
     liveUrl: "https://getdevlensapp.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel"],
+    stack: ["React", "Vite", "TypeScript", "Radix UI", "React Router", "Zustand", "React Hook Form", "Zod", "Dexie (IndexedDB)", "Vitest", "Playwright", "Claude Code", "Vercel"],
     context:
       "A Figma file communicates spacing, typography and layout well, and says almost nothing about what happens when a list is empty, a field fails validation, or a modal needs to respond to Escape. Those gaps usually surface mid-sprint, as a developer's Slack question. DevLens set out to catch them before handoff, by documenting intent alongside the pixels.",
     challenge:
@@ -760,8 +760,8 @@ export const projects: Project[] = [
       },
       {
         src: "/case-studies/screenshots/devlens-design-handoff-clarity/03-detect-document-handoff.jpg",
-        alt: "DevLens three-step process: Detect, Document, Handoff",
-        caption: "The three-step model behind every project — detect what's missing, document intent, hand off with clarity.",
+        alt: "DevLens project-notes workflow beside the developer questions it surfaces for buttons, search, forms, modals and tables",
+        caption: "From project notes to implementation clarity — and the questions a developer would ask about each component.",
       },
     ],
   },
@@ -778,7 +778,7 @@ export const projects: Project[] = [
     impact: "Replaced ad hoc Word-doc briefs with a structured, scored format that names exactly what's missing before a project starts.",
     tags: ["Product Management", "Privacy-first"],
     liveUrl: "https://getreqstudio.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel"],
+    stack: ["React", "Vite", "TypeScript", "Tailwind CSS", "Radix UI", "React Router", "Zustand", "React Hook Form", "Zod", "Dexie (IndexedDB)", "pdf-lib", "docx", "Claude Code", "Vercel"],
     context:
       "Most project briefs live in a Word document that someone started once, half-filled in, and never went back to finish — which means the people building from it are often working from a brief with silent, undocumented gaps. ReqStudio set out to replace that with a guided, ten-section structure that always knows what's missing, without asking for an account or a server.",
     challenge:
@@ -878,8 +878,8 @@ export const projects: Project[] = [
       },
       {
         src: "/case-studies/screenshots/reqstudio-project-briefs/03-dashboard.jpg",
-        alt: "ReqStudio dashboard showing project count, average readiness and status breakdown",
-        caption: "The Dashboard — where every brief's readiness and status stand at a glance.",
+        alt: "ReqStudio feature grid covering guided sections, readiness score, search and reports",
+        caption: "Everything a brief needs — guided sections, a meaningful readiness score, search, filter and a report to hand over.",
       },
     ],
   },
@@ -896,7 +896,7 @@ export const projects: Project[] = [
     impact: "Replaced an unsearchable bookmarks bar with a self-auditing library that scores its own health and tells you exactly what to fix.",
     tags: ["Productivity", "Privacy-first"],
     liveUrl: "https://getcuro.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel"],
+    stack: ["React", "Vite", "TypeScript", "Tailwind CSS", "shadcn/ui", "TanStack Table", "Dexie (IndexedDB)", "Fuse.js", "Zustand", "React Hook Form", "Zod", "Recharts", "Vitest", "Playwright", "Claude Code", "Vercel"],
     context:
       "Bookmarks accumulate for years across every browser a person has used, and most managers only ever add to that pile — they don't audit it. Curo set out to treat an unmanaged bookmarks bar as a data-quality problem: duplicates, dead folders and links nobody will ever find again, entirely inside the browser with no account and no server.",
     challenge:
@@ -991,13 +991,13 @@ export const projects: Project[] = [
       },
       {
         src: "/case-studies/screenshots/curo-bookmark-manager/02-dashboard.jpg",
-        alt: "Curo dashboard showing bookmark count, growth chart and Knowledge Health Score",
-        caption: "The Dashboard — bookmark growth over time alongside the Knowledge Health Score.",
+        alt: "Curo bookmarks view showing a searchable table of saved links",
+        caption: "Every bookmark in one searchable table — search, filter and manage the whole library.",
       },
       {
         src: "/case-studies/screenshots/curo-bookmark-manager/03-health-score.jpg",
-        alt: "Curo Health page showing the five scoring factors and adjustable weights",
-        caption: "The Health view — five weighted factors, each adjustable and individually explained.",
+        alt: "Curo feature grid covering fuzzy search, duplicate detection, Cleanup Engine and Knowledge Health Score",
+        caption: "Fuzzy search, duplicate detection, the Cleanup Engine and a Knowledge Health Score — what a library needs, nothing more.",
       },
     ],
   },
@@ -1014,7 +1014,7 @@ export const projects: Project[] = [
     impact: "Replaced manual, after-the-fact localization QA with an upfront layout-risk check that catches overflow before it reaches production.",
     tags: ["Localization", "Accessibility"],
     liveUrl: "https://localensapp.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Supabase", "Tesseract.js", "Fabric.js", "TanStack Table", "Zustand", "React Hook Form", "Zod", "Recharts", "React-PDF", "Claude Code", "Vercel"],
     context:
       "Most translation tools stop at the text — they translate a string but say nothing about whether the translated version still fits the button, label or card it was designed for. Teams typically only discover layout breakage after a translated build ships. LocaLens set out to catch that earlier, from a screenshot alone.",
     challenge:
@@ -1131,7 +1131,7 @@ export const projects: Project[] = [
     impact: "Turned ad-hoc UX issue tracking into a scored, trackable register that teams can use to prioritise fixes and prove improvement over time.",
     tags: ["Design Tools", "Product Management"],
     liveUrl: "https://uxledger.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Supabase", "TanStack Table", "Tiptap", "Recharts", "Zustand", "React Hook Form", "Zod", "ExcelJS", "Claude Code", "Vercel"],
     context:
       "UX debt — the small usability, accessibility and content issues that pile up in a product — usually lives in scattered spreadsheets, sticky notes or Slack threads. It rarely gets prioritised against feature work because there's no shared, visible record of how much of it exists or how severe it is. UXLedger set out to give that debt the same visibility a bug tracker gives engineering debt.",
     challenge:
@@ -1227,8 +1227,8 @@ export const projects: Project[] = [
       },
       {
         src: "/case-studies/screenshots/uxledger-ux-debt-tracker/03-health-score.jpg",
-        alt: "UXLedger product health score card showing a score of 82 with severity breakdown",
-        caption: "The product health score — a single number backed by a visible severity breakdown.",
+        alt: "UXLedger debt register preview with severity and status tags",
+        caption: "The debt register — severity, status and ownership in a living list rather than a spreadsheet.",
       },
     ],
   },
@@ -1245,7 +1245,7 @@ export const projects: Project[] = [
     impact: "Replaced black-box AI audit scores with a transparent, rule-based UX health score anyone can inspect and reproduce.",
     tags: ["Design Tools", "Accessibility"],
     liveUrl: "https://uxbeacon.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel"],
+    stack: ["Next.js", "NestJS", "TypeScript", "Turborepo", "Tailwind CSS", "shadcn/ui", "TanStack Query", "Zustand", "Recharts", "axe-core", "Playwright", "Tesseract.js", "Render", "Claude Code", "Vercel"],
     context:
       "Most quick UX-audit tools either require a login and a sales conversation, or they return an AI-generated score with no visibility into how it was calculated. UXBeacon set out to be the opposite: free, instant, and built entirely on rules a designer could actually inspect and argue with.",
     challenge:
@@ -1359,7 +1359,7 @@ export const projects: Project[] = [
     impact: "Replaced manual test administration with an invite-code flow and instant MCQ grading, cutting setup and grading friction to near zero.",
     tags: ["EdTech", "Product Design"],
     liveUrl: "https://assesslyapp.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Supabase", "dnd kit", "Zustand", "React Hook Form", "Zod", "Playwright", "Claude Code", "Vercel"],
     context:
       "Teachers running tests in a classroom or remote setting typically juggle spreadsheets for rosters, paper or PDF exports for grading, and no easy way to see who has actually attempted a test. Assessly set out to replace that patchwork with a single, lightweight platform built around how a teacher actually runs a test day.",
     challenge:
@@ -1473,7 +1473,7 @@ export const projects: Project[] = [
     impact: "Replaced static screenshots and slide decks with a living canvas that stays accurate as scope changes, exportable as PNG or JSON.",
     tags: ["Productivity", "Interaction Design"],
     liveUrl: "https://sitenestapp.vercel.app/",
-    stack: ["Next.js", "Claude Code", "Vercel"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Radix UI", "Supabase", "React Flow", "Dagre", "Framer Motion", "Zustand", "React Hook Form", "html-to-image", "Claude Code", "Vercel"],
     context:
       "Planning a site's structure usually ends up split across two disconnected tools — a diagramming tool for the sitemap and a slide deck or whiteboard for rough page layouts. Both go stale the moment scope changes. SiteNest set out to put structure and layout on the same canvas.",
     challenge:
@@ -1587,7 +1587,7 @@ export const projects: Project[] = [
     impact: "Joined two normally separate jobs — choosing a brand's fonts and drawing its own — into one saved project, and labelled every capability with an honest status.",
     tags: ["Design Tools", "Typography"],
     liveUrl: "https://gettynovo.vercel.app/",
-    stack: ["Vercel", "IndexedDB"],
+    stack: ["React", "Vite", "TypeScript", "Tailwind CSS", "React Router", "IndexedDB", "Zod", "Fontsource", "Vitest", "Playwright", "Claude Code", "Vercel"],
     context:
       "Brand typography usually lives in scattered places: a font picker here, a type-scale calculator there, a spec document somewhere else — and designing an original typeface is a separate specialist toolchain entirely. Tynovo set out to put the typography system and a custom display font in one studio that runs free in the browser.",
     challenge:
@@ -1686,6 +1686,236 @@ export const projects: Project[] = [
         src: "/case-studies/screenshots/tynovo-brand-typography-studio/03-what-works-today.jpg",
         alt: "Tynovo What you can do today list with status badges",
         caption: "Every capability carries an honest status — Available now or Early version.",
+      },
+    ],
+  },
+  {
+    slug: "doxa-community-decisions",
+    title: "Doxa — Community Feedback to Decisions",
+    category: "Side Projects",
+    subcategory: "Applications",
+    industry: "Product Management / Community",
+    role: "Designer & Builder",
+    timeline: "Nov 2026",
+    icon: MessagesSquare,
+    description: "A feedback platform that collects community input, weighs it and records each decision with its rationale, so people see what happened to what they asked for.",
+    impact: "Reframed voting as one signal among several and made the team's answer visible on every item, turning a feature-request board into a closed loop.",
+    tags: ["Product Management", "Feedback"],
+    liveUrl: "https://getdoxa.vercel.app/",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Supabase", "Prisma", "PostgreSQL", "Stripe", "Resend", "Tiptap", "React Hook Form", "Zod", "Vitest", "Playwright", "Claude Code", "Vercel"],
+    context:
+      "Feedback usually lands in email, chat, tickets and spreadsheets, and the people who sent it rarely hear back. Most feedback boards stop at collecting votes. Doxa set out to cover the whole path from a request to a recorded, communicated decision.",
+    challenge:
+      "The product had to stay as simple as a voting board for a small team while supporting prioritisation, roadmaps and decision records for a larger one — and it had to be honest that a vote count alone is not a reason to build something.",
+    research: {
+      methods: ["Review of how product teams, communities and IT teams currently gather requests", "Analysis of where feedback gets lost between collection and communication", "Study of existing feedback boards and what they leave out"],
+      summary:
+        "Traced a request from submission to outcome and found the weak points were at both ends: scattered intake, and no visible answer. That produced a six-step loop — collect, discuss, understand, prioritise, decide, communicate — that organises both the product and its page.",
+    },
+    insights: [
+      {
+        title: "Popularity is not the same as priority",
+        description: "The most-voted idea is not always the right build. Demand, impact, business value, effort and strategic fit all belong in the decision alongside the vote count.",
+      },
+      {
+        title: "People stop contributing when nothing comes back",
+        description: "A request that disappears teaches people not to ask again. Showing the team's answer in the row, and how many ideas have been answered, makes responsiveness visible.",
+      },
+      {
+        title: "A decision needs a reason, not just a status",
+        description: "Changing a status from Open to Planned says what, not why. Recording the evidence, rationale and next step gives followers something they can trust.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Design around one loop",
+        body: "Structured the whole product, and the landing page that explains it, around collect, discuss, understand, prioritise, decide and communicate, so every feature has a clear place in the path.",
+      },
+      {
+        heading: "Treat votes as a signal",
+        body: "Combined votes, comments, demand, impact, business value, effort and strategic fit into a single priority score, so voting informs a decision instead of making it.",
+      },
+      {
+        heading: "Show the answer where people look",
+        body: "Put the team's response in the board row itself and surfaced a responsiveness count, so contributors can see their request was heard without opening anything.",
+      },
+      {
+        heading: "Record the why",
+        body: "Gave each decision a record of the request, evidence, outcome, rationale and next step that can be shared publicly, and notified voters when it changed.",
+      },
+      {
+        heading: "Simple by default, powerful later",
+        body: "Started every workspace with collect, discuss and vote, and left prioritisation, roadmaps, decisions and advanced controls to be switched on as the team grows.",
+      },
+    ],
+    solution: {
+      summary:
+        "A free-to-start platform where feedback is gathered on boards, discussed, prioritised and closed out with a recorded decision that everyone can see.",
+      highlights: [
+        "Feedback boards organised by space, with voting, discussion, statuses, search and filtering",
+        "Prioritisation that weighs demand against impact and effort in one score",
+        "Roadmaps showing planned, in-progress and shipped work",
+        "Decision records that capture evidence and rationale, shareable through public boards and roadmaps with no account needed",
+        "Configurable item types and organisation roles, with notifications to voters when a decision is made",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "Reusable board rows, status badges, vote controls and priority cards, shared between the product and the sample board on the landing page.",
+      },
+      {
+        label: "Tokens",
+        description: "Status and priority carry consistent colour and label tokens, so an item reads the same on a board, a roadmap and a decision record.",
+      },
+      {
+        label: "Patterns",
+        description: "A repeating item pattern — vote, title, status, team answer — used across boards, roadmaps and public pages.",
+      },
+      {
+        label: "Governance",
+        description: "Item types can be renamed to match an organisation's own terms, and Pro adds a custom logo and accent colour to public pages.",
+      },
+    ],
+    outcome:
+      "Doxa shipped as a platform that carries a request from first suggestion to a recorded, communicated decision, with a free plan and honest notes on what is still coming.",
+    metrics: [
+      { value: "6", label: "Steps in the feedback loop" },
+      { value: "12", label: "Core capabilities live" },
+      { value: "$0", label: "To start, no card needed" },
+    ],
+    reflection:
+      "Deciding that votes are a signal rather than a verdict shaped the whole product, and it was the hardest idea to show without sounding abstract. Next steps are letting customers sign in to vote and comment on public boards, and opening paid checkout.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/doxa-community-decisions/01-hero.jpg",
+        alt: "Doxa landing page with a sample Feature requests board",
+        caption: "The live product at getdoxa.vercel.app — a sample board right in the hero.",
+      },
+      {
+        src: "/case-studies/screenshots/doxa-community-decisions/02-public-board.jpg",
+        alt: "Doxa sample public board with ranked items, vote counts, priority and status",
+        caption: "A public board — ranked items with votes, status and the team's answer in the row.",
+      },
+      {
+        src: "/case-studies/screenshots/doxa-community-decisions/03-prioritisation.jpg",
+        alt: "Doxa priority card combining votes, comments, demand, impact, business value, effort and strategic fit",
+        caption: "Votes are a signal, not a decision — seven inputs feed one priority score.",
+      },
+    ],
+  },
+  {
+    slug: "yedara-ux-research-workspace",
+    title: "Yedara — Connected UX Research Workspace",
+    category: "Side Projects",
+    subcategory: "Applications",
+    industry: "UX Research / Design Tools",
+    role: "Designer & Builder",
+    timeline: "Nov 2026",
+    icon: Microscope,
+    description: "A connected workspace for planning, running and making sense of small UX studies, where every insight stays traceable to the evidence behind it.",
+    impact: "Linked plans, personas, competitors, observations, insights and journeys in one project, and showed unknowns as unknowns instead of filling them in.",
+    tags: ["UX Research", "Design Tools"],
+    liveUrl: "https://getyedara.vercel.app/",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Supabase", "dnd kit", "React-PDF", "docx", "React Hook Form", "Zod", "Vitest", "Playwright", "Claude Code", "Vercel"],
+    context:
+      "Small research teams spread a study across documents, spreadsheets, whiteboards and slides, so the thread from a participant's words to a design decision gets lost. Yedara set out to keep the plan, people, market, notes and journeys in one project where evidence stays linked.",
+    challenge:
+      "The workspace had to feel like one connected tool rather than six separate ones, while refusing to generate findings, quotes or personas — the researcher's own evidence had to stay the source of every conclusion, and unfinished parts had to be stated plainly.",
+    research: {
+      methods: ["Mapping the stages of a hand-run study from plan to prioritised opportunities", "Review of common research artefacts: plans, personas, competitor matrices, affinity boards and journey maps", "Analysis of where evidence breaks between one artefact and the next"],
+      summary:
+        "Followed a study from plan to prioritised opportunities and found each artefact was usually built in a separate tool, with the link back to evidence lost at each hand-off. That shaped a four-stage flow — plan, research, understand, prioritise — and one shared project underneath it.",
+    },
+    insights: [
+      {
+        title: "An insight without evidence is just an opinion",
+        description: "Findings are hard to defend when nobody can see where they came from. Requiring every insight to link to at least one observation makes that trail the default.",
+      },
+      {
+        title: "Gaps are information",
+        description: "Competitor and persona work is often padded with guesses. Marking cells as known, unknown, not publicly available or not applicable turns gaps into research still to do.",
+      },
+      {
+        title: "Researchers distrust tools that invent things",
+        description: "A tool that writes quotes or personas undermines the work. Keeping all content user-entered, and labelling personas as research-backed, hypothesis or proto, protects credibility.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "One project, one thread of evidence",
+        body: "Built the plan, personas, competitors, observations, insights and journeys inside a single project so each artefact can link to the one before it.",
+      },
+      {
+        heading: "Enforce traceability in the interface",
+        body: "Blocked saving an insight without a linked observation, and flagged an insight whose evidence is deleted, so the evidence trail cannot silently break.",
+      },
+      {
+        heading: "Show unknowns as unknowns",
+        body: "Gave competitor matrices four honest cell states and required a source URL and retrieval date, so missing information is visible rather than papered over.",
+      },
+      {
+        heading: "Support the hand-run workflow",
+        body: "Added a guided seven-step planner, affinity-board synthesis with keyboard support and undo, and file import reviewed before saving, so the tool fits how researchers already work.",
+      },
+      {
+        heading: "Say what is not ready",
+        body: "Labelled the Opportunity Analyzer as in development, noted that journeys cannot be exported yet, and described Pro as still being shaped, instead of implying a finished suite.",
+      },
+    ],
+    solution: {
+      summary:
+        "A free workspace with five live research tools and a sixth in development, all sharing one project so evidence flows from plan to journey.",
+      highlights: [
+        "Research Planner: a guided seven-step plan with optional method suggestions, exported to PDF, Word or Markdown",
+        "Persona Builder: personas labelled research-backed, hypothesis or proto, with sourced quotes and reasoned demographics",
+        "Competitor Analyzer: a criteria matrix with known, unknown, unavailable and not-applicable states and dated sources",
+        "Research Synthesizer: file import, an affinity board and insights that must link to observations",
+        "Journey Mapper: stages, emotions and pain points with an emotion curve, in map, table and presentation views",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "Shared tool shells, status badges and evidence-link chips reused across the planner, personas, competitors, synthesizer and journey mapper.",
+      },
+      {
+        label: "Tokens",
+        description: "A small set of state tokens for evidence status — linked, unknown, hypothesis, in development — keeps meaning consistent across tools.",
+      },
+      {
+        label: "Patterns",
+        description: "A repeating observation-to-insight-to-journey link pattern, plus illustrated sample data on every feature section so each tool can be understood before signing up.",
+      },
+      {
+        label: "Governance",
+        description: "Research data private to the account, imported files read in the browser and never uploaded, and a clear rule that content is entered by the user, not generated.",
+      },
+    ],
+    outcome:
+      "Yedara shipped as a free, connected workspace with five live tools, where plans, personas, competitors, synthesis and journeys stay linked to their evidence and the unfinished parts are stated plainly.",
+    metrics: [
+      { value: "5", label: "Research tools live" },
+      { value: "4", label: "Stages from plan to prioritise" },
+      { value: "0", label: "Findings generated for you" },
+    ],
+    reflection:
+      "Refusing to generate content felt like leaving out the obvious feature, but it is what makes the workspace trustworthy to researchers. Next steps are the Opportunity Analyzer, journey export and team collaboration.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/yedara-ux-research-workspace/01-hero.jpg",
+        alt: "Yedara landing page headline Better insights, stronger decisions",
+        caption: "The live product at getyedara.vercel.app.",
+      },
+      {
+        src: "/case-studies/screenshots/yedara-ux-research-workspace/02-research-tools.jpg",
+        alt: "Yedara Six tools section showing the Research Planner with sample data",
+        caption: "Six tools, each doing one job — the Research Planner shown with invented sample data.",
+      },
+      {
+        src: "/case-studies/screenshots/yedara-ux-research-workspace/03-evidence-thread.jpg",
+        alt: "Yedara evidence thread linking project brief, observation, insight, journey and opportunity",
+        caption: "One project, one thread of evidence — observation to insight to journey to opportunity.",
       },
     ],
   },
