@@ -48,9 +48,11 @@ export interface Project {
   gallery?: GalleryImage[];
   liveUrl?: string;
   stack?: string[];
+  /** Keeps the project in the data but off the site (grid, case study, hero reel). */
+  hidden?: boolean;
 }
 
-export const projects: Project[] = [
+const allProjects: Project[] = [
   {
     slug: "markly-document-to-markdown",
     title: "Markly — Document to Markdown Converter",
@@ -373,7 +375,7 @@ export const projects: Project[] = [
       },
       {
         label: "Tokens",
-        description: "A restrained warm-orange accent reserved for primary actions and open questions, so attention goes to what needs a decision.",
+        description: "A restrained warm gold accent reserved for primary actions and open questions, so attention goes to what needs a decision.",
       },
       {
         label: "Patterns",
@@ -1006,6 +1008,7 @@ export const projects: Project[] = [
     title: "LocaLens — Localization QA Tool",
     category: "Side Projects",
     subcategory: "Applications",
+    hidden: true,
     industry: "Localization / QA Tools",
     role: "Designer & Builder",
     timeline: "Jun – Jul 2026",
@@ -1578,7 +1581,7 @@ export const projects: Project[] = [
     slug: "tynovo-brand-typography-studio",
     title: "Tynovo — Brand Typography & Typeface Studio",
     category: "Side Projects",
-    subcategory: "Applications",
+    subcategory: "Tools",
     industry: "Design Tools / Typography",
     role: "Designer & Builder",
     timeline: "Oct 2026",
@@ -1788,17 +1791,17 @@ export const projects: Project[] = [
       "Deciding that votes are a signal rather than a verdict shaped the whole product, and it was the hardest idea to show without sounding abstract. Next steps are letting customers sign in to vote and comment on public boards, and opening paid checkout.",
     gallery: [
       {
-        src: "/case-studies/screenshots/doxa-community-decisions/01-hero.jpg",
+        src: "/case-studies/screenshots/doxa-community-decisions/01-hero-gold.jpg",
         alt: "Doxa landing page with a sample Feature requests board",
         caption: "The live product at getdoxa.vercel.app — a sample board right in the hero.",
       },
       {
-        src: "/case-studies/screenshots/doxa-community-decisions/02-public-board.jpg",
+        src: "/case-studies/screenshots/doxa-community-decisions/02-public-board-gold.jpg",
         alt: "Doxa sample public board with ranked items, vote counts, priority and status",
         caption: "A public board — ranked items with votes, status and the team's answer in the row.",
       },
       {
-        src: "/case-studies/screenshots/doxa-community-decisions/03-prioritisation.jpg",
+        src: "/case-studies/screenshots/doxa-community-decisions/03-prioritisation-gold.jpg",
         alt: "Doxa priority card combining votes, comments, demand, impact, business value, effort and strategic fit",
         caption: "Votes are a signal, not a decision — seven inputs feed one priority score.",
       },
@@ -1903,17 +1906,17 @@ export const projects: Project[] = [
       "Refusing to generate content felt like leaving out the obvious feature, but it is what makes the workspace trustworthy to researchers. Next steps are the Opportunity Analyzer, journey export and team collaboration.",
     gallery: [
       {
-        src: "/case-studies/screenshots/yedara-ux-research-workspace/01-hero.jpg",
+        src: "/case-studies/screenshots/yedara-ux-research-workspace/01-hero-gold.jpg",
         alt: "Yedara landing page headline Better insights, stronger decisions",
         caption: "The live product at getyedara.vercel.app.",
       },
       {
-        src: "/case-studies/screenshots/yedara-ux-research-workspace/02-research-tools.jpg",
+        src: "/case-studies/screenshots/yedara-ux-research-workspace/02-research-tools-gold.jpg",
         alt: "Yedara Six tools section showing the Research Planner with sample data",
         caption: "Six tools, each doing one job — the Research Planner shown with invented sample data.",
       },
       {
-        src: "/case-studies/screenshots/yedara-ux-research-workspace/03-evidence-thread.jpg",
+        src: "/case-studies/screenshots/yedara-ux-research-workspace/03-evidence-thread-gold.jpg",
         alt: "Yedara evidence thread linking project brief, observation, insight, journey and opportunity",
         caption: "One project, one thread of evidence — observation to insight to journey to opportunity.",
       },
@@ -2255,6 +2258,8 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+export const projects: Project[] = allProjects.filter((project) => !project.hidden);
 
 export function getProjectBySlug(slug: string) {
   return projects.find((project) => project.slug === slug);

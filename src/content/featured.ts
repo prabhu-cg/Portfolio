@@ -7,7 +7,6 @@ export const heroReel: { slug: string; shot?: number }[] = [
   { slug: "devlens-design-handoff-clarity" },
   { slug: "curo-bookmark-manager" },
   { slug: "uxbeacon-ux-audit-tool" },
-  { slug: "localens-localization-qa" },
   { slug: "ratio-color-balance-tool" },
   { slug: "uxledger-ux-debt-tracker" },
 ];
