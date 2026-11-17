@@ -1472,8 +1472,8 @@ const allProjects: Project[] = [
     role: "Designer & Builder",
     timeline: "Jan 2026",
     icon: Network,
-    description: "A visual, canvas-based tool for planning a site's structure — pages, connections and rough wireframes — without reaching for a slide deck.",
-    impact: "Replaced static screenshots and slide decks with a living canvas that stays accurate as scope changes, exportable as PNG or JSON.",
+    description: "A visual, canvas-based tool for planning a site's structure — pages, links and wireframes — and testing the navigation before anything is built, without reaching for a slide deck.",
+    impact: "Replaced static screenshots and slide decks with a living canvas that stays accurate as scope changes, then checks the navigation, lets a reviewer click through it and exports a PNG.",
     tags: ["Productivity", "Interaction Design"],
     liveUrl: "https://sitenestapp.vercel.app/",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Radix UI", "Supabase", "React Flow", "Dagre", "Framer Motion", "Zustand", "React Hook Form", "html-to-image", "Claude Code", "Vercel"],
@@ -1496,8 +1496,8 @@ const allProjects: Project[] = [
         description: "The same canvas needed to answer 'what does the whole site look like' and 'what does this one page look like' — infinite zoom did that better than switching views.",
       },
       {
-        title: "Export has to match how the output gets used",
-        description: "PNG for a deck, JSON for a handoff — the two people who ask for a sitemap almost always want it in a different format.",
+        title: "A sitemap is a hypothesis to test",
+        description: "A drawn structure only looks right. Letting a team check for unreachable pages, dead ends and buried pages, then click through it like a visitor, turns sign-off into a decision rather than a nod.",
       },
     ],
     designStrategy: [
@@ -1514,8 +1514,8 @@ const allProjects: Project[] = [
         body: "Made the canvas work equally well zoomed out for the full site structure and zoomed in for one page's wireframe blocks.",
       },
       {
-        heading: "Export for the request, not the tool",
-        body: "Shipped both PNG and JSON export from day one, covering the two most common reasons someone asks to see a sitemap.",
+        heading: "Make the sitemap testable",
+        body: "Let any block link to any page, then derived Flow checks, a click-through Present mode and a read-only share link from that data, so a reviewer can test the structure without an account.",
       },
       {
         heading: "Treat AI as the pair, not the author",
@@ -1524,38 +1524,41 @@ const allProjects: Project[] = [
     ],
     solution: {
       summary:
-        "An infinite-canvas sitemap builder combining page structure, navigation connections and pre-built wireframe blocks in one tool, exportable as PNG or JSON.",
+        "An infinite-canvas sitemap builder combining page structure, drag-to-link navigation and a library of wireframe blocks in one free tool, with flow analysis, a click-through preview and PNG export.",
       highlights: [
         "An infinite canvas for both site-wide structure and single-page layout",
-        "19+ pre-built wireframe blocks for fast page sketches",
-        "A properties panel for editing titles, URLs, notes and colours in place",
+        "55+ pre-built wireframe blocks in eight categories for fast page sketches",
+        "Drag from any block to the page it opens, so navigation is drawn on the canvas",
+        "Flow analysis that finds orphan pages, dead ends and pages buried too deep, with a plain-English reason for each",
+        "Present mode and a read-only share link, so stakeholders can click through the plan without an account",
+        "PNG export of the whole sitemap or a single page wireframe",
         "Light and dark themes that remember the user's preference",
       ],
     },
     designSystemThinking: [
       {
         label: "Components",
-        description: "19+ wireframe blocks — heroes, forms, footers — built as reusable canvas primitives rather than one-off shapes.",
+        description: "55+ wireframe blocks — heroes, forms, footers — built as reusable canvas primitives rather than one-off shapes.",
       },
       {
         label: "Tokens",
-        description: "A light/dark theme system applied consistently across canvas, panels and exports.",
+        description: "The Butter palette — pale butter surfaces with a single amber accent — in light and a warm-charcoal dark theme, applied consistently across canvas and panels.",
       },
       {
         label: "Patterns",
-        description: "A connection pattern for linking pages that doubles as both navigation mapping and user-flow documentation.",
+        description: "A block-to-page link pattern that doubles as navigation mapping and user-flow documentation, and feeds the Flow checks and Present mode.",
       },
       {
         label: "Governance",
-        description: "Row-level data isolation per project, so every sitemap is private to its owner by default.",
+        description: "Row-level data isolation per project, so every sitemap is private to its owner by default, and sharing is an explicit read-only link.",
       },
     ],
     outcome:
-      "SiteNest shipped as a working alternative to the slide-deck-and-whiteboard combination most teams default to, with structure and layout living on one exportable canvas.",
+      "SiteNest shipped as a working alternative to the slide-deck-and-whiteboard combination most teams default to, with structure and layout on one canvas that can be tested, shared as a read-only link and exported.",
     metrics: [
       { value: "∞", label: "Canvas — no size limit" },
-      { value: "19+", label: "Wireframe blocks" },
-      { value: "2", label: "Export formats: PNG & JSON" },
+      { value: "55+", label: "Wireframe blocks" },
+      { value: "5", label: "Navigation problems Flow flags" },
     ],
     reflection:
       "The temptation with a canvas tool is to add every feature a generic diagramming tool has. Staying narrowly focused on 'this is for planning a site' — not flowcharts, not org charts — is what kept the interaction model simple enough to actually feel fast.",
@@ -1573,7 +1576,7 @@ const allProjects: Project[] = [
       {
         src: "/case-studies/screenshots/sitenest-visual-sitemaps/03-how-it-works.jpg",
         alt: "SiteNest how-it-works steps and slide-deck comparison",
-        caption: "From blank canvas to shareable plan in four steps.",
+        caption: "From blank canvas to a tested, shareable plan in four steps.",
       },
     ],
   },
