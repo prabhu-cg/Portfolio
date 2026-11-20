@@ -9,4 +9,5 @@ export const heroReel: { slug: string; shot?: number }[] = [
   { slug: "uxbeacon-ux-audit-tool" },
   { slug: "ratio-color-balance-tool" },
   { slug: "uxledger-ux-debt-tracker" },
+  { slug: "ordo-product-roadmaps" },
 ];

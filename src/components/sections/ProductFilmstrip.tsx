@@ -26,7 +26,7 @@ export function ProductFilmstrip() {
           draggable={false}
           aria-label={`${project.title.split(" — ")[0]}: view case study`}
           style={{ marginTop: OFFSETS[index % OFFSETS.length] }}
-          className="group flex w-[17rem] shrink-0 flex-col gap-3 sm:w-[21rem]"
+          className="group flex w-[20rem] shrink-0 flex-col gap-3 sm:w-[26rem]"
         >
           <div className="relative aspect-[16/11] overflow-hidden rounded-lg border border-border bg-surface shadow-[0_20px_40px_-24px_rgb(0_0_0/0.45)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 group-hover:shadow-[0_28px_48px_-24px_rgb(0_0_0/0.5)]">
             <Image
@@ -35,7 +35,7 @@ export function ProductFilmstrip() {
               fill
               draggable={false}
               priority={index < 3}
-              sizes="(min-width: 640px) 336px, 272px"
+              sizes="(min-width: 640px) 416px, 320px"
               className="object-cover object-[50%_top]"
             />
           </div>

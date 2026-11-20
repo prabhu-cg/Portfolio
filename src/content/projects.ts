@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText, Compass, ScanSearch, FileCode2, Scissors, Palette, ClipboardList, Type, MessagesSquare, Microscope } from "lucide-react";
+import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText, Compass, ScanSearch, FileCode2, Scissors, Palette, ClipboardList, Type, MessagesSquare, Microscope, Route } from "lucide-react";
 import type { GalleryImage } from "@/components/CaseStudyGallery";
 
 export interface DesignStrategyStep {
@@ -1692,6 +1692,122 @@ const allProjects: Project[] = [
         src: "/case-studies/screenshots/tynovo-brand-typography-studio/03-what-works-today.jpg",
         alt: "Tynovo What you can do today list with status badges",
         caption: "Every capability carries an honest status — Available now or Early version.",
+      },
+    ],
+  },
+  {
+    slug: "ordo-product-roadmaps",
+    title: "Ordo — Product Roadmap Planner",
+    category: "Side Projects",
+    subcategory: "Tools",
+    industry: "Product Management / Planning Tools",
+    role: "Designer & Builder",
+    timeline: "Nov 2026",
+    icon: Route,
+    description: "A free, in-browser roadmap planner that takes a product from objective to initiative to feature, scores priorities, and shows the same plan as now-next-later, a timeline or a board.",
+    impact: "Replaced framework-heavy product management software with one set of records and three views that always agree, and stated plainly what it does not do.",
+    tags: ["Product Management", "Privacy-first"],
+    liveUrl: "https://goordo.vercel.app/",
+    stack: ["React", "Vite", "TypeScript", "Tailwind CSS", "Radix UI", "React Router", "Zustand", "Dexie (IndexedDB)", "dnd kit", "Zod", "Vitest", "Playwright", "Claude Code", "Vercel"],
+    context:
+      "Small teams and solo founders usually plan in a spreadsheet, a slide or a heavyweight product management suite built for larger organisations. The first is hard to keep consistent, the last asks for accounts, set-up and a framework before anything useful appears. Ordo set out to be the lightest credible way to decide what comes next and explain why.",
+    challenge:
+      "The product had to give a roadmap real structure — objectives, initiatives, features and scoring — without the complexity people were trying to escape, and without promising dates, collaboration or integrations it does not have.",
+    research: {
+      methods: ["Review of how solo founders, freelancers and small teams currently plan and present roadmaps", "Competitive audit of product management and roadmap tools", "Study of the common roadmap formats: now-next-later, timeline and status board"],
+      summary:
+        "Found that people rarely need a different plan for each audience — they need one plan shown in different ways. That became the core model: items stored once, with every view as a different lens on the same records.",
+    },
+    insights: [
+      {
+        title: "A roadmap should show its reasoning, not only its output",
+        description: "Linking every feature to an initiative and every initiative to an objective gives a clear line from why to what, so a plan can be defended in a conversation and not merely displayed.",
+      },
+      {
+        title: "Dates make early plans dishonest",
+        description: "For early products, committing to dates invites false precision. Now, next and later groups work by when it will be tackled, with a timeline available only when something truly has to land by a date.",
+      },
+      {
+        title: "Scoring works when it is quick",
+        description: "Impact, confidence and effort on a one-to-five scale takes a minute per item and is still enough to argue from. A heavier model would simply not get used.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Store the plan once, show it three ways",
+        body: "Kept objectives, initiatives and features as a single set of records and rendered now-next-later, timeline and board from them, so a change made in one view is reflected in all of them.",
+      },
+      {
+        heading: "Start from a template, never from a blank screen",
+        body: "Offered six complete starter plans — startup MVP, SaaS, quarterly, feature development, redesign and solo founder — each with objectives, initiatives, features and milestones. Using one makes a copy and leaves the original unchanged.",
+      },
+      {
+        heading: "Show a real screen before asking for anything",
+        body: "Led the landing page with a real product screen and an explorable example, so the value is visible before any commitment, with the promise of no account stated directly under the main action.",
+      },
+      {
+        heading: "Keep data on the device, and say so",
+        body: "Stored everything in the browser, explained where data lives and what clearing it does, and made a full backup file the way to move or share a plan, since there is no sync.",
+      },
+      {
+        heading: "Name what it does not do",
+        body: "Wrote a plain statement of scope into the page: not a task tracker, time tracker or scheduler, no integrations and no AI. The limits are part of the interface copy.",
+      },
+    ],
+    solution: {
+      summary:
+        "A free, account-free planner that carries a product from objective to initiative to feature, scores each item, and presents the plan in whichever of three views suits the audience.",
+      highlights: [
+        "Objectives, initiatives and features linked into a clear line from why to what",
+        "Impact, confidence and effort scoring on a one-to-five scale",
+        "Now-next-later, timeline with milestones and status board views over the same records",
+        "Drag and drop with undo, dependencies between items, and six ready-made starter templates",
+        "Export as image, PDF, spreadsheet or JSON, with import and restore from a single backup file",
+        "Data stored in the browser, with nothing uploaded",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "A shared status badge — idea, planned, in progress, shipped — and a roadmap item card reused across the now-next-later view, the board and template previews.",
+      },
+      {
+        label: "Tokens",
+        description: "A warm, quiet palette with a single gold accent for primary actions and milestones, so status colour carries meaning instead of decoration.",
+      },
+      {
+        label: "Patterns",
+        description: "One data model with several views, and templates that copy rather than edit, so exploring an example can never damage a real plan.",
+      },
+      {
+        label: "Governance",
+        description: "Storage in IndexedDB with nothing uploaded, a backup file as the sharing mechanism, and published scope limits so claims on the page match the product.",
+      },
+    ],
+    outcome:
+      "Ordo shipped as a free planner that gives small teams and solo founders a structured, explainable roadmap in minutes, with its data on their own device and its limits stated plainly.",
+    metrics: [
+      { value: "3", label: "Views of one plan" },
+      { value: "6", label: "Starter templates" },
+      { value: "0", label: "Accounts required" },
+    ],
+    reflection:
+      "The hardest decision was what to leave out. Every request for dates, assignees or integrations pulled toward the tool the product was meant to replace, so saying no in the interface copy became as much a design task as any screen. Next steps are a way to share a plan beyond sending a backup file, and keeping the page copy in step with a product that kept growing after launch.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/ordo-product-roadmaps/01-hero.jpg",
+        alt: "Ordo landing page with the headline Plan your product, Shape your roadmap and a real product screen",
+        caption: "The live product at goordo.vercel.app — a real screen of the planner, shown before any sign-up.",
+      },
+      {
+        src: "/case-studies/screenshots/ordo-product-roadmaps/02-three-views.jpg",
+        alt: "Ordo now-next-later, timeline and board views of the same plan",
+        caption: "Three views of one plan: now-next-later, timeline and board, all drawn from the same records.",
+      },
+      {
+        src: "/case-studies/screenshots/ordo-product-roadmaps/03-templates.jpg",
+        alt: "Ordo list of six starter templates with preview and use buttons",
+        caption: "Six complete starter templates, each copied on use so the original is never changed.",
       },
     ],
   },
