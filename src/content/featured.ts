@@ -10,4 +10,5 @@ export const heroReel: { slug: string; shot?: number }[] = [
   { slug: "ratio-color-balance-tool" },
   { slug: "uxledger-ux-debt-tracker" },
   { slug: "ordo-product-roadmaps" },
+  { slug: "aemora-figma-to-aem-dialogs" },
 ];

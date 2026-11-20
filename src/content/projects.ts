@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText, Compass, ScanSearch, FileCode2, Scissors, Palette, ClipboardList, Type, MessagesSquare, Microscope, Route } from "lucide-react";
+import { Languages, ListChecks, Gauge, ClipboardCheck, Network, RefreshCw, ParkingSquare, FileEdit, Bookmark, FileText, Compass, ScanSearch, FileCode2, Scissors, Palette, ClipboardList, Type, MessagesSquare, Microscope, Route, Blocks } from "lucide-react";
 import type { GalleryImage } from "@/components/CaseStudyGallery";
 
 export interface DesignStrategyStep {
@@ -1808,6 +1808,122 @@ const allProjects: Project[] = [
         src: "/case-studies/screenshots/ordo-product-roadmaps/03-templates.jpg",
         alt: "Ordo list of six starter templates with preview and use buttons",
         caption: "Six complete starter templates, each copied on use so the original is never changed.",
+      },
+    ],
+  },
+  {
+    slug: "aemora-figma-to-aem-dialogs",
+    title: "Aemora — Figma to AEM Authoring Dialogs",
+    category: "Side Projects",
+    subcategory: "Tools",
+    industry: "Developer Tools / Content Management",
+    role: "Designer & Builder",
+    timeline: "Nov 2026",
+    icon: Blocks,
+    description: "A browser tool that turns a design component into a complete AEM as a Cloud Service authoring dialog, mapped to Granite UI fields and written out as XML, plus the HTL, CSS and Sling Model to match.",
+    impact: "Replaced hand-written dialog XML and markup with a deterministic generator where the same design always gives the same files, and stated plainly what has and has not been verified on a live AEM instance.",
+    tags: ["Developer Tools", "Design to Code"],
+    liveUrl: "https://aemora.vercel.app/",
+    stack: ["React", "Vite", "TypeScript", "Tailwind CSS", "React Router", "Dexie (IndexedDB)", "Zod", "dnd kit", "Vitest", "axe", "Claude Code", "Vercel"],
+    context:
+      "On an Adobe Experience Manager project, every component a designer draws has to be rebuilt by a developer as an authoring dialog, the markup and a Sling Model. The dialog is verbose XML, the field types are easy to get wrong, and the result drifts from the design. Aemora set out to produce all of it from the design itself.",
+    challenge:
+      "The tool had to read designs from several sources, decide which Granite UI field suits each property, let a person overrule every decision, and generate files that follow AEM conventions, all without a backend, without AI, and without claiming a certainty it could not prove.",
+    research: {
+      methods: ["Review of the Granite UI and Coral field types and how AEM authoring dialogs are structured", "Study of how component properties, variants and states are described in Figma and in the DesignMD plugin export", "Reading the HTL specification and Apache Sling documentation to check each generated file against its source"],
+      summary:
+        "Found that the mapping from a design property to a dialog field is mostly rule-based, so a fixed table can suggest it reliably. What needs a person is the judgement: which properties authors should control, and how the dialog is grouped. That split shaped the tool.",
+    },
+    insights: [
+      {
+        title: "Generated code is only trusted if it is repeatable",
+        description: "Developers will not adopt a generator whose output changes between runs. Making the same input always give the same XML turned the tool from a suggestion into something that can be reviewed and committed.",
+      },
+      {
+        title: "Anything dropped silently breaks trust",
+        description: "A property the tool cannot map is more useful flagged than hidden. Keeping it in the list with a warning lets the person decide, instead of finding the gap in AEM weeks later.",
+      },
+      {
+        title: "Honesty about verification is part of the product",
+        description: "The output follows AEM conventions and passes structural checks, but has not been run on a live Cloud Service environment. Saying so on the page, with a checklist for doing it, is more credible than implying it works.",
+      },
+    ],
+    designStrategy: [
+      {
+        heading: "Let every route in end at one model",
+        body: "Accepted a DesignMD export, the Figma API or an annotated screenshot, and turned all of them into the same component model, so nothing after the first step depends on where the design came from.",
+      },
+      {
+        heading: "Suggest, never impose",
+        body: "Gave each property a suggested Granite field from a fixed rule table across fourteen field types, and made every suggestion editable. Show-only-when rules are proposed from the design and applied only on request.",
+      },
+      {
+        heading: "Show the dialog before the code",
+        body: "Built a simulated authoring dialog and a component preview in default, hover, active and disabled states, so the output can be judged visually before anyone reads XML.",
+      },
+      {
+        heading: "Keep hand edits, and flag them",
+        body: "Allowed any generated file to be edited by hand and kept those edits when the design changes, marking them as changed so a regeneration cannot quietly overwrite a developer's work.",
+      },
+      {
+        heading: "Run in the browser and say what is checked",
+        body: "Stored projects in the browser with no account or backend, held the Figma token in memory only, and separated three checks: XML syntax, the tool's own model and static AEM structure.",
+      },
+    ],
+    solution: {
+      summary:
+        "A five-step workspace that carries a component from design properties to a mapped, arranged and previewed AEM dialog, then exports the XML and the matching HTL, CSS and Sling Model.",
+      highlights: [
+        "Import from a DesignMD export, a Figma file or component link, or an annotated screenshot",
+        "Fourteen Granite UI field types suggested by a fixed rule table, with every choice editable",
+        "Dialog arranged into tabs and sections by drag and drop, with fields left out rather than deleted",
+        "HTL, CSS, Sling Model and component definition generated from the design's layers, options and states",
+        "Simulated dialog and component previews, plus a consistency check against the design",
+        "Export as a single XML file, an AEM-project-shaped ZIP, project JSON or a backup, with a built-in sample project",
+      ],
+    },
+    designSystemThinking: [
+      {
+        label: "Components",
+        description: "One property row, field card and tab used across the properties, mapping and dialog views, so the same item looks the same wherever it is edited.",
+      },
+      {
+        label: "Tokens",
+        description: "Inherited from the SiteNest design system: white paper on a pale butter desk, butter hairlines, a single amber accent, and Newsreader paired with DM Sans.",
+      },
+      {
+        label: "Patterns",
+        description: "One component model behind every input, and pure, UI-free modules for mapping, XML, markup and validation, so each can be tested on its own.",
+      },
+      {
+        label: "Governance",
+        description: "More than 800 automated tests, including contrast computed from the real tokens and accessibility checks on every screen, and a published list of what each AEM choice rests on.",
+      },
+    ],
+    outcome:
+      "Aemora shipped as a free, account-free generator that takes a design component to a ready-to-review AEM dialog and matching code in one workspace, with its limits and its unverified areas stated openly.",
+    metrics: [
+      { value: "14", label: "Granite field types" },
+      { value: "800+", label: "Automated tests" },
+      { value: "0", label: "Backend or AI" },
+    ],
+    reflection:
+      "The hardest part was deciding how much to promise. Dialog XML can look right and still fail in AEM, so the honest position was to separate what the tool checks from what only a live instance can confirm, and to publish the steps for that. Next steps are running the output on a real Cloud Service environment and finishing the Figma plugin so exports carry exact layer detail.",
+    gallery: [
+      {
+        src: "/case-studies/screenshots/aemora-figma-to-aem-dialogs/01-hero.jpg",
+        alt: "Aemora landing page with the headline Design properties in, AEM dialog XML out and the tool shown on a laptop",
+        caption: "The live product at aemora.vercel.app — design properties in, AEM dialog XML out.",
+      },
+      {
+        src: "/case-studies/screenshots/aemora-figma-to-aem-dialogs/02-dialog.jpg",
+        alt: "Aemora Dialog tab for the Card component, with fields grouped into Content, Media, Button and Style sections",
+        caption: "The Dialog tab: a Card's fields arranged into tabs and sections, each mapped to a Granite UI field type.",
+      },
+      {
+        src: "/case-studies/screenshots/aemora-figma-to-aem-dialogs/03-markup.jpg",
+        alt: "Aemora Markup tab showing generated HTL for the Card component with copy and download buttons",
+        caption: "Generated HTL for the same Card, alongside CSS, a Sling Model and the component definition.",
       },
     ],
   },
