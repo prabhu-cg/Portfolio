@@ -17,7 +17,7 @@ export function Hero() {
         className="container-prism flex flex-col items-center gap-6 text-center"
       >
         <motion.div variants={fadeUp}>
-          <Eyebrow>Senior Designer</Eyebrow>
+          <Eyebrow>Senior Human-AI Designer</Eyebrow>
         </motion.div>
 
         <motion.h1

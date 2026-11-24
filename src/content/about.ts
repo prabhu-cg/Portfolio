@@ -2,7 +2,7 @@ export const introduction = {
   eyebrow: "About",
   title: "The person behind the system.",
   description:
-    "I'm Prabhu Raja, a Senior UX/Product Designer and design strategist with 15+ years of experience leading UX strategy, design systems and product delivery for B2B SaaS across financial services, legal technology, public sector and IoT.",
+    "I'm Prabhu Raja, a Senior Human-AI Designer and design strategist with 15+ years of experience leading UX strategy, design systems and product delivery for B2B SaaS across financial services, legal technology, public sector and IoT.",
 };
 
 export const personalStory = [

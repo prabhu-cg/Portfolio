@@ -32,9 +32,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Prabhu Raja — Senior Designer",
+  title: "Prabhu Raja — Senior Human-AI Designer",
   description:
-    "Prabhu Raja is a Senior UX/Product Designer with 15+ years of experience designing B2B SaaS products across financial services, legal technology, public sector and IoT.",
+    "Prabhu Raja is a Senior Human-AI Designer with 15+ years of experience designing B2B SaaS products across financial services, legal technology, public sector and IoT.",
 };
 
 export default function RootLayout({

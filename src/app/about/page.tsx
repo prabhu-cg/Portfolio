@@ -18,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: "About — Prabhu Raja",
   description:
-    "Prabhu Raja is a Senior UX/Product Designer with 15+ years of experience across financial services, legal technology, public sector and IoT.",
+    "Prabhu Raja is a Senior Human-AI Designer with 15+ years of experience across financial services, legal technology, public sector and IoT.",
 };
 
 export default function AboutPage() {
