@@ -1239,7 +1239,7 @@ const allProjects: Project[] = [
     slug: "uxbeacon-ux-audit-tool",
     title: "UXBeacon — Automated UX Audit Tool",
     category: "Side Projects",
-    subcategory: "Applications",
+    subcategory: "Tools",
     industry: "Design Tools / Web Analysis",
     role: "Designer & Builder",
     timeline: "Mar 2026",

@@ -229,3 +229,25 @@ html {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
+
+/* Error / maintenance pages: the logo mark and dots drift gently */
+@keyframes error-drift {
+  from { transform: translateY(0) rotate(-4deg); }
+  to { transform: translateY(-0.5rem) rotate(3deg); }
+}
+
+.error-drift,
+.error-dot {
+  animation: error-drift 3.4s ease-in-out infinite alternate;
+}
+
+.error-dot {
+  animation-duration: 3.8s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error-drift,
+  .error-dot {
+    animation: none;
+  }
+}
